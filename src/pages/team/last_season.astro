@@ -1,0 +1,122 @@
+---
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import '../../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Logros y momentos destacados de temporadas anteriores" />
+    <title>Temporadas Anteriores - CVAR DRONE RACING</title>
+  </head>
+  <body>
+    <Header />
+    
+    <section class="hero" style="min-height: 40vh;">
+      <h1 class="hero-title">Temporadas Anteriores</h1>
+      <p class="hero-subtitle">Nuestro legado y evolución</p>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Temporada 2024/25</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3>🏆 Logros Destacados</h3>
+            <ul style="text-align: left; margin-left: 1.5rem;">
+              <li>3 victorias en campeonatos regionales</li>
+              <li>Podio en el Campeonato Nacional</li>
+              <li>5 récords de circuito establecidos</li>
+              <li>Mejor tiempo de vuelta en 8 circuitos</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>📊 Estadísticas</h3>
+            <ul style="text-align: left; margin-left: 1.5rem;">
+              <li>15 competiciones participadas</li>
+              <li>87% de ratio de finalización</li>
+              <li>Top 5 en el 73% de carreras</li>
+              <li>12 pilotos en el equipo</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>🌟 Momentos Destacados</h3>
+            <p>
+              La temporada 24/25 marcó un punto de inflexión para CVAR, consolidándonos 
+              como uno de los equipos más competitivos del circuito nacional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: linear-gradient(135deg, rgba(0, 100, 171, 0.05), rgba(0, 155, 219, 0.05));">
+      <div class="container">
+        <h2 class="section-title">Temporada 2023/24</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3>🏆 Logros Destacados</h3>
+            <ul style="text-align: left; margin-left: 1.5rem;">
+              <li>Primera victoria en competición oficial</li>
+              <li>Clasificación para nacional</li>
+              <li>2 récords de circuito</li>
+              <li>Mejor equipo revelación</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>📈 Crecimiento</h3>
+            <p>
+              Esta temporada fue fundamental en nuestro desarrollo como equipo. 
+              Establecimos nuestras bases, valores y metodología de entrenamiento 
+              que nos ha llevado al éxito.
+            </p>
+          </div>
+          <div class="card">
+            <h3>👥 El Equipo</h3>
+            <p>
+              Comenzamos con 6 pilotos apasionados que compartían el sueño de 
+              competir profesionalmente. Su dedicación sentó las bases de lo que 
+              somos hoy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Nuestra Evolución</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+          <p style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            Desde nuestros inicios, cada temporada ha representado un paso adelante en nuestro 
+            viaje hacia la excelencia. Hemos aprendido de cada carrera, cada victoria y cada 
+            desafío, construyendo un equipo más fuerte y unido.
+          </p>
+          <p style="font-size: 1.15rem; line-height: 1.8;">
+            Los logros de temporadas anteriores nos motivan a seguir mejorando, innovando y 
+            compitiendo al más alto nivel. Cada miembro que ha formado parte de CVAR ha 
+            contribuido a escribir nuestra historia.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: linear-gradient(135deg, var(--cvar-blue-primary), var(--cvar-blue-light)); color: white; text-align: center;">
+      <div class="container">
+        <h2 style="color: white; font-size: 2.5rem;">Escribe la Historia con Nosotros</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+          La próxima temporada puede ser la tuya. Únete y forma parte de nuestros logros futuros.
+        </p>
+        <a href="/contacto" class="btn" style="background: white; color: var(--cvar-blue-primary);">
+          Contacta con Nosotros
+        </a>
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>

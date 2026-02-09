@@ -1,0 +1,76 @@
+
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+---
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Conoce las divisiones de CVAR DRONE RACING" />
+    <title>Divisiones - CVAR DRONE RACING</title>
+  </head>
+  <body>
+    <Header />
+
+    <section class="hero-banner">
+      <div class="hero-overlay">
+        <h1 class="hero-title">Our Divisions</h1>
+        <p class="hero-subtitle">Catchy phrase</p>
+      </div>
+    </section>
+
+    <!-- Sección de divisiones sin .section para ancho completo -->
+    <div style="padding: 2rem 0; background: transparent;">
+      
+      <!-- Visión -->
+      <div class="breakout-wrapper">
+        <article class="split-section">
+          <div class="split-image">
+            <img src="/images/fondo.jpeg" alt="Visión CVAR Drone Racing" />
+          </div>
+          <div class="split-content">
+            <h3 class="split-title"><a href="/divisions/vision">Vision</a></h3>
+            <p class="split-text">
+            text
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Localización -->
+      <div class="breakout-wrapper">
+        <article class="split-section">
+          <div class="split-image">
+            <img src="/images/fondo.jpeg" alt="Localización CVAR Drone Racing" />
+          </div>
+          <div class="split-content">
+            <h3 class="split-title"><a href="/divisions/localization">Localization</a></h3>
+            <p class="split-text">
+text
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="breakout-wrapper">
+        <article class="split-section">
+          <div class="split-image">
+            <img src="/images/fondo.jpeg" alt="Simulation CVAR Drone Racing" />
+          </div>
+          <div class="split-content">
+            <h3 class="split-title"><a href="/divisions/simulation">Simulation</a></h3>
+            <p class="split-text">
+          text
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <Footer />
+  </body>
+</html>

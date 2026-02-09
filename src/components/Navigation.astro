@@ -1,0 +1,96 @@
+---
+---
+<nav class="main-nav">
+  <ul class="nav-links">
+    <li><a href="/" class="nav-link">Home</a></li>
+
+    <li class="dropdown">
+      <a href="/team" class="nav-link">Team</a>
+    </li>
+    <li class="dropdown">
+      <a href="/previous_seasons" class="nav-link">Last Seasons</a>
+        <ul class="dropdown-menu">
+        <li><a href="/previous_seasons/25-26">25-26</a></li>
+        <li><a href="/previous_seasons/24-25">24-25</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="/divisions" class="nav-link">Divisions</a>
+      <ul class="dropdown-menu">
+        <li><a href="/divisions/vision">Vision</a></li>
+        <li><a href="/divisions/localization">Localization</a></li>
+        <li><a href="/divisions/simulation">Simulation</a></li>
+      </ul>
+    </li>
+
+    <li><a href="/contact" class="btn-nav-contact">Join Us!</a></li>
+  </ul>
+</nav>
+
+<style>
+.main-nav {
+position: relative;
+  }
+.nav-links {
+list-style: none;
+display: flex;
+gap: 0.5rem;
+align-items: center;
+margin: 0;
+padding: 0;
+  }
+.nav-links li {
+position: relative;
+  }
+.nav-links a {
+color: rgba(0, 100, 171, 0.95);
+text-decoration: none;
+padding: 0.8rem 1.2rem;
+display: block;
+font-weight: 600;
+text-transform: uppercase;
+font-size: 0.95rem;
+letter-spacing: 0.5px;
+transition: all 0.3s ease;
+border-radius: 5px;
+  }
+.nav-links a:hover {
+background: rgba(0, 100, 171, 0.1);
+color: rgba(0, 100, 171, 1);
+  }
+.btn-nav-contact {
+background: rgba(0, 100, 171, 0.95);
+color: white !important;
+font-weight: 700;
+padding: 0.8rem 1.8rem !important;
+border-radius: 50px;
+  }
+.btn-nav-contact:hover {
+background: rgba(0, 100, 171, 1);
+color: white !important;
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(0, 100, 171, 0.4);
+  }
+/* Dropdown */
+.dropdown-menu {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+background: rgba(255, 255, 255, 0.98);
+list-style: none;
+padding: 0.5rem 0;
+min-width: 220px;
+border-radius: 5px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+margin-top: 0.5rem;
+  }
+.dropdown:hover .dropdown-menu {
+display: block;
+  }
+.dropdown-menu a {
+padding: 0.8rem 1.5rem;
+font-size: 0.9rem;
+white-space: nowrap;
+  }
+</style>

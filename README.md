@@ -1,46 +1,53 @@
-# Astro Starter Kit: Basics
+# CVAR DRONE RACING Website
 
-```sh
-npm create astro@latest -- --template basics
+Official website for CVAR DRONE RACING team - Computer Vision and Aerial Robotics.
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/carmendrpr/cvar_drone_racing_web.git
+cd cvar_drone_racing_web
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Install dependencies:
 
-## 🚀 Project Structure
+```bash
+npm install
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+## Development
 
-```text
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The site will be available at the URL shown in the terminal (typically http://localhost:4321).
+
+
+## Project Structure
+
+```
 /
 ├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+│   └── images/
+├── src/
+│   ├── components/
+│   │   ├── Header.astro
+│   │   ├── Footer.astro
+│   │   └── Navigation.astro
+│   ├── layouts/
+│   ├── pages/
+│   │   ├── index.astro
+│   │   ├── team.astro
+│   │   ├── divisions.astro
+│   │   ├── contact.astro
+│   │   └── previous_seasons.astro
+│   └── styles/
+│       └── global.css
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
