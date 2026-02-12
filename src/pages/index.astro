@@ -1,70 +1,39 @@
 ---
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
+import Video from '../components/Video.astro';
 import '../styles/global.css';
-const webTitle = "CVAR DRONE RACING";
+
 ---
-
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content="CVAR DRONE RACING - Únete al mejor equipo de carreras de drones. Velocidad, precisión y pasión por el drone racing." />
-    <title>{webTitle}</title>
-  </head>
-  <body>
-    <Header />
-    
-    <section class="hero-banner">
-      <div class="hero-overlay">
-        <h1 class="hero-title">CVAR DRONE RACING</h1>
-        <p class="hero-subtitle">Powered by Aerostack2</p>
-        <a href="/contact" class="btn-join-us">JOIN US</a>
-      </div>
-    </section>
-
+<Layout title="CVAR-UPM DRONE RACING" subtitle="Powered by Aerostack2" showJoin={true} heroImage="/fondo.jpeg">
     <div style="padding: 3rem 0; background: transparent;">
       <div class="breakout-wrapper">
         <article class="split-section reverse">
           <div class="split-content">
             <h2 class="split-title-large">Who are we?</h2>
             <p class="split-text-large">
-              CVAR DRONE RACING is a team passionate about FPV drone racing. 
-              We compete nationally and internationally, pushing our skills to the limit. 
-              We are looking for talented pilots who share our passion for speed and innovation.
+{`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
+Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
+augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
+Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
+nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
+Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
+Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
+a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}
+  
             </p>
-          </div>
-          <div class="split-image">
-            <img src=`${import.meta.env.BASE_URL}/fondo.png` alt="CVAR Drone Racing Team" />
           </div>
         </article>
       </div>
     </div>
 
-    <div style="padding: 3rem 0; background: var(--cvar-white);">
-      <div class="video-wrapper">
-        <h2 style="color: white; text-align: center; font-size: 3rem; margin-bottom: 2rem;">Watch Us in Action</h2>
-        <div class="video-container">
-          <iframe 
-            src="https://player.vimeo.com/video/1079143067?badge=0&autopause=0&player_id=0&app_id=58479"  
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
-            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
-            title="CVAR Drone Racing">
-          </iframe>
-        </div>
-        <script src="https://player.vimeo.com/api/player.js"></script>
-      </div>
-    </div>
-
+<Video 
+  videoUrl="https://player.vimeo.com/video/1079143067?badge=0&autopause=0&player_id=0&app_id=58479" 
+/>
     <div style="padding: 3rem 0; text-align: center;">
       <div style="max-width: 1400px; margin: 0 auto; padding: 0 4rem;">
         <h2 style="color: var(--cvar-blue-primary); font-size: 2.8rem; margin-bottom: 1.5rem;">Join the future of drone racing</h2>
       </div>
     </div>
 
-    <Footer />
-  </body>
-</html>
+  <p>My page content, wrapped in a layout!</p>
+</Layout>

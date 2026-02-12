@@ -1,28 +1,42 @@
 ---
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Únete a CVAR DRONE RACING - Contacta con nosotros" />
-    <title>Contact - CVAR DRONE RACING</title>
-  </head>
-  <body>
-    <Header />
-    
-    <section class="hero-banner">
-      <div class="hero-overlay">
-        <h1 class="hero-title">Contact</h1>
-        <p class="hero-subtitle"></p>
-      </div>
-    </section>
+<Layout 
+  title="Join Us"
+  subtitle="Become part of CVAR"
+  heroImage="/fondo.jpeg"
+  showJoin={false}
+>
 
-    <Footer />
-  </body>
-</html>
+<section class="form-section">
+  <div class="form-wrapper">
+    <h2>Apply Here</h2>
+    <p>Please complete the application form using the button below.</p>
+
+    <a 
+      href="https://forms.gle/UYRq6gvztvvMftTC6"
+    >
+      Open Application Form
+    </a>
+  </div>
+</section>
+
+
+
+</Layout>
+
+<style>
+.form-section {
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 900px;
+}
+
+</style>

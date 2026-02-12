@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Row from '../components/Row.astro';
+import '../styles/global.css';
+const firstRow = [
+  { name: 'Rafael Pérez-Seguí',  image: '/logo-cvar.png' },
+  { name: 'Javier Melero Deza',  image: '/logo-cvar.png' },
+  { name: 'Carlos Ruiz',  image: '/logo-cvar.png' },
+  { name: 'Laura Fernández',  image:'/logo-cvar.png' },
+];
+
+const secondRow = [
+  { name: 'Mario Gómez',  image: '/logo-cvar.png' },
+  { name: 'Sofía Díaz',  image: '/logo-cvar.png' },
+  { name: 'Luis Martín',  image: '/logo-cvar.png' },
+  { name: 'Elena Torres',  image: '/logo-cvar.png' },
+];
+---
+---
+<Layout title="Team" subtitle="" showJoin={false} heroImage="/fondo.jpeg">
+  <Row members={firstRow} />
+  <Row members={secondRow} offset={true} />
+</Layout>

@@ -1,0 +1,124 @@
+---
+import Member from '../components/Member.astro';
+import '../styles/global.css';
+const { members, offset = false } = Astro.props;
+---
+
+<section class={`team-members-section`}>
+  <div class={`team-row ${offset ? 'team-row-offset' : ''}`}>
+    {members.map(member => (
+      <Member
+        name={member.name}
+        role={member.role}
+        image={member.image}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .team-members-section {
+    width: 100%;
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, var(--cvar-blue-primary) 0%, var(--cvar-blue-secondary) 100%);
+  }
+
+  .team-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4rem;
+    margin-bottom: 3rem;
+  }
+
+  .team-row-offset {
+    padding-left: calc(50% / 4 + 2rem);
+    padding-right: calc(50% / 4 + 2rem);
+  }
+  .team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 200px;
+  }
+
+  .member-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .member-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+  }
+
+  .member-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .member-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  .member-role {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    letter-spacing: 0.3px;
+  }
+  @media (max-width: 1024px) {
+    .team-row {
+      gap: 2rem;
+    }
+
+    .team-row-offset {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .member-circle {
+      width: 140px;
+      height: 140px;
+    }
+
+    .member-name {
+      font-size: 1.2rem;
+    }
+
+    .member-role {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team-row,
+    .team-row-offset {
+      flex-wrap: wrap;
+      gap: 3rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .team-member {
+      max-width: 150px;
+    }
+
+    .member-circle {
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>

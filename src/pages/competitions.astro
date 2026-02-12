@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SideSection from '../components/SideSection.astro';
+import '../styles/global.css';
+
+---
+<Layout title="Competitions" subtitle="" showJoin={false} heroImage="/fondo.jpeg"> 
+  <SideSection
+    image="/fondo.jpeg"
+    title="A2RL"
+    url=`${import.meta.env.BASE_URL}/competitions/A2RL`
+    description={`Lorem ipsum dolor sit amet...`}
+    reverse={false}
+  />
+
+  <SideSection
+    image="/fondo.jpeg"
+    title=`${import.meta.env.BASE_URL}/competitions/IMAV_25`
+    url="/competitions/IMAV_25"
+    description={`Lorem ipsum dolor sit amet...`}
+    reverse={true}
+  />
+</Layout>

@@ -1,74 +1,72 @@
-
 ---
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
+import SideSection from '../components/SideSection.astro';
 import '../styles/global.css';
 ---
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Conoce las divisiones de CVAR DRONE RACING" />
-    <title>Divisiones - CVAR DRONE RACING</title>
-  </head>
-  <body>
-    <Header />
-
-    <section class="hero-banner">
-      <div class="hero-overlay">
-        <h1 class="hero-title">Our Divisions</h1>
-        <p class="hero-subtitle">Catchy phrase</p>
-      </div>
-    </section>
-
-    <div style="padding: 2rem 0; background: transparent;">
-      
-      <!-- Visión -->
-      <div class="breakout-wrapper">
-        <article class="split-section">
-          <div class="split-image">
-            <img src=`${import.meta.env.BASE_URL}/fondo.png` alt="Visión CVAR Drone Racing" />
-          </div>
-          <div class="split-content">
-            <h3 class="split-title"><a href=`${import.meta.env.BASE_URL}/divisions/vision`>Vision</a></h3>
-            <p class="split-text">
-            text
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <div class="breakout-wrapper">
-        <article class="split-section">
-          <div class="split-image">
-            <img src=`${import.meta.env.BASE_URL}/fondo.png` alt="Localización CVAR Drone Racing" />
-          </div>
-          <div class="split-content">
-            <h3 class="split-title"><a href=`${import.meta.env.BASE_URL}/divisions/localization`>Localization</a></h3>
-            <p class="split-text">
-text
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <div class="breakout-wrapper">
-        <article class="split-section">
-          <div class="split-image">
-            <img src=`${import.meta.env.BASE_URL}/fondo.png` alt="Simulation CVAR Drone Racing" />
-          </div>
-          <div class="split-content">
-            <h3 class="split-title"><a href=`${import.meta.env.BASE_URL}/divisions/simulation`>Simulation</a></h3>
-            <p class="split-text">
-          text
-          </div>
-        </article>
-      </div>
-
-    </div>
-
-    <Footer />
-  </body>
-</html>
+<Layout title="Divisions" subtitle="" showJoin={false} heroImage="/fondo.jpeg">
+<SideSection
+  image="/fondo.jpeg"
+  title="Vision"
+  description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
+Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
+augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
+Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
+nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
+Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
+Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
+a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}
+  reverse={false}
+/>
+<SideSection
+  image="/fondo.jpeg"
+  title="Control"
+  description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
+Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
+augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
+Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
+nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
+Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
+Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
+a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}
+  reverse={true}
+/>
+<SideSection
+  image="/fondo.jpeg"
+  title="Localization"
+  description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
+Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
+augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
+Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
+nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
+Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
+Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
+a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}
+  reverse={false}
+/>
+<SideSection
+  image="/fondo.jpeg"
+  title="Navigation"
+  description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
+Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
+augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
+Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
+nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
+Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
+Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
+a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}
+  reverse={true}
+/>
+<SideSection
+  image="/fondo.jpeg"
+  title="Simulation"
+  description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
+Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
+augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
+Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
+nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
+Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
+Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
+a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}
+  reverse={false}
+/>
+    </Layout>
