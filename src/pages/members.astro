@@ -15,11 +15,38 @@ const secondRow = [
   { name: 'Francisco Jose Anguita Chamorro',  image: '/logo-cvar.png' },
   { name: 'Rodrigo Da Silva Gomez',  image: '/logo-cvar.png' },
 ];
+const thirdRow = [
+  { name: 'Alejandro Rodriguez Ramos',  image: '/logo-cvar.png' },
+  { name: 'Pedro Espinosa Angulo',  image: '/logo-cvar.png' },
+  { name: 'Álvaro Gaona',  image: '/logo-cvar.png' },
+  { name: 'Luis Francisco Gonzalez Rivero',  image: '/logo-cvar.png' },
+];
+const fourthRow = [
+  { name: 'Martin Molina Gonzalez',  image: '/logo-cvar.png' },
+  { name: 'Santiago Tapia Fernandez',  image: '/logo-cvar.png' },
+  { name: 'Guanliang Li',  image: '/logo-cvar.png' },
+  { name: 'Pablo Días Pereda',  image: '/logo-cvar.png' },
+];
+const fifthRow = [
+  { name: 'Miguel Fernandez Cortizas',  image: '/logo-cvar.png' },
+  { name: 'Pedro Arias Perez',  image: '/logo-cvar.png' },
+];
+
 ---
 ---
 <Layout title="Members" subtitle="" showJoin={true} heroImage="/team.jpeg">
+  <h2 style="text-align:center">Active Members</h2>
   <p> 
   <Row members={firstRow} offset={true}/>
   <Row members={secondRow} offset={true} />
+  </p>
+    <h2 style="text-align:center">Colaborators</h2>
+  <p> 
+  <Row members={thirdRow} offset={true}/>
+  <Row members={fourthRow} offset={true} />
+  </p>
+    <h2 style="text-align:center">Former Members</h2>
+  <p> 
+  <Row members={fifthRow} offset={true}/>
   </p>
 </Layout>
