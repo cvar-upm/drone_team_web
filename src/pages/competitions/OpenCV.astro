@@ -1,18 +1,25 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Video from '../../components/Video.astro';
+import Image from '../../components/Image.astro';
 import '../../styles/global.css';
 ---
-<Layout title="OpenCV" subtitle="" showJoin={false} heroImage="/opencv.jpeg"> 
-<section id="content">
+<Layout title="OpenCV" subtitle="" showJoin={false} heroImage="/opencv.png"> 
+<section >
+  <h2>OpenCV 2021</h2>
   <p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
-  Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin 
-  eu urna sit amet augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
-  </p>
+  Our CVAR-UPM team participated in the OpenCV AI Competition 2021, focusing on vision-based search and rescue with micro-UAVs.
+   Using an OAK-D RGB-D camera and the Aerostack2 framework, our drone autonomously navigated cluttered indoor environments,
+    detecting obstacles in real time and planning collision-free trajectories with A* path planning. Experiments demonstrated 
+    precise navigation and robust autonomy, earning us the 3rd Regional Prize for Europe, Russia, and Australasia.  </p>
     <p>
     More details about the competition are available at: <a href=" https://opencv.org/opencv-ai-competition-2021/" target="_blank" rel="noopener noreferrer">OpenCV 2021 Official Website</a>
 
   </p>
 </section>
 
+<Image 
+  imageUrl="/opencv.png"
+  alt="OpenCV 2021"
+  title="OpenCV 2021"
+/>

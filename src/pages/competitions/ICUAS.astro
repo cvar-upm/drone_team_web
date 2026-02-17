@@ -4,8 +4,21 @@ import Video from '../../components/Video.astro';
 import Image from '../../components/Image.astro';
 import '../../styles/global.css';
 ---
-<Layout title="International Conference on Unmanned Aircraft Systems (ICUAS)" logoImage="/icuas.png" showJoin={false} heroImage="/ICUAS.jpeg"> 
-
+<Layout title="International Conference on Unmanned Aircraft Systems (ICUAS)" logoImage="/icuas.png" showJoin={false} heroImage="/icuas23.jpeg"> 
+<section>
+<h2>ICUAS 2024</h2>
+  <p>
+Our CVAR-UPM team participated in the ICUAS 2024 indoor agriculture challenge, where UAVs autonomously counted fruits in a simulated greenhouse environment. 
+Using a modular mission planner and vision pipeline, the drone navigated through garden beds, detected fruits, and avoided collisions, building a 3D map for 
+accurate counting. Our approach was robust and precise across all scenarios, achieving the highest score for reliability, and ultimately placing 9th in the competition.
+More details about the competition are available at: <a href=" https://www.ieeecss.org/event/2024-international-conference-unmanned-aircraft-systems" target="_blank" rel="noopener noreferrer">ICUAS 2024 Official Website</a>
+  </p>
+</section>
+<Image 
+  imageUrl="/icuas24.png"
+  alt="ICUAS 2024"
+  title="ICUAS 2024"
+/>
 <section>
 <h2>ICUAS 2023</h2>
   <p>
@@ -27,13 +40,18 @@ More details about the competition are available at: <a href=" https://uasconfer
 <section>
 <h2>ICUAS 2022</h2>
   <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
- Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin 
- eu urna sit amet augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
-    </p>  
+We won <strong>1st place</strong> in the ICUAS 2022 competition, where our UAV autonomously completed an urban firefighting mission. 
+Using only an RGB-D sensor and an external localization system, it navigated obstacles, detected the fire target, 
+and deployed the extinguishing device with precision. Our approach relied on a modular mission execution system in ROS 1, 
+implementing three behaviors—Go Across, Search Target, and Throw Ball—controlled via speed-to-position PID. All mission objectives 
+were successfully completed, with three precise deployments of the extinguishing device.
+  </p>  
   <p>
-    More details about the competition are available at: <a href="     https://www.uasconferences.com/2022_icuas/winners-of-the-uav-competition/ " target="_blank" rel="noopener noreferrer">ICUAS 2022 Official Website</a>
+    More details about the competition are available at: <a href="https://www.uasconferences.com/2022_icuas/winners-of-the-uav-competition/ " target="_blank" rel="noopener noreferrer">ICUAS 2022 Official Website</a>
   </p>
+<Video 
+  videoUrl="https://player.vimeo.com/video/776655431?h=50f0409088"
+/>
 
 </section>
 

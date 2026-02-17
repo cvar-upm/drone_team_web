@@ -5,7 +5,7 @@ const { name, role, image } = Astro.props;
 
 <div class="team-member">
   <div class="member-circle">
-    <img src={`${import.meta.env.BASE_URL}${image}`} alt={name} />
+ <img src={`${import.meta.env.BASE_URL}${image}`} alt={name} />
   </div>
   <h3 class="member-name">{name}</h3>
 </div>
