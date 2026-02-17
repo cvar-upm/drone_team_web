@@ -4,12 +4,14 @@ import '../styles/global.css';
 const { members, offset = false } = Astro.props;
 ---
 
-<section class={`team-members-section`}>
-  <div class={`team-row `}>
+<section class="team-members-section">
+  <div class="team-row">
     {members.map(member => (
       <Member
         name={member.name}
         image={member.image}
+        github={member.github}
+        linkedin={member.linkedin}
       />
     ))}
   </div>
@@ -21,88 +23,23 @@ const { members, offset = false } = Astro.props;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 2rem 0;
   }
 
   .team-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
-    gap: 7.0rem;
-    justify-content: center;
-    align-items: start;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
     width: 100%;
-    max-width: 1200px;
-    padding: 2rem;
-  }
-  
-  .team-member {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 200px;
-  }
-
-  .member-circle {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 4px solid white;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .member-circle:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
-  }
-
-  .member-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .team-row :global(.member-name) {
-    font-size: 1.5rem !important;
-    font-weight: 800;
-    color: var(--cvar-black);
-    margin: 0 0 0.5rem 0;
-    letter-spacing: 0.5px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  @media (max-width: 1024px) {
-    .team-row {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
-      gap: 2rem;
-    }
-
-    .member-circle {
-      width: 140px;
-      height: 140px;
-    }
-
-    .team-row :global(.member-name) {
-      font-size: 0.9rem !important;
-    }
+    max-width: 1400px;
+    padding: 0 2rem;
   }
 
   @media (max-width: 768px) {
     .team-row {
-      grid-template-columns: repeat(auto-fit, minmax(130px, 130px));
-      gap: 2rem;
-      padding: 1rem;
-    }
-
-    .member-circle {
-      width: 120px;
-      height: 120px;
-    }
-
-    .team-row :global(.member-name) {
-      font-size: 0.85rem !important;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
     }
   }
 </style>

@@ -2,51 +2,95 @@
 import Layout from '../layouts/Layout.astro';
 import Row from '../components/Row.astro';
 import '../styles/global.css';
+
 const firstRow = [
-  { name: 'Pascual Campoy Cervera',  image: '/logo-cvar.png' },
-  { name: 'Rafael Pérez-Seguí',  image: '/logo-cvar.png' },
-  { name: 'Javier Melero Deza',  image: '/logo-cvar.png' },
-  { name: 'David Perez Saura',  image:'/logo-cvar.png' },
+  { 
+    name: 'Pascual Campoy Cervera', 
+    image: '/logo-cvar.png',
+    linkedin: 'https://www.linkedin.com/in/pascual-campoy-5792071/'
+  },
+  { 
+    name: 'Rafael Pérez-Seguí', 
+    image: '/rafa.jpeg',
+    github: 'https://github.com/RPS98',
+    linkedin: 'https://www.linkedin.com/in/rafael-perez-segui/'
+  },
+  { 
+    name: 'Javier Melero Deza', 
+    image: '/javi.jpeg',
+    github: 'https://github.com/javilinos',
+    linkedin: 'https://www.linkedin.com/in/javier-melero-deza-8ba84a250/'
+  },
+  { 
+    name: 'David Perez Saura', 
+    image: '/david.jpeg',
+    github: 'https://github.com/javilinos',
+    linkedin: 'https://github.com/perezsaura-david'
+  },
 ];
 
 const secondRow = [
-  { name: 'Carmen De Rojas Pita-Romero',  image: '/logo-cvar.png' },
-  { name: 'Guillermo García Patiño',  image: '/guille.jpeg' },
-  { name: 'Francisco Jose Anguita Chamorro',  image: '/logo-cvar.png' },
-  { name: 'Rodrigo Da Silva Gomez',  image: '/logo-cvar.png' },
-];
-const thirdRow = [
-  { name: 'Alejandro Rodriguez Ramos',  image: '/logo-cvar.png' },
-  { name: 'Pedro Espinosa Angulo',  image: '/logo-cvar.png' },
-  { name: 'Álvaro Gaona',  image: '/logo-cvar.png' },
-  { name: 'Luis Francisco Gonzalez Rivero',  image: '/logo-cvar.png' },
-];
-const fourthRow = [
-  { name: 'Martin Molina Gonzalez',  image: '/logo-cvar.png' },
-  { name: 'Santiago Tapia Fernandez',  image: '/logo-cvar.png' },
-  { name: 'Guanliang Li',  image: '/logo-cvar.png' },
-  { name: 'Pablo Días Pereda',  image: '/logo-cvar.png' },
-];
-const fifthRow = [
-  { name: 'Miguel Fernandez Cortizas',  image: '/logo-cvar.png' },
-  { name: 'Pedro Arias Perez',  image: '/logo-cvar.png' },
+  { 
+    name: 'Carmen De Rojas Pita-Romero', 
+    image: '/carmen.jpeg',
+    github: 'https://github.com/carmendrpr',
+    linkedin: 'https://www.linkedin.com/in/carmen-de-rojas-pita-romero-78a1a7330/'
+  },
+  { 
+    name: 'Guillermo García Patiño Lenza', 
+    image: '/guille.jpeg',
+    github: 'https://github.com/GPatiA2',
+    linkedin: 'https://www.linkedin.com/in/guillermo-garc%C3%ADa-pati%C3%B1o-lenza-56023b221/'
+  },
+  { 
+    name: 'Francisco Jose Anguita Chamorro', 
+    image: '/kiko.jpeg',
+    github: 'https://github.com/fjanguita',
+    linkedin: 'https://www.linkedin.com/in/fjac014/'
+  },
+  { 
+    name: 'Rodrigo Da Silva Gomez', 
+    image: '/rodri.jpeg',
+    github: 'https://github.com/rdasilva01',
+  },
 ];
 
+const thirdRow = [
+  { name: 'Alejandro Rodriguez Ramos', image: '/logo-cvar.png',
+   },
+  { name: 'Pedro Espinosa Angulo', image: '/logo-cvar.png' },
+  { name: 'Álvaro Gaona', image: '/logo-cvar.png' },
+  { name: 'Luis Francisco Gonzalez Rivero', image: '/logo-cvar.png' },
+];
+
+const fourthRow = [
+  { name: 'Martin Molina Gonzalez', image: '/logo-cvar.png' },
+  { name: 'Santiago Tapia Fernandez', image: '/logo-cvar.png' },
+  { name: 'Guanliang Li', image: '/logo-cvar.png' },
+  { name: 'Pablo Días Pereda', image: '/logo-cvar.png' },
+];
+
+const fifthRow = [
+  { name: 'Miguel Fernandez Cortizas', image: '/miguel.jpeg' ,
+        github: 'https://github.com/miferco97',
+    linkedin: 'https://www.linkedin.com/in/miguel-fernandez-cortizas/'
+   },
+  { name: 'Pedro Arias Perez', image: '/pedro.jpeg' ,
+    github: 'https://github.com/pariaspe',
+    linkedin: 'https://www.linkedin.com/in/fjac014/'
+  },
+];
 ---
----
+
 <Layout title="Members" subtitle="" showJoin={true} heroImage="/team.jpeg">
   <h2 style="text-align:center">Active Members</h2>
-  <p> 
-  <Row members={firstRow} offset={true}/>
-  <Row members={secondRow} offset={true} />
-  </p>
-    <h2 style="text-align:center">Colaborators</h2>
-  <p> 
-  <Row members={thirdRow} offset={true}/>
-  <Row members={fourthRow} offset={true} />
-  </p>
-    <h2 style="text-align:center">Former Members</h2>
-  <p> 
-  <Row members={fifthRow} offset={true}/>
-  </p>
+  <Row members={firstRow} />
+  <Row members={secondRow} />
+  
+  <h2 style="text-align:center; margin-top: 3rem;">Colaborators</h2>
+  <Row members={thirdRow} />
+  <Row members={fourthRow} />
+  
+  <h2 style="text-align:center; margin-top: 3rem;">Former Members</h2>
+  <Row members={fifthRow} />
 </Layout>
