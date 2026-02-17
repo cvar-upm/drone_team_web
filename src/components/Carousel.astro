@@ -265,10 +265,7 @@ const { items } = Astro.props;
           showItem(index);
         });
       });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') prevBtn?.click();
-        if (e.key === 'ArrowRight') nextBtn?.click();
-      });
+      
     });
   });
 </script>
