@@ -26,7 +26,7 @@ body {
   margin: 0;
   width: 100%;
   line-height: 1.6;
-  color: var(--cvar-dark-gray);
+  color: var(--cvar-black);
   background: var(--cvar-white);
   min-height: 100vh;
 }
@@ -43,18 +43,29 @@ h2 {
   font-weight: 600;
   margin-bottom: 1rem;
   color: var(--cvar-blue-secondary);
+  padding: 0 2rem;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h3 {
-  font-size: 1.8rem;
+  font-size: 3.0rem;
   font-weight: 600;
   margin-bottom: 0.8rem;
   color: var(--cvar-blue-light);
+  padding: 0 2rem;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 p {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-bottom: 0rem;
+  font-size: 1.6rem;
+  margin: 1.5rem auto;
+  max-width: 1500px; 
+  padding: 0 2rem; 
 }
 
 a {
@@ -97,12 +108,11 @@ a:hover {
   justify-content: center;
   text-align: center;
   padding: 2rem;
-  background: rgba(0, 0, 0, 0.4); /* Overlay semitransparente */
+  background: rgba(0, 0, 0, 0.4); 
   width: 100%;
   height: 100%;
 }
 
-/* Opcional: si quieres un overlay degradado en vez de sólido */
 .hero-banner::before {
   content: '';
   position: absolute;
@@ -118,7 +128,6 @@ a:hover {
   z-index: 1;
 }
 
-/* Sección Hero original (mantener para otras páginas) */
 .hero {
   min-height: 80vh;
   display: flex;
@@ -140,25 +149,21 @@ a:hover {
   position: relative;
   z-index: 3;
 }
-
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 4rem;
+  font-weight: 800;
   color: var(--cvar-white);
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 4px  rgba(0, 0, 0, 0.3);
+  /* margin-bottom: 1rem; */
+  letter-spacing: 2px;
   position: relative;
   z-index: 3;
 }
 
 .hero-logo {
-  max-width: 300px;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-  position: relative;
-  z-index: 3;
+  max-width: 1500px;
+  height: auto;
 }
-
-/* Botón JOIN US especial */
 .btn-join-us {
   display: inline-block;
   padding: 1.5rem 4rem;

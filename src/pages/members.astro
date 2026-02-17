@@ -3,21 +3,23 @@ import Layout from '../layouts/Layout.astro';
 import Row from '../components/Row.astro';
 import '../styles/global.css';
 const firstRow = [
+  { name: 'Pascual Campoy Cervera',  image: '/logo-cvar.png' },
   { name: 'Rafael Pérez-Seguí',  image: '/logo-cvar.png' },
   { name: 'Javier Melero Deza',  image: '/logo-cvar.png' },
-  { name: 'Carlos Ruiz',  image: '/logo-cvar.png' },
-  { name: 'Laura Fernández',  image:'/logo-cvar.png' },
+  { name: 'David Perez Saura',  image:'/logo-cvar.png' },
 ];
 
 const secondRow = [
-  { name: 'Mario Gómez',  image: '/logo-cvar.png' },
-  { name: 'Sofía Díaz',  image: '/logo-cvar.png' },
-  { name: 'Luis Martín',  image: '/logo-cvar.png' },
-  { name: 'Elena Torres',  image: '/logo-cvar.png' },
+  { name: 'Carmen De Rojas Pita-Romero',  image: '/logo-cvar.png' },
+  { name: 'Guillermo García Patiño',  image: '/logo-cvar.png' },
+  { name: 'Francisco Jose Anguita Chamorro',  image: '/logo-cvar.png' },
+  { name: 'Rodrigo Da Silva Gomez',  image: '/logo-cvar.png' },
 ];
 ---
 ---
-<Layout title="Team" subtitle="" showJoin={false} heroImage="/fondo.jpeg">
-  <Row members={firstRow} />
+<Layout title="Members" subtitle="" showJoin={true} heroImage="/team.jpeg">
+  <p> 
+  <Row members={firstRow} offset={true}/>
   <Row members={secondRow} offset={true} />
+  </p>
 </Layout>

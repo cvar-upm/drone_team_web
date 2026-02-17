@@ -5,11 +5,10 @@ const { members, offset = false } = Astro.props;
 ---
 
 <section class={`team-members-section`}>
-  <div class={`team-row ${offset ? 'team-row-offset' : ''}`}>
+  <div class={`team-row `}>
     {members.map(member => (
       <Member
         name={member.name}
-        role={member.role}
         image={member.image}
       />
     ))}
@@ -19,22 +18,22 @@ const { members, offset = false } = Astro.props;
 <style>
   .team-members-section {
     width: 100%;
-    padding: 5rem 2rem;
-    background: linear-gradient(135deg, var(--cvar-blue-primary) 0%, var(--cvar-blue-secondary) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .team-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+    gap: 7.0rem;
     justify-content: center;
-    align-items: flex-start;
-    gap: 4rem;
-    margin-bottom: 3rem;
+    align-items: start;
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
   }
-
-  .team-row-offset {
-    padding-left: calc(50% / 4 + 2rem);
-    padding-right: calc(50% / 4 + 2rem);
-  }
+  
   .team-member {
     display: flex;
     flex-direction: column;
@@ -44,8 +43,8 @@ const { members, offset = false } = Astro.props;
   }
 
   .member-circle {
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid white;
@@ -64,29 +63,20 @@ const { members, offset = false } = Astro.props;
     height: 100%;
     object-fit: cover;
   }
-  .member-name {
-    font-size: 1.4rem;
+
+  .team-row :global(.member-name) {
+    font-size: 1.5rem !important;
     font-weight: 800;
-    color: white;
+    color: var(--cvar-black);
     margin: 0 0 0.5rem 0;
     letter-spacing: 0.5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
-  .member-role {
-    font-size: 1rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.8);
-    margin: 0;
-    letter-spacing: 0.3px;
-  }
+
   @media (max-width: 1024px) {
     .team-row {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
       gap: 2rem;
-    }
-
-    .team-row-offset {
-      padding-left: 2rem;
-      padding-right: 2rem;
     }
 
     .member-circle {
@@ -94,31 +84,25 @@ const { members, offset = false } = Astro.props;
       height: 140px;
     }
 
-    .member-name {
-      font-size: 1.2rem;
-    }
-
-    .member-role {
-      font-size: 0.9rem;
+    .team-row :global(.member-name) {
+      font-size: 0.9rem !important;
     }
   }
 
   @media (max-width: 768px) {
-    .team-row,
-    .team-row-offset {
-      flex-wrap: wrap;
-      gap: 3rem;
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-
-    .team-member {
-      max-width: 150px;
+    .team-row {
+      grid-template-columns: repeat(auto-fit, minmax(130px, 130px));
+      gap: 2rem;
+      padding: 1rem;
     }
 
     .member-circle {
       width: 120px;
       height: 120px;
+    }
+
+    .team-row :global(.member-name) {
+      font-size: 0.85rem !important;
     }
   }
 </style>

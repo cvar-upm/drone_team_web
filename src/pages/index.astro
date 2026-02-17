@@ -1,39 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Video from '../components/Video.astro';
+import Image from '../components/Image.astro';
 import '../styles/global.css';
 
 ---
-<Layout title="CVAR-UPM DRONE RACING" subtitle="Powered by Aerostack2" showJoin={true} heroImage="/fondo.jpeg">
-    <div style="padding: 3rem 0; background: transparent;">
-      <div class="breakout-wrapper">
-        <article class="split-section reverse">
-          <div class="split-content">
-            <h2 class="split-title-large">Who are we?</h2>
-            <p class="split-text-large">
-{`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
-Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
-augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
-Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
-nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
-Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
-Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
-a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}
-  
-            </p>
-          </div>
-        </article>
-      </div>
-    </div>
+<Layout title="CVAR-UPM DRONE RACING"   showJoin={true} logoImage="/aerostack2.svg" heroImage="/team.jpeg">
+  <h2>Who are we?</h2>
+    <p >
+            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
+            Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
+            augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. Vivamus sit amet porta orci.
+            Nulla nisi nisi, faucibus quis venenatis ut, pulvinar vel velit. In imperdiet nec lectus ac suscipit. Vestibulum semper tortor nisl, et posuere est finibus et. Quisque in mauris nisi. Duis sapien 
+            nibh, hendrerit vitae lorem quis, aliquet tempor lectus. Fusce nec tincidunt mauris. Morbi efficitur elit in sagittis euismod.
+            Aenean vitae nisl nec lacus placerat volutpat at ullamcorper felis. Cras sapien odio, molestie eget porta nec, lacinia a risus. Cras sem quam, tincidunt ut enim in, convallis consequat eros. 
+            Pellentesque tristique ultrices ex, non porta purus eleifend sed. Fusce lacinia semper elit, sed hendrerit dui aliquet non. Duis dolor neque, finibus ac eros sed, rutrum volutpat justo. Proin a magna 
+            a neque vehicula iaculis a vel risus. Morbi viverra diam sem, vitae consequat turpis convallis vel. Nullam sed aliquet nunc.`}          
+    </p>
 
 <Video 
-  videoUrl="https://player.vimeo.com/video/1079143067?badge=0&autopause=0&player_id=0&app_id=58479" 
+  videoUrl="https://player.vimeo.com/video/1155503452?h=511c5f0706" 
 />
-    <div style="padding: 3rem 0; text-align: center;">
-      <div style="max-width: 1400px; margin: 0 auto; padding: 0 4rem;">
-        <h2 style="color: var(--cvar-blue-primary); font-size: 2.8rem; margin-bottom: 1.5rem;">Join the future of drone racing</h2>
-      </div>
-    </div>
-
-  <p>My page content, wrapped in a layout!</p>
+<Image 
+  imageUrl="/aerostack2_claro.svg"
+/>
 </Layout>

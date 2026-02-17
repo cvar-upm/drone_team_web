@@ -1,0 +1,15 @@
+---
+import '../styles/global.css';
+const { imageUrl, alt = "Image", title } = Astro.props;
+---
+
+<div style="padding: 0rem 0; background: var(--cvar-white);">
+  <div class="image-wrapper" style="max-width: 1200px; margin: 0 auto;">
+    <img
+      src={`${import.meta.env.BASE_URL}${imageUrl}`}
+      alt={alt}
+      title={title}
+      style="width: 100%; height: auto; display: block; border: 0;"
+    />
+  </div>
+</div>

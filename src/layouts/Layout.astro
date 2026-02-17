@@ -5,6 +5,7 @@ const { title } = Astro.props;
 const { subtitle } = Astro.props;
 const { showJoin = false } = Astro.props;
 const { heroImage } = Astro.props; 
+const { logoImage } = Astro.props;
 ---
 <html lang="en">
   <head>
@@ -20,13 +21,22 @@ const { heroImage } = Astro.props;
     >
       <div class="hero-overlay">
         <h1 class="hero-title">{title}</h1>
-        <p class="hero-subtitle">{subtitle}</p>
-
+        {subtitle && (
+          <p class="hero-subtitle">{subtitle}</p>
+        )}
+        {logoImage && (
+          <img 
+            src={`${import.meta.env.BASE_URL}${logoImage}`} 
+            alt="Logo" 
+            class="hero-logo"
+          />
+        )}
         {showJoin && (
           <a href={`${import.meta.env.BASE_URL}/contact`} class="btn-join-us">
             JOIN US
           </a>
         )}
+
       </div>
     </section>
 

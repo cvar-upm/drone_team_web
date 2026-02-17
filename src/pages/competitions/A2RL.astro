@@ -3,8 +3,9 @@ import Layout from '../../layouts/Layout.astro';
 import Video from '../../components/Video.astro';
 import '../../styles/global.css';
 ---
-<Layout title="Abu Dhabi Autonomous Drone Racing" subtitle="" showJoin={false} heroImage="/a2rl.jpeg"> 
-<section id="content" class="side-section-content">
+<Layout title="Abu Dhabi Autonomous Drone Racing" showJoin={false} logoImage="/a2rl.png" heroImage="/a2rl.jpeg"> 
+<section>
+  <h2>A2RL  Season 2</h2>
   <p>
     Thermal hotspots in photovoltaic modules are a leading cause of performance loss, accelerated
     degradation, and safety concerns, making timely and scalable detection essential for modern solar
@@ -14,22 +15,27 @@ import '../../styles/global.css';
     emphasizes rapid prototyping and modularity, enabling practitioners to assemble a practical
     end-to-end pipeline&mdash;from data capture and preprocessing through candidate generation,
     classification, and reporting&mdash;using readily available tools and modest datasets.
+    More details about the competition are available at: <a href=" https://a2rl.io/autonomous-drone-race" target="_blank" rel="noopener noreferrer">A2RL season 2 Official Website</a>
+
+  </p>
+</section>
+<Video 
+  videoUrl="https://player.vimeo.com/video/1162806489?h=7bf1efb1bb" 
+/>
+<section>
+  <h2>A2RL  Season 1</h2>
+  <p>
+A2RL - Abu Dhabi Autonomous Racing League is widely regarded as the leading international competition in autonomous drone racing, 
+challenging teams to develop AI-driven systems capable of flying fully autonomously using only onboard sensors and computation. 
+The team competed using its own open-source framework, Aerostack2, a modular platform integrating perception, trajectory planning, 
+and flight control. During the competition, the drone completed two full laps of a 22-gate circuit relying solely on an onboard camera 
+and IMU, processing all data in real time onboard. The team ranked among the top eight international finalists and achieved second place 
+in the multi-drone race within their group, demonstrating the robustness and maturity of the technologies developed for both industrial and 
+high-performance autonomous applications.
+More details about the competition are available at: <a href=" https://a2rl.io/blog/5/a2rl-drones-season-1-when-the-sky-wasnt-the-limit" target="_blank" rel="noopener noreferrer">A2RL season 1 Official Website</a>
+
   </p>
 </section>
 <Video 
   videoUrl="https://player.vimeo.com/video/1079143067?badge=0&autopause=0&player_id=0&app_id=58479" 
 />
-
-<style>
-  .side-section-content {
-    max-width: 1100px;    
-    margin: 2rem auto;    
-    padding: 0 1rem;      
-  }
-
-  .side-section-content p {
-    font-size: 1.3rem;   
-    line-height: 1.8;     
-    color: #333;
-  }
-</style>
