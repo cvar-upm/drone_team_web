@@ -417,7 +417,7 @@ a:hover {
 /* imágenes sin sombra */
 .breakout-wrapper .split-image img {
   width: 100%;
-  height: 320px;
+  height: 380px;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: none;

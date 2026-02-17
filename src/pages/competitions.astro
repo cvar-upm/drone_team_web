@@ -1,23 +1,42 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SideSection from '../components/SideSection.astro';
+import SideImage from '../components/SideImage.astro';
 import '../styles/global.css';
 
 ---
 <Layout title="Competitions" subtitle="" showJoin={false} heroImage="/fondo.jpeg"> 
-  <SideSection
-    image="/fondo.jpeg"
-    title="A2RL"
-    url=`${import.meta.env.BASE_URL}/competitions/A2RL`
-    description={`Lorem ipsum dolor sit amet...`}
+  <SideImage
+    image="/a2rl.jpeg"
+    logoImage="/a2rl.png"
+    url={`${import.meta.env.BASE_URL}/competitions/A2RL`}
     reverse={false}
   />
 
-  <SideSection
-    image="/fondo.jpeg"
-    title=`${import.meta.env.BASE_URL}/competitions/IMAV_25`
-    url="/competitions/IMAV_25"
-    description={`Lorem ipsum dolor sit amet...`}
+  <SideImage
+    image="/icuas23.jpeg"
+    logoImage="/icuas.png"
+    url={`${import.meta.env.BASE_URL}/competitions/ICUAS`}
     reverse={true}
+  />
+
+  <SideImage
+    image="/imav.jpeg"
+    logoImage="/imav.png"
+    url={`${import.meta.env.BASE_URL}/competitions/IMAV`}
+    reverse={false}
+  />
+
+  <SideImage
+    image="/mbzirc.jpeg"
+    logoImage="/MBZIRC.png"
+    url={`${import.meta.env.BASE_URL}/competitions/MBZIRC`}
+    reverse={true}
+  />
+
+  <SideImage
+    image="/opencv.jpeg"
+    logoImage="/opencv.png"
+    url={`${import.meta.env.BASE_URL}/competitions/OpenCV`}
+    reverse={false}
   />
 </Layout>
