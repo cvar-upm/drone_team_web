@@ -1,7 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Video from '../../components/Video.astro';
+import ImageCarousel from '../../components/Carousel.astro';
 import '../../styles/global.css';
+
+const season2Items = [
+  { type: 'video', src: 'https://player.vimeo.com/video/1162806489?h=7bf1efb1bb', title: 'A2RL Season 2 Highlights' },
+  { type: 'image', src: '/a2rl.jpeg', alt: 'A2RL Season 2 - Team Photo' },
+];
+
 ---
 <Layout title="Abu Dhabi Autonomous Drone Racing" showJoin={false} logoImage="/a2rl.png" heroImage="/a2rl.jpeg"> 
 <section>
@@ -17,9 +24,7 @@ fully autonomous aerial robotics. </p>
 
   </p>
 </section>
-<Video 
-  videoUrl="https://player.vimeo.com/video/1162806489?h=7bf1efb1bb" 
-/>
+<ImageCarousel items={season2Items} />
 <section>
   <h2>A2RL  Season 1</h2>
   <p>
