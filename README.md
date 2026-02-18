@@ -20,7 +20,7 @@ Official website for the CVAR-UPM Drone Team team developed with Astro. This rep
 ## Project Structure
 
 ```
-drone_racing_web/
+drone_team_web/
 ├── public/                      # Static files (images, videos, logos)
 │   ├── a2rl25/                 # A2RL Season 1 images
 │   ├── a2rl26/                 # A2RL Season 2 images
@@ -88,8 +88,8 @@ drone_racing_web/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/cvar-upm/drone_racing_web.git
-cd drone_racing_web
+git clone https://github.com/cvar-upm/drone_team_web.git
+cd drone_team_web
 ```
 
 2. Install dependencies:
@@ -102,14 +102,14 @@ npm install
 npm run dev
 ```
 
-The site will be available at `http://localhost:4321/drone_racing_web`
+The site will be available at `http://localhost:4321/drone_team_web`
 
 ## Available Commands
 
 | Command              | Action                                                                 |
 | :------------------- | :----------------------------------------------------                  |
 | `npm install`        | Installs all dependencies                                              |
-| `npm run dev`        | Starts development server at `localhost:4321/drone_racing_web`         |
+| `npm run dev`        | Starts development server at `localhost:4321/drone_team_web`         |
 | `npm run build`      | Builds the site for production in `./dist/`                            |
 | `npm run preview`    | Previews the production build locally                                  |
 | `npm run astro ...`  | Runs Astro CLI commands                                                |
@@ -399,7 +399,7 @@ The site is configured to deploy on GitHub Pages:
 // astro.config.mjs
 export default defineConfig({
   site: 'https://cvar-upm.github.io',
-  base: '/drone_racing_web',
+  base: '/drone_team_web',
   output: 'static',
 });
 ```

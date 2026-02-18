@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://cvar-upm.github.io',
-  base: '/drone_racing_web',
+  base: '/drone_team_web',
   output: 'static',
 });
