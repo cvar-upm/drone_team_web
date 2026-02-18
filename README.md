@@ -1,6 +1,6 @@
-# CVAR-UPM Drone Racing Web
+# CVAR-UPM Drone Team Web
 
-Official website for the CVAR-UPM Drone Racing team developed with Astro. This repository contains all information about the team, competitions, divisions, and members.
+Official website for the CVAR-UPM Drone Team team developed with Astro. This repository contains all information about the team, competitions, divisions, and members.
 
 ## Table of Contents
 
@@ -459,7 +459,7 @@ npm run preview
 
 ## Contact
 
-For more information about the CVAR-UPM Drone Racing team:
+For more information about the CVAR-UPM Drone Team:
 - Instagram: [@cvar_upm](https://www.instagram.com/cvar_upm/)
 - LinkedIn: [CVAR-UPM](https://www.linkedin.com/company/computer-vision-aerial-robotics/)
 - YouTube: [@CVAR-UPM](https://www.youtube.com/@CVAR-UPM)
