@@ -4,6 +4,51 @@ import SideSection from '../components/SideSection.astro';
 import '../styles/global.css';
 ---
 <Layout title="Divisions" subtitle="" showJoin={false} heroImage="/divisions/hardware.png">
+
+  <section id="navigation&planning">
+    <SideSection
+      image="/divisions/navigation.png"
+      title="Planning & Navigation"
+      description={` The navigation system allows a drone to move autonomously from one point to another while avoiding obstacles in its path. It uses onboard sensors, such as LiDAR and depth cameras, to perceive its surroundings 
+      and generate collision-free paths in real time. Path planning algorithms, ranging from graph-based methods like A* to sampling-based approaches like RRT, 
+      compute optimal or feasible trajectories through the environment by searching over a configuration space that accounts for both geometry and dynamic constraints. Navigation can be performed in two ways: either through 
+      pre-planned missions where the drone is given a sequence of waypoints to fly through automatically, or through interactive navigation where a human operator 
+      selects a destination on a map and the drone computes a safe route on its own. In both cases, the system continuously checks that the requested destination is reachable and within valid bounds before the drone begins moving, 
+      and a replanning mechanism allows the drone to recover from unexpected changes in the environment mid-flight. The goal is to enable autonomous aerial 
+      inspection in environments where manual piloting would be impractical or unsafe. `}
+      reverse={true}
+    />
+  </section>
+
+  <section id="control&trajectory">
+    <SideSection
+      image="/divisions/control.png"
+      title="Control & Trajectory Generation"
+      description={`Trajectory generation is responsible for computing the sequence of states the drone should follow to reach its objective. This includes defining where the drone should be, how fast it 
+      should move, and how it should orient itself over time. The trajectory must be dynamically feasible, meaning it respects the physical limits of the platform and the constraints of the environment 
+      (for example, passing through gates or avoiding obstacles). In agile flight scenarios, trajectory generation often aims to optimize a performance metric such as minimum time, while ensuring the motion remains physically executable. 
+
+      Control, on the other hand, is responsible for executing that trajectory on the real system. It continuously compares the drone’s current state with the desired reference and computes the actuation commands 
+      required to reduce the tracking error. Since quadrotors are highly nonlinear and operate close to their dynamic limits in aggressive flight, the controller must react quickly to disturbances, modeling 
+      inaccuracies, and estimation errors. In short, trajectory generation defines what the drone should do, and control determines how to actuate the system to make it happen in real time. `}
+      reverse={false}
+    />
+  </section>
+
+  <section id="localization">
+    <SideSection
+      image="/divisions/localization.png"
+      title="Localization"
+      description={`Localization is responsible for determining the drone’s position and orientation within a known reference frame. While perception provides raw sensor measurements and detects elements in the environment, 
+      localization focuses specifically on estimating the drone’s pose with respect to a map, a set of landmarks, or a global coordinate system. This can be achieved using visual-inertial odometry, GPS when available, 
+      LiDAR-based methods, or by matching sensor observations to previously known features such as gates or markers. 
+
+      In agile and high-speed flight, localization must be both accurate and low-latency. Estimation drift, sensor noise, or temporary loss of visual features can quickly lead to significant pose errors, which directly affect
+      planning and control. For this reason, modern localization systems often fuse multiple sensor modalities and continuously correct drift using known landmarks or prior maps. Reliable localization is essential for
+      consistent trajectory tracking and for operating safely in structured or GPS-denied environments. `}
+      reverse={true}
+    />
+  </section>
   <section id="perception">
     <SideSection
       image="/divisions/perception.png"
@@ -19,70 +64,35 @@ import '../styles/global.css';
     />
   </section>
 
-  <section id="control&trajectory">
-    <SideSection
-      image="/divisions/control.png"
-      title="Control & Trajectory Generation"
-      description={`Trajectory generation is responsible for computing the sequence of states the drone should follow to reach its objective. This includes defining where the drone should be, how fast it 
-      should move, and how it should orient itself over time. The trajectory must be dynamically feasible, meaning it respects the physical limits of the platform and the constraints of the environment 
-      (for example, passing through gates or avoiding obstacles). In agile flight scenarios, trajectory generation often aims to optimize a performance metric such as minimum time, while ensuring the motion remains physically executable. 
-
-      Control, on the other hand, is responsible for executing that trajectory on the real system. It continuously compares the drone’s current state with the desired reference and computes the actuation commands 
-      required to reduce the tracking error. Since quadrotors are highly nonlinear and operate close to their dynamic limits in aggressive flight, the controller must react quickly to disturbances, modeling 
-      inaccuracies, and estimation errors. In short, trajectory generation defines what the drone should do, and control determines how to actuate the system to make it happen in real time. `}
-      reverse={true}
-    />
-  </section>
-
-  <section id="localization">
-    <SideSection
-      image="/divisions/localization.png"
-      title="Localization"
-      description={`Localization is responsible for determining the drone’s position and orientation within a known reference frame. While perception provides raw sensor measurements and detects elements in the environment, 
-      localization focuses specifically on estimating the drone’s pose with respect to a map, a set of landmarks, or a global coordinate system. This can be achieved using visual-inertial odometry, GPS when available, 
-      LiDAR-based methods, or by matching sensor observations to previously known features such as gates or markers. 
-
-      In agile and high-speed flight, localization must be both accurate and low-latency. Estimation drift, sensor noise, or temporary loss of visual features can quickly lead to significant pose errors, which directly affect
-      planning and control. For this reason, modern localization systems often fuse multiple sensor modalities and continuously correct drift using known landmarks or prior maps. Reliable localization is essential for
-      consistent trajectory tracking and for operating safely in structured or GPS-denied environments. `}
-      reverse={false}
-    />
-  </section>
-  </section>
-  <section id="navigation&planning">
-    <SideSection
-      image="/divisions/navigation.png"
-      title="Planning & Navigation"
-      description={` The navigation system allows a drone to move autonomously from one point to another while avoiding obstacles in its path. It uses onboard sensors, such as LiDAR and depth cameras, to perceive its surroundings 
-      and generate collision-free paths in real time. Path planning algorithms, ranging from graph-based methods like A* to sampling-based approaches like RRT, 
-      compute optimal or feasible trajectories through the environment by searching over a configuration space that accounts for both geometry and dynamic constraints. Navigation can be performed in two ways: either through 
-      pre-planned missions where the drone is given a sequence of waypoints to fly through automatically, or through interactive navigation where a human operator 
-      selects a destination on a map and the drone computes a safe route on its own. In both cases, the system continuously checks that the requested destination is reachable and within valid bounds before the drone begins moving, 
-      and a replanning mechanism allows the drone to recover from unexpected changes in the environment mid-flight. The goal is to enable autonomous aerial 
-      inspection in environments where manual piloting would be impractical or unsafe. `}
-      reverse={true}
-    />
-  </section>
   <section id="hardware&firmware">
     <SideSection
       image="/divisions/hardware.png"
       title="Hardware & Firmware"
-      description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
-Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
-augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. 
+      description={`Hardware in a drone system refers to the physical components that enable sensing, computation, and actuation. This includes onboard sensors such as cameras and inertial measurement units (IMUs) for state estimation,
+       electronic speed controllers (ESCs) to drive the motors, propulsion units (motors and propellers), the battery as the energy source, and the onboard computing unit. A critical aspect of hardware design is integration: 
+       sensors must be properly mounted and calibrated, vibrations must be minimized to avoid degrading inertial measurements, and communication between components must be reliable and low-latency. The overall hardware architecture directly 
+       affects performance, robustness, and the maximum achievable agility of the drone. 
+
+Firmware is the low-level software running on the flight controller that interfaces directly with the hardware. It reads raw sensor data, performs state estimation at high frequency, and executes the inner control loops that regulate attitude 
+and angular rates. Firmware also handles real-time constraints, motor mixing, safety mechanisms, and communication with higher-level onboard computers. In practice, it acts as the bridge between high-level autonomy algorithms and the physical system, 
+ensuring that computed control commands are translated into precise electrical signals driving the actuators. A well-designed firmware layer is essential for achieving stable and responsive flight, especially in high-performance or aggressive maneuvers
 `}
-      reverse={false}
+      reverse={true}
     />
   </section>
   <section id="simulation">
     <SideSection
       image="/divisions/simulation.png"
-      title="Simulation"
-      description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
-Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
-augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. 
-`}
-      reverse={true}
+      title="Robotics Simulation"
+      description={`Simulation plays a fundamental role in the development of autonomous drones. It provides a safe and controllable environment where algorithms for perception, planning, and control 
+      can be designed, tested, and validated before deployment on real hardware. For simulation to be truly useful, it must faithfully reproduce the drone’s physics, including rigid-body dynamics, 
+      motor response, aerodynamic effects, actuator limits, and energy consumption. In high-performance flight, even small modeling inaccuracies can lead to significant discrepancies between simulated and real behavior. 
+
+      Beyond dynamics, an effective simulator must also model sensors realistically. This includes camera models with field of view and distortion, IMU noise and bias, latency, motion blur, and in some cases even event-based 
+      sensing. Accurate sensor simulation is essential because many autonomy algorithms depend directly on these measurements. A high-fidelity simulator reduces the gap between simulation and reality, accelerates development 
+      cycles, enables large-scale testing, and is particularly critical for training data-driven methods, where millions of interactions may be required. In modern drone 
+      development, simulation is not just a convenience—it is a core engineering tool. `}
+      reverse={false}
     />
   </section>
 </Layout>
