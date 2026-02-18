@@ -2,9 +2,36 @@
 import Layout from '../../layouts/Layout.astro';
 import Video from '../../components/Video.astro';
 import Image from '../../components/Image.astro';
+import ImageCarousel from '../../components/Carousel.astro';
 import '../../styles/global.css';
+const imav25 = [
+  { type: 'video', src: '/imav25/imav25video.mp4', title: 'Outdoor Highlights' },
+  { type: 'image', src: '/imav25/imav25_1.jpeg'},
+  { type: 'image', src: '/imav25/imav25_2.jpeg' },
+  { type: 'image', src: '/imav25/imav.jpeg' },
+];
+const imav22 = [
+  { type: 'image', src: '/imav22/imav22_1.JPG'},
+  { type: 'image', src: '/imav22/imav22_2.JPG'},
+  { type: 'image', src: '/imav22/imav22_3.png'},
+];
+const imav19indoor = [
+  { type: 'video', src: 'https://player.vimeo.com/video/376235995?h=1bd0aa8714', title: 'Indoor Highlights' },
+  { type: 'image', src: '/imav19/imav19_7.JPG'},
+  { type: 'image', src: '/imav19/imav19_8.jpg' },
+  { type: 'image', src: '/imav19/imav19_9.JPG' },
+];
+const imav19outdoor = [
+  { type: 'video', src: 'https://player.vimeo.com/video/395928428?h=6915e1e555', title: 'Outdoor Highlights' },
+  { type: 'image', src: '/imav19/imav19_2.JPG'},
+  { type: 'image', src: '/imav19/imav19_6.JPG' },
+  { type: 'image', src: '/imav19/imav19_1.JPG' },
+  { type: 'image', src: '/imav19/imav19_5.JPG' },
+  { type: 'image', src: '/imav19/imav19_4.JPG' },
+  { type: 'image', src: '/imav19/imav19_3.JPG' },
+];
 ---
-<Layout title="International Micro Air Vehicle Competition" subtitle="IMAV" showJoin={false} heroImage="/imav.jpeg"> 
+<Layout title="International Micro Air Vehicle Competition" subtitle="IMAV" showJoin={false} heroImage="/imav25/imav.jpeg"> 
 <section id="2025">
   <h2>IMAV 2025</h2>
   <p>
@@ -14,15 +41,9 @@ Our CVAR-UPM team received the <strong>Best Technical Description Award</strong>
   custom gripper. The system was successfully  tested in simulation and initial real-world trials, demonstrating reliable autonomy and 
   precision in challenging indoor disaster scenarios. <p>
        More details about the competition are available at:    <a href="https://femexrobotica.org/imav2025/">IMAV 2025</a>
-
-<Image 
-  imageUrl="/imav.jpeg"
-  alt="IMAV 2025"
-  title="IMAV 2025"
-/>
   </p>
 </section>
-
+<ImageCarousel items={imav25} />
 
 <section id="2022" >
   <h2>IMAV 2022</h2>
@@ -35,11 +56,8 @@ ensured real-time performance and consistent gate transitions. </p>
     <a href="https://www.uasconferences.com/2022_icuas/winners-of-the-uav-competition/">IMAV 2022</a>
   </p>
 </section>
-<Image 
-  imageUrl="/imav22.png"
-  alt="IMAV 2022"
-  title="IMAV 2022"
-/>
+<ImageCarousel items={imav22} />
+
 <section id="2019">
   <h2>IMAV 2019</h2>
   <h3>Indoor Competitions</h3>
@@ -51,10 +69,9 @@ ensured real-time performance and consistent gate transitions. </p>
   <p>
     More details about the competition are available at:  
     <a href="https://www.imavs.org/2019/">IMAV 2019</a>
- <Video 
-  videoUrl="https://player.vimeo.com/video/376235995?h=1bd0aa8714" 
-/>
+
   </p>
+  <ImageCarousel items={imav19indoor} />
     <h3>Outdoor Competitions</h3>
   <p>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
@@ -64,9 +81,7 @@ ensured real-time performance and consistent gate transitions. </p>
     <p>
     More details about the competition are available at:  
     <a href="https://www.uasconferences.com/2022_icuas/winners-of-the-uav-competition/">IMAV 2022</a>
- <Video 
-  videoUrl="https://player.vimeo.com/video/395928428?h=6915e1e555"
-/>
+
   </p>
 </section>
-
+<ImageCarousel items={imav19outdoor} />
