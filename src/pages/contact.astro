@@ -3,40 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
-<Layout 
-  title="Join Us"
-  subtitle="Become part of CVAR"
-  heroImage="/fondo.jpeg"
-  showJoin={false}
->
 
-<section class="form-section">
-  <div class="form-wrapper">
-    <h2>Apply Here</h2>
-    <p>Please complete the application form using the button below.</p>
+<Layout title="Join Us"  showJoin={true} logoImage="/aerostack2.svg" heroImage="/members/team.jpeg">
 
-    <a 
-      href="https://forms.gle/UYRq6gvztvvMftTC6"
-    >
-      Open Application Form
-    </a>
-  </div>
+<section >
+    <h2>Apply Here </h2>
+    <p>Please complete the<a href="https://forms.gle/UYRq6gvztvvMftTC6">
+      aplication form
 </section>
 
 
 
 </Layout>
-
-<style>
-.form-section {
-  padding: 4rem 0;
-  display: flex;
-  justify-content: center;
-}
-
-.form-wrapper {
-  width: 100%;
-  max-width: 900px;
-}
-
-</style>

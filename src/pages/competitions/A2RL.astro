@@ -1,18 +1,21 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Video from '../../components/Video.astro';
-import ImageCarousel from '../../components/Carousel.astro';
+import Carousel from '../../components/Carousel.astro';
 import '../../styles/global.css';
 
-const season2Items = [
-  { type: 'video', src: 'https://player.vimeo.com/video/1162806489?h=7bf1efb1bb', title: 'A2RL Season 2 Highlights' },
+const a2rl26 = [
+  { type: 'video', src: 'https://player.vimeo.com/video/1162806489?h=7bf1efb1bb' },
   { type: 'image', src: '/a2rl26/a2rl.jpeg' },
   { type: 'image', src: '/a2rl26/a2rl26_1.jpeg'},
   { type: 'image', src: '/a2rl26/a2rl26_2.jpg' },
   { type: 'image', src: '/a2rl26/a2rl26_3.jpeg' },
   { type: 'image', src: '/a2rl26/a2rl26_4.jpeg' },
 ];
-
+const a2rl25 = [
+  { type: 'video', src: 'https://player.vimeo.com/video/1079143067?badge=0&autopause=0&player_id=0&app_id=58479' },
+  { type: 'image', src: '/a2rl25/a2rl25_1.jpeg' },
+  { type: 'image', src: '/a2rl25/a2rl25_3.jpeg' },
+]
 ---
 <Layout title="Abu Dhabi Autonomous Drone Racing" showJoin={false} logoImage="/a2rl.png" heroImage="/a2rl26/a2rl.jpeg"> 
 <section id="season2">
@@ -28,7 +31,7 @@ fully autonomous aerial robotics. </p>
 
   </p>
 </section>
-<ImageCarousel items={season2Items} />
+<Carousel items={a2rl26} />
 <section id="season1">
   <h2>A2RL  Season 1</h2>
   <p>
@@ -43,6 +46,4 @@ More details about the competition are available at: <a href=" https://a2rl.io/b
 
   </p>
 </section>
-<Video 
-  videoUrl="https://player.vimeo.com/video/1079143067?badge=0&autopause=0&player_id=0&app_id=58479" 
-/>
+<Carousel items={a2rl25} />

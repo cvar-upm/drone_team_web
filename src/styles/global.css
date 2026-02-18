@@ -61,6 +61,7 @@ p {
   margin: 1.5rem auto;
   max-width: 1500px; 
   padding: 0 2rem; 
+  text-align: justify;
 }
 
 a {
@@ -315,6 +316,7 @@ a:hover {
   font-size: 1.2rem;
   line-height: 1.7;
   color: var(--cvar-dark-gray);
+  text-align: justify;
 }
 
 /* Video */
@@ -397,14 +399,14 @@ a:hover {
   }
 
   .split-text { 
-    text-align: center; 
+    text-align: justify; 
   }
 
   .breakout-wrapper > .split-section {
     grid-template-columns: 1fr;
     padding: 1.5rem;
     gap: 1.5rem;
-    text-align: center;
+    text-align: justify;
   }
 
   .breakout-wrapper .split-image img {

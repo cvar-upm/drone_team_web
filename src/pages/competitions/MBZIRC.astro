@@ -1,9 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Video from '../../components/Video.astro';
+import Carousel from '../../components/Carousel.astro';
 import '../../styles/global.css';
+
+const mbzirc2020 = [
+  { type: 'video', src: 'https://player.vimeo.com/video/399137661?h=3aad49b2dd' },
+  { type: 'image', src: '/mbzirc/mbzirc_2.jpeg' },
+
+];
 ---
-<Layout title="Mohamed Bin Zayed International Robotics Challenge" subtitle="" showJoin={false} heroImage="/mbzirc.png"> 
+<Layout title="Mohamed Bin Zayed International Robotics Challenge" subtitle="" showJoin={false} heroImage="/mbzirc/mbzirc.png"> 
 <section id="2020">
   <h2>MBZIRC 2020</h2>
   <p>
@@ -16,6 +22,5 @@ outdoor conditions, highlighting our capability in multi-agent aerial robotics.<
     <a href="https://mrs.fel.cvut.cz/mbzirc2020">MBZIRC 2020</a>
   </p>
 </section>
-<Video 
-  videoUrl="https://player.vimeo.com/video/399137661?h=3aad49b2dd"
-/>
+<Carousel items={mbzirc2020} />
+</Layout>
