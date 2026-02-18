@@ -28,14 +28,14 @@ body {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--cvar-blue-primary);
 }
 
 h2 {
-  font-size: clamp(3.2rem, 6vw, 9rem);
+  font-size: clamp(2rem, 5vw, 9rem);
   font-weight: 600;
   margin-bottom: 1rem;
   color: var(--cvar-blue-secondary);
@@ -46,7 +46,7 @@ h2 {
 }
 
 h3 {
-  font-size: 3.0rem;
+  font-size: clamp(1.5rem, 4vw, 3rem);
   font-weight: 600;
   margin-bottom: 0.8rem;
   color: var(--cvar-blue-light);
@@ -57,11 +57,12 @@ h3 {
 }
 
 p {
-  font-size: 1.6rem;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
   margin: 1.5rem auto;
   max-width: 1500px; 
   padding: 0 2rem; 
   text-align: justify;
+  line-height: 1.6;
 }
 
 a {
@@ -126,7 +127,7 @@ a:hover {
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 800;
   color: var(--cvar-white);
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
@@ -137,7 +138,7 @@ a:hover {
 }
 
 .hero-subtitle {
-  font-size: 4rem;
+  font-size: clamp(1.2rem, 4vw, 4rem);
   font-weight: 800;
   color: var(--cvar-white);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
@@ -147,17 +148,17 @@ a:hover {
 }
 
 .hero-logo {
-  max-width: 1500px;
+  max-width: clamp(200px, 80vw, 1500px);
   height: auto;
 }
 
 .btn-join-us {
   display: inline-block;
-  padding: 1.5rem 4rem;
-  font-size: 1.5rem;
+  padding: clamp(1rem, 3vw, 1.5rem) clamp(2rem, 5vw, 4rem);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: clamp(1px, 0.5vw, 3px);
   border-radius: 50px;
   background: var(--cvar-blue-primary);
   color: var(--cvar-white);
@@ -350,44 +351,27 @@ a:hover {
 /* Responsive */
 @media (max-width: 768px) {
   .hero-banner {
-    height: 70vh;
-    min-height: 500px;
+    height: 60vh;
+    min-height: 400px;
   }
 
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .hero-logo {
-    max-width: 200px;
+  .hero-overlay {
+    padding: 1rem;
   }
 
-  .btn-join-us {
-    padding: 1.2rem 2.5rem;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-  }
-  
-  h1 {
-    font-size: 2rem;
-  }
-  
-  h2 {
-    font-size: 1.8rem;
+  .container {
+    padding: 0 1rem;
   }
 
   .split-section {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
     text-align: center;
   }
 
   .split-image img {
-    height: 220px;
+    height: auto;
+    max-height: 300px;
   }
 
   .split-content { 
@@ -400,17 +384,19 @@ a:hover {
 
   .split-text { 
     text-align: justify; 
+    font-size: 1rem;
   }
 
   .breakout-wrapper > .split-section {
     grid-template-columns: 1fr;
-    padding: 1.5rem;
+    padding: 1rem;
     gap: 1.5rem;
     text-align: justify;
   }
 
   .breakout-wrapper .split-image img {
-    height: 220px;
+    height: auto;
+    max-height: 300px;
   }
 
   .breakout-wrapper .split-title { 
@@ -419,10 +405,36 @@ a:hover {
   }
 
   .breakout-wrapper .split-text {
-    text-align: center;
+    text-align: justify;
+    font-size: 1rem;
   }
 
   .video-wrapper {
     padding: 0 1rem;
+  }
+}
+
+/* Additional mobile improvements */
+@media (max-width: 480px) {
+  .hero-banner {
+    height: 50vh;
+    min-height: 350px;
+  }
+
+  h2 {
+    padding: 0 1rem;
+  }
+
+  h3 {
+    padding: 0 1rem;
+  }
+
+  p {
+    padding: 0 1rem;
+    font-size: 0.95rem;
+  }
+
+  .container {
+    padding: 0 0.5rem;
   }
 }

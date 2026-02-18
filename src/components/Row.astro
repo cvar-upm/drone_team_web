@@ -48,8 +48,21 @@ const { members, offset = false } = Astro.props;
     }
 
     .team-row > :global(*) {
-      flex: 0 0 240px;
-      max-width: 240px;
+      flex: 0 0 calc(50% - 0.75rem);
+      max-width: calc(50% - 0.75rem);
+      min-width: 140px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team-row {
+      gap: 1rem;
+      padding: 0 0.5rem;
+    }
+
+    .team-row > :global(*) {
+      flex: 0 0 100%;
+      max-width: 280px;
     }
   }
 </style>

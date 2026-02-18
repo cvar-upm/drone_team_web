@@ -127,5 +127,44 @@ const { name, image, github, linkedin } = Astro.props;
     .member-name {
       font-size: 1rem;
     }
+
+    .social-link {
+      width: 32px;
+      height: 32px;
+    }
+
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .member-image {
+      height: 240px;
+    }
+
+    .member-info {
+      padding: 0.75rem;
+    }
+
+    .member-name {
+      font-size: 0.95rem;
+    }
+
+    .member-social {
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .social-link {
+      width: 30px;
+      height: 30px;
+    }
+
+    .social-link svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 </style>

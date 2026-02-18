@@ -91,12 +91,12 @@
   }
 
   .contact-question {
-    font-size: 1.8rem;
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
     font-weight: 500;
     color: white;
     letter-spacing: 1px;
     margin: 0;
-      white-space: nowrap;
+    text-align: center;
   }
 
   .contact-button {
@@ -107,7 +107,7 @@
     text-decoration: none;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 2vw, 1rem);
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-transform: uppercase;
@@ -213,7 +213,7 @@
     .footer-top {
       grid-template-columns: 1fr;
       text-align: center;
-      padding: 0 2rem 2rem;
+      padding: 0 1.5rem 2rem;
       gap: 2rem;
     }
 
@@ -221,8 +221,19 @@
       align-items: center;
     }
 
+    .contact-question {
+      font-size: 1.1rem;
+    }
+
+    .contact-button {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
     .footer-social {
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .footer-logo {
@@ -230,7 +241,7 @@
     }
 
     .footer-title {
-      font-size: 1.4rem;
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
     }
 
     .footer-map {
@@ -242,12 +253,43 @@
     }
 
     .footer-bottom {
-      padding: 2rem 2rem 1rem;
+      padding: 2rem 1rem 1rem;
+      font-size: 0.8rem;
     }
 
     .social-icon {
       width: 44px;
       height: 44px;
+    }
+
+    .social-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-top {
+      padding: 0 1rem 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .contact-question {
+      font-size: 1rem;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .social-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .footer-logo {
+      height: 50px;
     }
   }
 </style>
