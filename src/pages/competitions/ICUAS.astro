@@ -2,7 +2,21 @@
 import Layout from '../../layouts/Layout.astro';
 import Video from '../../components/Video.astro';
 import Image from '../../components/Image.astro';
+import Carousel from '../../components/Carousel.astro';
 import '../../styles/global.css';
+
+
+const icuas22 = [
+  { type: 'video', src: 'https://player.vimeo.com/video/776655431?h=50f0409088' },
+  { type: 'image', src: '/icuas22/icuas22_1.png' },
+]
+const icuas23 = [
+  { type: 'image', src: '/icuas23/icuas23_2.png'},
+  { type: 'image', src: '/icuas23/icuas23_4.png'},
+  { type: 'image', src: '/icuas23/icuas23_3.jpeg'},
+  { type: 'image', src: '/icuas23/icuas23_1.png'},
+
+];
 ---
 <Layout title="International Conference on Unmanned Aircraft Systems (ICUAS)" logoImage="/icuas.png" showJoin={false} heroImage="/icuas23.jpeg"> 
 <section id="2024">
@@ -32,11 +46,8 @@ the highest score in the virtual phase, the team won first prize in the live fin
 More details about the competition are available at: <a href=" https://uasconferences.com/2023_icuas/uav-competition-final-results/" target="_blank" rel="noopener noreferrer">ICUAS 2023 Official Website</a>
   </p>
 </section>
-<Image 
-  imageUrl="/icuas23.jpeg"
-  alt="ICUAS 2023"
-  title="ICUAS 2023"
-/>
+<Carousel items={icuas23} />
+
 <section id="2022">
 <h2>ICUAS 2022</h2>
   <p>
@@ -49,9 +60,7 @@ were successfully completed, with three precise deployments of the extinguishing
   <p>
     More details about the competition are available at: <a href="https://www.uasconferences.com/2022_icuas/winners-of-the-uav-competition/ " target="_blank" rel="noopener noreferrer">ICUAS 2022 Official Website</a>
   </p>
-<Video 
-  videoUrl="https://player.vimeo.com/video/776655431?h=50f0409088"
-/>
+<Carousel items={icuas22} />
 
 </section>
 

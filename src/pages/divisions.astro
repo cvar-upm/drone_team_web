@@ -4,57 +4,68 @@ import SideSection from '../components/SideSection.astro';
 import '../styles/global.css';
 ---
 <Layout title="Divisions" subtitle="" showJoin={false} heroImage="/fondo.jpeg">
-  <section id="vision">
+  <section id="perception">
     <SideSection
-      image="/fondo.jpeg"
-      title="Vision"
-      description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
-Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
-augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. 
-`}
+      image="/divisions/perception.png"
+      title="Perception"
+      description={`Perception is responsible for enabling the drone to understand both its internal state and its surrounding environment using onboard sensors. Through RGB cameras, inertial
+       measurement units (IMUs), depth or event cameras, LiDAR, and GPS, the system estimates its position, velocity, and orientation, while also detecting relevant elements in the environment 
+       such as obstacles or gates. This process typically fuses visual and inertial information to achieve robust state estimation, even during fast and aggressive maneuvers. 
+
+      In high-speed flight, perception becomes particularly challenging. Motion blur, lighting variations, vibrations, and limited onboard computational resources all affect measurement quality.
+      Small estimation errors can quickly accumulate and degrade planning and control performance. For this reason, perception must operate reliably at high frequency and under highly dynamic conditions. 
+      It forms the foundation of the autonomy stack: without accurate and timely perception, even the most advanced planning and control algorithms cannot perform effectively. `}
       reverse={false}
     />
   </section>
 
   <section id="control&trajectory">
     <SideSection
-      image="/fondo.jpeg"
+      image="/divisions/control.png"
       title="Control & Trajectory Generation"
-      description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
-Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
-augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. 
-`}
+      description={`Trajectory generation is responsible for computing the sequence of states the drone should follow to reach its objective. This includes defining where the drone should be, how fast it 
+      should move, and how it should orient itself over time. The trajectory must be dynamically feasible, meaning it respects the physical limits of the platform and the constraints of the environment 
+      (for example, passing through gates or avoiding obstacles). In agile flight scenarios, trajectory generation often aims to optimize a performance metric such as minimum time, while ensuring the motion remains physically executable. 
+
+      Control, on the other hand, is responsible for executing that trajectory on the real system. It continuously compares the drone’s current state with the desired reference and computes the actuation commands 
+      required to reduce the tracking error. Since quadrotors are highly nonlinear and operate close to their dynamic limits in aggressive flight, the controller must react quickly to disturbances, modeling 
+      inaccuracies, and estimation errors. In short, trajectory generation defines what the drone should do, and control determines how to actuate the system to make it happen in real time. `}
       reverse={true}
     />
   </section>
 
   <section id="localization">
     <SideSection
-      image="/fondo.jpeg"
+      image="/divisions/localization.png"
       title="Localization"
-      description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
-Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
-augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet massa vel diam gravida sodales eu in ante. 
-`}
+      description={`Localization is responsible for determining the drone’s position and orientation within a known reference frame. While perception provides raw sensor measurements and detects elements in the environment, 
+      localization focuses specifically on estimating the drone’s pose with respect to a map, a set of landmarks, or a global coordinate system. This can be achieved using visual-inertial odometry, GPS when available, 
+      LiDAR-based methods, or by matching sensor observations to previously known features such as gates or markers. 
+
+      In agile and high-speed flight, localization must be both accurate and low-latency. Estimation drift, sensor noise, or temporary loss of visual features can quickly lead to significant pose errors, which directly affect
+      planning and control. For this reason, modern localization systems often fuse multiple sensor modalities and continuously correct drift using known landmarks or prior maps. Reliable localization is essential for
+      consistent trajectory tracking and for operating safely in structured or GPS-denied environments. `}
       reverse={false}
     />
   </section>
   </section>
   <section id="navigation&planning">
     <SideSection
-      image="/fondo.jpeg"
+      image="/divisions/navigation.png"
       title="Planning & Navigation"
-      description={` The navigation system allows a drone to move autonomously from one point to another while avoiding obstacles in its path. It uses onboard sensors, such as LiDAR and depth cameras,
-   to perceive its surroundings and generate collision-free paths in real time. Navigation can be performed in two ways: either through pre-planned missions where the drone is given a sequence of
-    waypoints to fly through automatically, or through interactive navigation where a human operator selects a destination on a map and the drone computes a safe route on its own. In both cases, 
-    the system continuously checks that the requested  destination is reachable and within valid bounds before the drone begins moving. The goal is to enable autonomous aerial inspection in environments
-     where manual piloting would be impractical or unsafe. `}
+      description={` The navigation system allows a drone to move autonomously from one point to another while avoiding obstacles in its path. It uses onboard sensors, such as LiDAR and depth cameras, to perceive its surroundings 
+      and generate collision-free paths in real time. Path planning algorithms, ranging from graph-based methods like A* to sampling-based approaches like RRT, 
+      compute optimal or feasible trajectories through the environment by searching over a configuration space that accounts for both geometry and dynamic constraints. Navigation can be performed in two ways: either through 
+      pre-planned missions where the drone is given a sequence of waypoints to fly through automatically, or through interactive navigation where a human operator 
+      selects a destination on a map and the drone computes a safe route on its own. In both cases, the system continuously checks that the requested destination is reachable and within valid bounds before the drone begins moving, 
+      and a replanning mechanism allows the drone to recover from unexpected changes in the environment mid-flight. The goal is to enable autonomous aerial 
+      inspection in environments where manual piloting would be impractical or unsafe. `}
       reverse={true}
     />
   </section>
   <section id="hardware&firmware">
     <SideSection
-      image="/hardware.png"
+      image="/divisions/hardware.png"
       title="Hardware & Firmware"
       description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
 Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
@@ -65,7 +76,7 @@ augue hendrerit vulputate. Sed iaculis euismod dolor quis cursus. Nulla sit amet
   </section>
   <section id="simulation">
     <SideSection
-      image="/simulation.png"
+      image="/divisions/simulation.png"
       title="Simulation"
       description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod auctor ligula, at placerat sem rhoncus quis. Nulla facilisi. Donec id lectus nulla. Praesent ut pulvinar sem.
 Proin eu lacus sit amet mauris finibus suscipit eu quis mi. Quisque sollicitudin massa eu venenatis viverra. Etiam sit amet felis non leo laoreet porttitor eget eget enim. Proin eu urna sit amet 
