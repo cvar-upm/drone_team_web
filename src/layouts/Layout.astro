@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 const { title } = Astro.props;
 const { subtitle } = Astro.props;
 const { showJoin = false } = Astro.props;
+const { joinLink = `${import.meta.env.BASE_URL}/contact` } = Astro.props;
 const { heroImage } = Astro.props; 
 const { logoImage } = Astro.props;
 ---
@@ -32,7 +33,7 @@ const { logoImage } = Astro.props;
           />
         )}
         {showJoin && (
-          <a href={`${import.meta.env.BASE_URL}/contact`} class="btn-join-us">
+          <a href={joinLink} class="btn-join-us">
             JOIN US
           </a>
         )}

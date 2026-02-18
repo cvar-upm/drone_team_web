@@ -4,7 +4,18 @@ import SideSection from '../components/SideSection.astro';
 import '../styles/global.css';
 ---
 <Layout title="Divisions" subtitle="" showJoin={false} heroImage="/divisions/hardware.png">
-
+  <section id="aerostack2">
+    <SideSection
+      image="/divisions/aerostack2.png"
+      title="Open Source Aerial Robotics Framework"
+      description={` <a href="https://aerostack2.github.io/#" target="_blank" rel="noopener noreferrer">Aerostack2</a>  is an open-source software framework designed for developing autonomous aerial robotic systems on ROS 2.
+       Its modular, plugin based architecture allows for the seamless integration of heterogeneous components, including perception algorithms, 
+       motion controllers, state estimation, mapping, and planning modules. The framework supports configurations ranging from teleoperation to 
+       fully autonomous missions and single-robot and multi-robot (swarm) systems. Aerostack2 is hardware independent and has been validated in 
+       both simulations and real world applications. It enables the flexible, scalable, and efficient development of complex aerial robotics applications. `}
+      reverse={false}
+    />
+  </section>
   <section id="navigation&planning">
     <SideSection
       image="/divisions/navigation.png"

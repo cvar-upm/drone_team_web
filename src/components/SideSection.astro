@@ -16,7 +16,7 @@ const { image, title, description, reverse = false, url } = Astro.props;
           ) : (
             <h2 class="side-section-title">{title}</h2>
           )}
-          <p>{description}</p>
+          <p class="description" set:html={description}></p>
         </div>
       </>
     ) : (
@@ -27,7 +27,7 @@ const { image, title, description, reverse = false, url } = Astro.props;
           ) : (
             <h2 class="side-section-title">{title}</h2>
           )}
-          <p>{description}</p>
+          <p class="description" set:html={description}></p>
         </div>
         <div class="split-image">
           <img src={`${import.meta.env.BASE_URL}${image}`} alt={title} />
