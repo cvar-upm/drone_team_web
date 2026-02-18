@@ -27,19 +27,29 @@ const { members, offset = false } = Astro.props;
   }
 
   .team-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2.5rem;
     width: 100%;
     max-width: 1400px;
     padding: 0 2rem;
   }
 
+  .team-row > :global(*) {
+    flex: 0 0 280px;
+    max-width: 280px;
+  }
+
   @media (max-width: 768px) {
     .team-row {
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1.5rem;
       padding: 0 1rem;
+    }
+
+    .team-row > :global(*) {
+      flex: 0 0 240px;
+      max-width: 240px;
     }
   }
 </style>
