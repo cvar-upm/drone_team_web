@@ -234,16 +234,17 @@
 
   .main-nav {
     position: fixed;
-    top: 100px;
+    top: 0;
     left: -100%;
     width: 80%;
     max-width: 300px;
-    height: calc(100vh - 100px);
+    height: 100vh;
     background: rgba(255, 255, 255, 0.98);
     transition: left 0.3s ease;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
     z-index: 999;
+    padding-top: 1rem;
   }
 
   .main-nav.active {
