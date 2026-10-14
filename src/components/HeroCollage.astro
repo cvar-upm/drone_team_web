@@ -1,9 +1,10 @@
 ---
-// Fixed four-frame photo collage. Each frame slowly crossfades through its own photos: the incoming
-// photo starts slightly zoomed and offset and settles into place, the outgoing one fades and drifts.
-// Frames change one at a time (diagonal order), so the motion moves calmly around the collage.
-// Without JS (or with "reduce motion") it shows the first photo of each frame.
+// Four-slot photo collage. Each slot slowly crossfades through its own photos. Every photo keeps
+// its own aspect ratio (no cropping or zooming of the image itself); only the card fades and drifts.
+// Slots change one at a time (top-left, bottom-right, top-right, bottom-left).
+// Without JS (or with "reduce motion") it shows the first photo of each slot.
 import AssetImage from './AssetImage.astro';
+import { resolveImage } from '../lib/images';
 
 interface Photo {
   src: string;
@@ -11,82 +12,104 @@ interface Photo {
 }
 
 interface Props {
-  /** Photos for each frame, in this order: top-left (wide), top-right, bottom-left, bottom-right (wide) */
-  frames: [Photo[], Photo[], Photo[], Photo[]];
-  /** Milliseconds each photo stays in its frame */
+  /** Photos for each slot, in this order: top-left, top-right, bottom-left, bottom-right */
+  slots: [Photo[], Photo[], Photo[], Photo[]];
+  /** Milliseconds each photo stays in its slot */
   interval?: number;
   class?: string;
 }
 
-const { frames, interval = 8000, class: className } = Astro.props;
+const { slots, interval = 8000, class: className } = Astro.props;
 
-// Layout as % of the 4:3 container. Wide frames are 2:1, the others 4:3; even gaps, no overlap.
-const layout = [
-  { top: 6, left: 0, width: 58, wide: true },
-  { top: 0, left: 62, width: 38, wide: false },
-  { top: 51, left: 4, width: 36, wide: false },
-  { top: 46, left: 44, width: 56, wide: true },
+// Each slot: width within its column, horizontal alignment, and which edge its cards hug
+// (top-row cards sit on their bottom edge and bottom-row cards on their top edge, so the gap
+// between the rows stays the same whatever the photo shapes)
+const slotStyle = [
+  { width: 'w-full', align: 'self-start', items: 'items-end' }, // top-left
+  { width: 'w-[86%]', align: 'self-start', items: 'items-end' }, // top-right
+  { width: 'w-[74%]', align: 'self-end', items: 'items-start' }, // bottom-left
+  { width: 'w-full', align: 'self-start', items: 'items-start' }, // bottom-right
 ];
-// Position of each frame in the change sequence: top-left, then bottom-right, top-right, bottom-left
+// Position of each slot in the change sequence: top-left, then bottom-right, top-right, bottom-left
 const order = [0, 2, 3, 1];
-// Direction each photo drifts from/to, varied per photo so changes don't all move the same way
-const drifts = ['10px, 0px', '0px, 10px', '-10px, 0px', '0px, -10px'];
+// Direction each card drifts from/to, varied per photo so changes don't all move the same way
+const drifts = ['12px, 0px', '0px, 12px', '-12px, 0px', '0px, -12px'];
+
+const ratio = (src: string) => {
+  const { width, height } = resolveImage(src);
+  return `${width} / ${height}`;
+};
+
+const renderSlot = (f: number) => ({ photos: slots[f], style: slotStyle[f], f });
+const columns = [
+  [renderSlot(0), renderSlot(2)],
+  [renderSlot(1), renderSlot(3)],
+];
 ---
-<div class:list={['hero-collage relative aspect-4/3 w-full', className]} data-interval={interval}>
-  {frames.map((photos, f) => {
-    const slot = layout[f];
-    return (
-      <div
-        class="collage-frame absolute overflow-hidden rounded-box bg-base-200 shadow-xl ring-4 ring-base-100"
-        style={`top:${slot.top}%;left:${slot.left}%;width:${slot.width}%;aspect-ratio:${slot.wide ? '2 / 1' : '4 / 3'};animation-delay:-${f * 2.3}s`}
-        data-offset={order[f] * (interval / 4)}
-      >
-        {photos.map((photo, i) => (
+<div class:list={['hero-collage grid grid-cols-[11fr_9fr] gap-x-4 sm:gap-x-6', className]} data-interval={interval}>
+  {columns.map((column, c) => (
+    <div class:list={['flex flex-col gap-y-6 sm:gap-y-10', c === 1 && 'pt-8 sm:pt-12']}>
+      {column.map(({ photos, style, f }) => (
+        <div class:list={['collage-enter', style.width, style.align]} style={`animation-delay:${150 + f * 180}ms`}>
           <div
-            class="collage-photo absolute inset-0"
-            style={`--drift:${drifts[(f + i) % drifts.length]}`}
-            data-slide
-            data-active={i === 0 ? '' : undefined}
-            aria-hidden={i === 0 ? undefined : 'true'}
+            class:list={['collage-slot grid', style.items]}
+            style={`animation-delay:-${f * 2.3}s`}
+            data-offset={order[f] * (interval / 4)}
           >
-            <AssetImage
-              src={photo.src}
-              alt={photo.alt}
-              widths={slot.wide ? [480, 800, 1200] : [320, 640]}
-              sizes={slot.wide ? '(min-width: 1024px) 26rem, 58vw' : '(min-width: 1024px) 17rem, 38vw'}
-              loading={i === 0 ? 'eager' : 'lazy'}
-              class="h-full w-full object-cover object-[center_35%]"
-            />
+            {photos.map((photo, i) => (
+              <div
+                class="collage-card col-start-1 row-start-1 w-full overflow-hidden rounded-box bg-base-200 shadow-xl ring-4 ring-base-100"
+                style={`aspect-ratio:${ratio(photo.src)};--drift:${drifts[(f + i) % drifts.length]}`}
+                data-card
+                data-active={i === 0 ? '' : undefined}
+                aria-hidden={i === 0 ? undefined : 'true'}
+              >
+                <AssetImage
+                  src={photo.src}
+                  alt={photo.alt}
+                  widths={[400, 800, 1200]}
+                  sizes="(min-width: 1024px) 24rem, 50vw"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    );
-  })}
+        </div>
+      ))}
+    </div>
+  ))}
 </div>
 
 <style>
-  /* Inactive: transparent, zoomed 5% and offset. Active: in place. The settle (zoom + drift) is
-     slower than the fade, which gives the calm "photo coming to rest" feeling. */
-  .collage-photo {
+  /* Photo changes: the whole card fades and drifts; the image inside is never cropped or zoomed */
+  .collage-card {
     opacity: 0;
-    scale: 1.05;
     translate: var(--drift);
     transition:
       opacity 2.5s cubic-bezier(0.45, 0, 0.55, 1),
-      scale 5s cubic-bezier(0.25, 0.1, 0.25, 1),
-      translate 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+      translate 4s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
-  .collage-photo[data-active] {
+  .collage-card[data-active] {
     z-index: 1;
     opacity: 1;
-    scale: 1;
     translate: 0 0;
   }
 
-  /* Each frame floats very slowly, out of phase with the others */
   @media (prefers-reduced-motion: no-preference) {
-    .collage-frame {
+    /* First appearance: each slot fades in and rises softly, one after another */
+    .collage-enter {
+      animation: collage-enter 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+    /* Each slot floats very slowly, out of phase with the others */
+    .collage-slot {
       animation: collage-float 9s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes collage-enter {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
     }
   }
   @keyframes collage-float {
@@ -108,27 +131,27 @@ const drifts = ['10px, 0px', '0px, 10px', '-10px, 0px', '0px, -10px'];
       // Load the other photos now so they are ready when their turn comes
       collage.querySelectorAll('img').forEach((img) => (img.loading = 'eager'));
 
-      collage.querySelectorAll<HTMLElement>('.collage-frame').forEach((frame) => {
-        const slides = [...frame.querySelectorAll<HTMLElement>('[data-slide]')];
-        if (slides.length < 2) return;
+      collage.querySelectorAll<HTMLElement>('.collage-slot').forEach((slot) => {
+        const cards = [...slot.querySelectorAll<HTMLElement>('[data-card]')];
+        if (cards.length < 2) return;
         let current = 0;
 
         const next = () => {
           if (document.hidden) return;
-          const upcoming = (current + 1) % slides.length;
-          if (!slides[upcoming].querySelector('img')?.complete) return; // not loaded yet: wait a cycle
-          slides[current].removeAttribute('data-active');
-          slides[current].setAttribute('aria-hidden', 'true');
-          slides[upcoming].setAttribute('data-active', '');
-          slides[upcoming].removeAttribute('aria-hidden');
+          const upcoming = (current + 1) % cards.length;
+          if (!cards[upcoming].querySelector('img')?.complete) return; // not loaded yet: wait a cycle
+          cards[current].removeAttribute('data-active');
+          cards[current].setAttribute('aria-hidden', 'true');
+          cards[upcoming].setAttribute('data-active', '');
+          cards[upcoming].removeAttribute('aria-hidden');
           current = upcoming;
         };
 
-        // Stagger the frames so only one changes at a time
+        // Stagger the slots so only one changes at a time
         const start = window.setTimeout(() => {
           next();
           timers.push(window.setInterval(next, interval));
-        }, interval / 2 + Number(frame.dataset.offset));
+        }, interval / 2 + Number(slot.dataset.offset));
         timers.push(start);
       });
     });

@@ -14,9 +14,9 @@ const aerostack2 = divisions.find((d) => d.id === 'aerostack2')!;
 
 type Photo = { src: string; alt: string };
 
-// Hero collage: four fixed frames, each slowly rotating through its own project photos.
-// Order: top-left (wide), top-right, bottom-left, bottom-right (wide). The first photo of each is shown on load.
-const heroFrames: [Photo[], Photo[], Photo[], Photo[]] = [
+// Hero collage: four slots, each slowly rotating through its own project photos (shown uncropped).
+// Order: top-left, top-right, bottom-left, bottom-right. The first photo of each is shown on load.
+const heroSlots: [Photo[], Photo[], Photo[], Photo[]] = [
   [
     { src: '/members/team.jpeg', alt: 'The CVAR-UPM Drone Team' },
     { src: '/mbzirc/mbzirc.png', alt: 'Finalists at MBZIRC 2020' },
@@ -71,10 +71,8 @@ const heroFrames: [Photo[], Photo[], Photo[], Photo[]] = [
         </div>
       </div>
 
-      <!-- Photo collage: fixed frames that slowly change photos -->
-      <div class="motion-safe:animate-fade-in motion-safe:[animation-delay:150ms]">
-        <HeroCollage frames={heroFrames} />
-      </div>
+      <!-- Photo collage: four slots that slowly change photos (each photo keeps its own shape) -->
+      <HeroCollage slots={heroSlots} />
     </div>
   </section>
 
