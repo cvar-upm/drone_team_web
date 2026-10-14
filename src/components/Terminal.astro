@@ -1,0 +1,45 @@
+---
+// Terminal-style panel whose lines type themselves out when it scrolls into view.
+interface Props {
+  title?: string;
+  lines: { text: string; command?: boolean }[];
+}
+
+const { title = 'bash', lines } = Astro.props;
+---
+<div class="terminal-panel overflow-hidden rounded-box border border-white/10 bg-[#0b1220] text-left shadow-2xl">
+  <div class="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+    <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
+    <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
+    <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
+    <span class="ml-2 text-xs text-white/50">{title}</span>
+  </div>
+  <div class="overflow-x-auto p-5 font-mono text-[13px] leading-7 md:text-sm">
+    {lines.map((line, i) => (
+      <div class:list={['type-line w-fit max-w-full', line.command ? 'text-white' : 'text-white/55']} style={`--type-delay: ${i * 0.9}s`}>
+        {line.command && <span class="text-secondary select-none">$ </span>}{line.text}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const panels = document.querySelectorAll<HTMLElement>('.terminal-panel');
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-typing');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.4 },
+    );
+    panels.forEach((panel) => {
+      panel.classList.add('will-type');
+      observer.observe(panel);
+    });
+  });
+</script>

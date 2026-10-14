@@ -1,0 +1,54 @@
+---
+// Shows the video thumbnail with a play button and only loads the Vimeo player when clicked.
+import AssetImage from './AssetImage.astro';
+
+interface Props {
+  id: string;
+  /** Privacy hash for unlisted videos (the "h" parameter) */
+  hash?: string;
+  title: string;
+  /** Local image used if the Vimeo thumbnail can't be fetched at build time */
+  fallbackPoster: string;
+}
+
+const { id, hash, title, fallbackPoster } = Astro.props;
+const pageUrl = `https://vimeo.com/${id}${hash ? `/${hash}` : ''}`;
+const playerUrl = `https://player.vimeo.com/video/${id}?${hash ? `h=${hash}&` : ''}autoplay=1`;
+
+let poster: string | undefined;
+try {
+  const res = await fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(pageUrl)}&width=1280`);
+  if (res.ok) poster = (await res.json()).thumbnail_url;
+} catch {
+  // Offline build: use the local fallback image
+}
+---
+<div class="lite-vimeo not-prose relative aspect-video overflow-hidden rounded-box bg-black shadow-lg" data-player={playerUrl} data-title={title}>
+  <button type="button" class="group absolute inset-0 h-full w-full cursor-pointer" aria-label={`Play video: ${title}`}>
+    {poster ? (
+      <img src={poster} alt="" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+    ) : (
+      <AssetImage src={fallbackPoster} alt="" widths={[640, 1024, 1600]} sizes="(min-width: 1024px) 64rem, 100vw" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+    )}
+    <span class="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent"></span>
+    <span class="absolute top-1/2 left-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-primary shadow-xl transition group-hover:scale-110 md:h-20 md:w-20">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="ml-1 h-7 w-7 md:h-8 md:w-8" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+    </span>
+    <span class="absolute bottom-4 left-4 text-left text-sm font-medium text-white md:bottom-6 md:left-6 md:text-base">{title}</span>
+  </button>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('.lite-vimeo').forEach((container) => {
+      container.querySelector('button')?.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = container.dataset.player!;
+        iframe.title = container.dataset.title ?? 'Video';
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write';
+        iframe.className = 'absolute inset-0 h-full w-full border-0';
+        container.replaceChildren(iframe);
+      });
+    });
+  });
+</script>
