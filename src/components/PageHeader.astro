@@ -15,7 +15,7 @@ interface Props {
 const { title, intro, breadcrumbs } = Astro.props;
 ---
 <header class="border-b border-base-300 bg-base-200">
-  <div class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+  <div class="mx-auto max-w-6xl px-4 py-8 md:py-14">
     <nav aria-label="Breadcrumb" class="breadcrumbs mb-3 p-0 text-sm text-base-content/60">
       <ul>
         {breadcrumbs.map((crumb) => (
@@ -24,6 +24,6 @@ const { title, intro, breadcrumbs } = Astro.props;
       </ul>
     </nav>
     <h1 class="text-3xl font-bold tracking-tight text-balance md:text-5xl">{title}</h1>
-    {intro && <p class="mt-4 max-w-2xl text-lg text-base-content/70">{intro}</p>}
+    {intro && <p class="mt-3 max-w-2xl text-base text-base-content/70 md:mt-4 md:text-lg">{intro}</p>}
   </div>
 </header>

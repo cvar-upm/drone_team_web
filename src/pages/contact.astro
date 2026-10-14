@@ -8,8 +8,8 @@ import { socialLinks, mapLink, mapEmbed, address, email, applyForm } from '../da
   intro="We are always looking for passionate, proactive and committed people who want to learn and build autonomous drones with us."
   description="Join the CVAR-UPM Drone Team: how to apply, contact us or visit us in Madrid."
 >
-  <div class="mx-auto grid max-w-6xl gap-12 px-4 py-14 md:py-20 lg:grid-cols-[1fr_24rem] lg:gap-16">
-    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:py-20 lg:grid-cols-[1fr_24rem] lg:gap-16">
+    <div class="prose max-w-none md:prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary">
       <h2>Apply here</h2>
       <p>
         If you're motivated by our mission, excited to push boundaries, and believe your skills and mindset align with our team, we'd love to hear from you!
@@ -26,13 +26,21 @@ import { socialLinks, mapLink, mapEmbed, address, email, applyForm } from '../da
         You are also welcome to visit us in person to learn more about our work, meet the team, and see our projects firsthand.
         We are located at the Centro de Automática y Robótica (CAR), which is part of the Universidad Politécnica de Madrid (UPM) and the Spanish National Research Council (CSIC).
       </p>
+      <iframe
+        src={mapEmbed}
+        title="Map: Centro de Automática y Robótica (UPM-CSIC)"
+        class="not-prose h-64 w-full rounded-box border border-base-300 lg:hidden"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
     </div>
 
-    <aside class="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+    <aside class="order-first flex flex-col gap-6 lg:sticky lg:top-24 lg:order-none lg:self-start">
       <div class="card border border-base-300 bg-base-100">
         <div class="card-body gap-5">
           <h2 class="card-title">Get in touch</h2>
-          <a href={applyForm} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Apply now</a>
+          <a href={applyForm} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg btn-block">Apply now</a>
 
           <div class="flex flex-col gap-1 text-sm">
             <span class="font-semibold">Email</span>
@@ -63,7 +71,7 @@ import { socialLinks, mapLink, mapEmbed, address, email, applyForm } from '../da
       <iframe
         src={mapEmbed}
         title="Map: Centro de Automática y Robótica (UPM-CSIC)"
-        class="h-64 w-full rounded-box border border-base-300"
+        class="hidden h-64 w-full rounded-box border border-base-300 lg:block"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allowfullscreen

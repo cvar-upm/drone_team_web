@@ -6,8 +6,8 @@ import { socialLinks, mapLink, address, email } from '../data/social';
 import { url } from '../lib/url';
 ---
 <footer class="border-t border-base-300 bg-base-200 text-sm">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
-    <div class="flex flex-col gap-3">
+  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-12 md:py-14 lg:grid-cols-4">
+    <div class="col-span-2 flex flex-col gap-3 lg:col-span-1">
       <a href={url('/')} class="flex items-center gap-3">
         <AssetImage src="/logo-cvar.png" alt="" widths={[96, 192]} sizes="40px" class="h-10 w-auto" />
         <span class="text-base font-bold">CVAR-UPM Drone Team</span>
@@ -24,7 +24,7 @@ import { url } from '../lib/url';
       </ul>
     </nav>
 
-    <address class="not-italic">
+    <address class="col-span-2 not-italic max-sm:order-last sm:col-span-1">
       <h2 class="mb-3 font-semibold">Visit us</h2>
       <a href={mapLink} target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 text-base-content/70 hover:text-primary">
         <span>{address.name}</span>
@@ -35,7 +35,7 @@ import { url } from '../lib/url';
 
     <div>
       <h2 class="mb-3 font-semibold">Follow us</h2>
-      <div class="flex flex-wrap gap-1">
+      <div class="-ml-2 flex flex-wrap">
         {socialLinks.map((link) => (
           <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="btn btn-circle btn-ghost btn-sm text-base-content/70 hover:text-primary">
             <Icon name={link.icon} class="h-4 w-4" />
