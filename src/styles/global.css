@@ -35,6 +35,13 @@
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
   --radius-box: 1rem;
+
+  /* Base daisyUI settings: without these, component borders fall back to 3px in the text colour */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
 }
 
 @theme {
@@ -117,15 +124,6 @@
   }
 }
 
-@keyframes draw-path {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 @keyframes header-scrolled {
   to {
     box-shadow: 0 4px 20px -8px rgb(15 23 42 / 0.18);
@@ -162,11 +160,6 @@
 @media (prefers-reduced-motion: no-preference) {
   .animate-grid-drift {
     animation: grid-drift 6s linear infinite;
-  }
-
-  .animate-draw {
-    stroke-dasharray: 1;
-    animation: draw-path 2.4s 0.4s cubic-bezier(0.6, 0, 0.3, 1) both;
   }
 
   /* Scroll-driven effects: browsers without support simply show everything static */
@@ -212,8 +205,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  .flight-marker {
-    display: none;
   }
 }
