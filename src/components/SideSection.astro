@@ -1,37 +1,25 @@
 ---
-const { image, title, description, reverse = false, url } = Astro.props;
----
+import AssetImage from './AssetImage.astro';
 
-<div class="breakout-wrapper">
-  <section class={`split-section ${reverse ? 'reverse' : ''}`}>
-    {!reverse ? (
-      <>
-        <div class="split-image">
-          <img src={`${import.meta.env.BASE_URL}${image}`} alt={title} />
-        </div>
-        <div class="split-content">
-          {url ? (
-            <h2  class="side-section-title"><a href={url}>{title}</a></h2>
-          ) : (
-            <h2 class="side-section-title">{title}</h2>
-          )}
-          <p class="description" set:html={description}></p>
-        </div>
-      </>
-    ) : (
-      <>
-        <div class="split-content" >
-          {url ? (
-            <h2 class="side-section-title"><a href={url}>{title}</a></h2>
-          ) : (
-            <h2 class="side-section-title">{title}</h2>
-          )}
-          <p class="description" set:html={description}></p>
-        </div>
-        <div class="split-image">
-          <img src={`${import.meta.env.BASE_URL}${image}`} alt={title} />
-        </div>
-      </>
-    )}
-  </section>
-</div>
+interface Props {
+  image: string;
+  title: string;
+  description: string;
+  url?: string;
+  reverse?: boolean;
+}
+
+const { image, title, description, url, reverse = false } = Astro.props;
+---
+<section class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 md:grid-cols-2 md:gap-12">
+  <div class:list={['overflow-hidden rounded-box', reverse && 'md:order-last']}>
+    <AssetImage src={image} alt={title} widths={[480, 800, 1200]} sizes="(min-width: 768px) 36rem, 100vw" class="h-64 w-full object-contain md:h-96" />
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <h2 class="text-3xl font-bold text-balance text-primary md:text-4xl">
+      {url ? <a href={url} class="hover:text-secondary">{title}</a> : title}
+    </h2>
+    <p class="text-base leading-relaxed text-base-content/80 md:text-lg [&_a]:link [&_a]:link-primary" set:html={description} />
+  </div>
+</section>

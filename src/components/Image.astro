@@ -1,14 +1,13 @@
 ---
-const { imageUrl, alt = "Image", title } = Astro.props;
----
+import AssetImage from './AssetImage.astro';
 
-<div style="padding: 0rem 0; background: var(--cvar-white);">
-  <div class="image-wrapper" style="max-width: 1200px; margin: 0 auto;">
-    <img
-      src={`${import.meta.env.BASE_URL}${imageUrl}`}
-      alt={alt}
-      title={title}
-      style="width: 100%; height: auto; display: block; border: 0;"
-    />
-  </div>
-</div>
+interface Props {
+  imageUrl: string;
+  alt?: string;
+}
+
+const { imageUrl, alt = '' } = Astro.props;
+---
+<figure class="not-prose mx-auto my-10 max-w-5xl px-4">
+  <AssetImage src={imageUrl} alt={alt} widths={[640, 1024, 1600]} sizes="(min-width: 1024px) 64rem, 100vw" class="h-auto w-full rounded-box" />
+</figure>

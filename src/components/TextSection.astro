@@ -1,0 +1,19 @@
+---
+// Long-form text block: headings, paragraphs and links inside get the shared type scale.
+interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id, class: className } = Astro.props;
+---
+<section
+  id={id}
+  class:list={[
+    'prose prose-lg mx-auto max-w-3xl px-4 pt-12',
+    'prose-headings:text-primary prose-headings:font-bold prose-a:text-primary prose-a:underline-offset-2 hover:prose-a:text-secondary',
+    className,
+  ]}
+>
+  <slot />
+</section>
