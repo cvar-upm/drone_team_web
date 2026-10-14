@@ -1,7 +1,7 @@
 ---
-// Scattered photo collage that slowly rearranges itself: photos fade in at free spots and, on
-// alternating beats, the oldest photo fades out where it is. Fades are long and overlap, so the
-// collage never waits for one photo to leave before another arrives.
+// Scattered photo collage that slowly rearranges itself. On alternating beats a photo fades in at a
+// free spot (at most one photo per zone of the area, so they stay spread out) or the oldest photo
+// fades out. Photos drift a few pixels while fading and float gently while visible.
 // Without JS (or with "reduce motion") it stays as a static collage of the first photos.
 import AssetImage from './AssetImage.astro';
 
@@ -21,116 +21,198 @@ interface Props {
 
 const { photos, interval = 2800, class: className } = Astro.props;
 
-// Spots as % of the container (which is 4:3). Wide spots are 2:1, the rest 4:3.
+// Candidate spots as % of the 4:3 container: 4:3 spots on a 3×3 grid (without top/bottom middle,
+// which would stack photos down the centre) plus 2:1 spots spanning two columns.
+// Heights follow from the aspect ratios (4:3 spot: h = w, 2:1 spot: h = w × 2/3).
+const STD = 30;
+const WIDE = 52;
 const spots = [
-  { top: 2, left: 0, width: 60, wide: true },
-  { top: 0, left: 63, width: 37, wide: false },
-  { top: 30, left: 34, width: 40, wide: false },
-  { top: 56, left: 2, width: 36, wide: false },
-  { top: 62, left: 44, width: 56, wide: true },
-  { top: 38, left: 70, width: 30, wide: false },
+  { left: 0, top: 1, width: STD, wide: false },
+  { left: 1, top: 35, width: STD, wide: false },
+  { left: 0, top: 69, width: STD, wide: false },
+  { left: 36, top: 37, width: STD, wide: false },
+  { left: 70, top: 1, width: STD, wide: false },
+  { left: 69, top: 35, width: STD, wide: false },
+  { left: 70, top: 69, width: STD, wide: false },
+  { left: 0, top: 3, width: WIDE, wide: true },
+  { left: 47, top: 1, width: WIDE, wide: true },
+  { left: 24, top: 33, width: WIDE, wide: true },
+  { left: 1, top: 63, width: WIDE, wide: true },
+  { left: 47, top: 64, width: WIDE, wide: true },
 ];
+const rect = (s: (typeof spots)[number]) => ({ x: s.left, y: s.top, w: s.width, h: s.wide ? s.width * (2 / 3) : s.width });
 
-// Start with the first wide photo and the first three standard photos on spots 0-3
-const firstWide = photos.findIndex((p) => p.wide);
-const standard = photos.map((p, i) => (p.wide ? -1 : i)).filter((i) => i >= 0);
+// Photos shown on load: first two wide photos (top-left, bottom-right) and first two standard
+// photos (top-right, bottom-left)
+const wideIdx = photos.flatMap((p, i) => (p.wide ? [i] : []));
+const stdIdx = photos.flatMap((p, i) => (p.wide ? [] : [i]));
+const spotAt = (wide: boolean, left: number, top: number) =>
+  spots.findIndex((s) => s.wide === wide && s.left === left && s.top === top);
 const initial = new Map<number, number>([
-  [firstWide, 0],
-  [standard[0], 1],
-  [standard[1], 2],
-  [standard[2], 3],
+  [wideIdx[0], spotAt(true, 0, 3)],
+  [wideIdx[1], spotAt(true, 47, 64)],
+  [stdIdx[0], spotAt(false, 70, 1)],
+  [stdIdx[1], spotAt(false, 0, 69)],
 ]);
 
-const spotStyle = (spot: (typeof spots)[number]) =>
-  `top:${spot.top}%;left:${spot.left}%;width:${spot.width}%;aspect-ratio:${spot.wide ? '2 / 1' : '4 / 3'}`;
+const spotStyle = (s: (typeof spots)[number]) =>
+  `top:${s.top}%;left:${s.left}%;width:${s.width}%;aspect-ratio:${s.wide ? '2 / 1' : '4 / 3'}`;
 ---
 <div
   class:list={['photo-scatter relative aspect-4/3 w-full', className]}
   data-interval={interval}
-  data-spots={JSON.stringify(spots)}
+  data-spots={JSON.stringify(spots.map((s) => ({ ...rect(s), wide: s.wide })))}
 >
   {photos.map((photo, i) => {
     const spot = initial.get(i);
     return (
       <div
-        class="absolute scale-[0.98] overflow-hidden rounded-box bg-base-200 opacity-0 shadow-xl ring-4 ring-base-100 transition-[opacity,scale] duration-[3000ms] ease-[cubic-bezier(0.45,0,0.55,1)] data-visible:scale-100 data-visible:opacity-100"
-        style={spot === undefined ? undefined : `${spotStyle(spots[spot])};z-index:${spot + 1}`}
+        class="scatter-photo absolute"
+        style={spot === undefined ? undefined : `${spotStyle(spots[spot])};z-index:${i + 1}`}
         data-photo
         data-wide={photo.wide ? '' : undefined}
         data-spot={spot}
         data-visible={spot === undefined ? undefined : ''}
         aria-hidden={spot === undefined ? 'true' : undefined}
       >
-        <AssetImage
-          src={photo.src}
-          alt={photo.alt}
-          widths={photo.wide ? [480, 800, 1200] : [320, 640]}
-          sizes={photo.wide ? '(min-width: 1024px) 26rem, 60vw' : '(min-width: 1024px) 18rem, 45vw'}
-          loading={spot === undefined ? 'lazy' : 'eager'}
-          class="h-full w-full object-cover object-[center_35%]"
-        />
+        <div class="scatter-float h-full w-full overflow-hidden rounded-box bg-base-200 shadow-xl ring-4 ring-base-100" style={`animation-delay:-${(i * 1.7) % 9}s`}>
+          <AssetImage
+            src={photo.src}
+            alt={photo.alt}
+            widths={photo.wide ? [480, 800, 1200] : [320, 640]}
+            sizes={photo.wide ? '(min-width: 1024px) 24rem, 52vw' : '(min-width: 1024px) 14rem, 30vw'}
+            loading={spot === undefined ? 'lazy' : 'eager'}
+            class="h-full w-full object-cover object-[center_35%]"
+          />
+        </div>
       </div>
     );
   })}
 </div>
 
+<style>
+  /* Hidden: transparent, slightly smaller and offset by --dx/--dy. Visible: in place. */
+  .scatter-photo {
+    opacity: 0;
+    scale: 0.98;
+    translate: var(--dx, 0px) var(--dy, 12px);
+    transition-property: opacity, scale, translate;
+    transition-duration: 3s;
+    transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  .scatter-photo[data-visible] {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+
+  /* Very slow float while visible; each photo starts at a different point of the cycle */
+  @media (prefers-reduced-motion: no-preference) {
+    .scatter-float {
+      animation: scatter-float 9s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes scatter-float {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(3px, -4px);
+    }
+  }
+</style>
+
 <script>
-  type Spot = { top: number; left: number; width: number; wide: boolean };
+  type Rect = { x: number; y: number; w: number; h: number; wide: boolean };
   let timers: number[] = [];
+
+  const overlap = (a: Rect, b: Rect) => {
+    const ix = Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x));
+    const iy = Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+    return (ix * iy) / Math.min(a.w * a.h, b.w * b.h);
+  };
+  const centre = (r: Rect) => [r.x + r.w / 2, r.y + r.h / 2];
+  // Five zones (four corners + centre); at most one photo per zone keeps the collage spread out
+  const anchors = [
+    [22, 22],
+    [78, 22],
+    [22, 78],
+    [78, 78],
+    [50, 50],
+  ];
+  const zoneOf = (r: Rect) => {
+    const [cx, cy] = centre(r);
+    const d = anchors.map(([x, y]) => Math.hypot(cx - x, cy - y));
+    return d.indexOf(Math.min(...d));
+  };
+  // Random drift of ~14px used when fading in/out
+  const drift = () => {
+    const angle = Math.random() * Math.PI * 2;
+    return [Math.round(Math.cos(angle) * 14), Math.round(Math.sin(angle) * 14)];
+  };
 
   document.addEventListener('astro:page-load', () => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     document.querySelectorAll<HTMLElement>('.photo-scatter').forEach((container) => {
-      const spots: Spot[] = JSON.parse(container.dataset.spots!);
+      const spots: Rect[] = JSON.parse(container.dataset.spots!);
       const photos = [...container.querySelectorAll<HTMLElement>('[data-photo]')];
       const interval = Number(container.dataset.interval) || 2800;
-      const fadeTime = 3000; // keep in sync with duration-[3000ms] above
-      let z = spots.length + 1;
-      let appearNext = true;
-      // Spots still showing a fading-out photo, with the time they were vacated
-      const vacatedAt = new Map<number, number>();
+      const fadeTime = 3000; // keep in sync with the transition-duration above
+      let z = photos.length + 1;
+      // Spots still holding a fading-out photo: spot index -> time it was vacated
+      const fading = new Map<number, number>();
+      let lastVacatedZone = -1;
 
       // Load the hidden photos now so they are ready when their turn comes
       container.querySelectorAll('img').forEach((img) => (img.loading = 'eager'));
 
-      // Photos currently shown, oldest first
       const shown = photos.filter((p) => p.hasAttribute('data-visible'));
-      shown.sort((a, b) => Number(a.dataset.spot) - Number(b.dataset.spot));
-      // Hidden photos waiting for their turn, in order
       const queue = photos.filter((p) => !p.hasAttribute('data-visible'));
+      // Visible photos float between 3 and 4: start by removing one if 4 are showing
+      let appearNext = shown.length < 4;
 
-      // Fade a new photo in at a free spot (not one where a photo is still fading out)
       const appear = (): boolean => {
         const now = Date.now();
-        const taken = new Set(shown.map((p) => Number(p.dataset.spot)));
-        const free = spots
-          .map((_, i) => i)
-          .filter((i) => !taken.has(i) && now - (vacatedAt.get(i) ?? 0) > fadeTime);
+        fading.forEach((t, i) => now - t > fadeTime && fading.delete(i));
+        const occupied = [...shown.map((p) => spots[Number(p.dataset.spot)]), ...[...fading.keys()].map((i) => spots[i])];
+
+        // Free spots: in a zone with no photo (visible or still fading) and no real overlap
+        const busyZones = new Set(occupied.map(zoneOf));
+        let free = spots
+          .map((s, i) => ({ s, i }))
+          .filter(({ s }) => !busyZones.has(zoneOf(s)) && occupied.every((o) => overlap(s, o) < 0.1));
+        // Prefer a different zone from the one a photo last left
+        if (free.some(({ s }) => zoneOf(s) !== lastVacatedZone)) free = free.filter(({ s }) => zoneOf(s) !== lastVacatedZone);
+        // Keep one panoramic photo around: if none is showing, use a free wide spot first
+        const wideShown = shown.some((p) => p.hasAttribute('data-wide'));
+        if (!wideShown && free.some(({ s }) => s.wide)) free = free.filter(({ s }) => s.wide);
         if (!free.length) return false;
-        const spotIndex = free[Math.floor(Math.random() * free.length)];
-        const spot = spots[spotIndex];
 
-        const nextIndex = queue.findIndex(
-          (p) => p.hasAttribute('data-wide') === spot.wide && p.querySelector('img')?.complete,
-        );
-        if (nextIndex === -1) return false;
-        const [arriving] = queue.splice(nextIndex, 1);
-
-        arriving.style.cssText = `top:${spot.top}%;left:${spot.left}%;width:${spot.width}%;aspect-ratio:${spot.wide ? '2 / 1' : '4 / 3'};z-index:${z++}`;
-        arriving.dataset.spot = String(spotIndex);
-        arriving.removeAttribute('aria-hidden');
-        // Next frame, so the browser applies the new position before fading in
-        requestAnimationFrame(() => requestAnimationFrame(() => arriving.setAttribute('data-visible', '')));
-        shown.push(arriving);
-        return true;
+        for (const { s, i } of free.sort(() => Math.random() - 0.5)) {
+          const nextIndex = queue.findIndex((p) => p.hasAttribute('data-wide') === s.wide && p.querySelector('img')?.complete);
+          if (nextIndex === -1) continue;
+          const [arriving] = queue.splice(nextIndex, 1);
+          const [dx, dy] = drift();
+          arriving.style.cssText = `top:${s.y}%;left:${s.x}%;width:${s.w}%;aspect-ratio:${s.wide ? '2 / 1' : '4 / 3'};z-index:${z++};--dx:${dx}px;--dy:${dy}px`;
+          arriving.dataset.spot = String(i);
+          arriving.removeAttribute('aria-hidden');
+          // Next frame, so the browser applies the new position before fading in
+          requestAnimationFrame(() => requestAnimationFrame(() => arriving.setAttribute('data-visible', '')));
+          shown.push(arriving);
+          return true;
+        }
+        return false;
       };
 
-      // Fade the oldest photo out where it is
       const disappear = () => {
         if (shown.length <= 3) return;
         const leaving = shown.shift()!;
-        vacatedAt.set(Number(leaving.dataset.spot), Date.now());
+        fading.set(Number(leaving.dataset.spot), Date.now());
+        lastVacatedZone = zoneOf(spots[Number(leaving.dataset.spot)]);
+        const [dx, dy] = drift();
+        leaving.style.setProperty('--dx', `${dx}px`);
+        leaving.style.setProperty('--dy', `${dy}px`);
         leaving.removeAttribute('data-visible');
         leaving.setAttribute('aria-hidden', 'true');
         delete leaving.dataset.spot;
@@ -140,7 +222,7 @@ const spotStyle = (spot: (typeof spots)[number]) =>
       const tick = () => {
         if (document.hidden) return;
         if (appearNext) {
-          if (!appear()) return; // nothing ready yet: try again next beat
+          if (!appear()) return; // nothing fits or is ready yet: try again next beat
         } else {
           disappear();
         }
