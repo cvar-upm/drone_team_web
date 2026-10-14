@@ -21,9 +21,9 @@ const aerostack2 = divisions.find((d) => d.id === 'aerostack2')!;
           We are part of the Computer Vision and Aerial Robotics Group at UPM-CSIC, developing perception, state estimation,
           planning and control for autonomous drones, and putting them to the test in research projects and international competitions.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={url('/contact')} class="btn btn-primary">Join us</a>
-          <a href={url('/divisions')} class="btn btn-outline btn-primary">Our research</a>
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a href={url('/contact')} class="btn btn-primary btn-xl w-full px-12 shadow-md sm:w-auto">Join us</a>
+          <a href={url('/divisions')} class="btn btn-ghost btn-xl text-primary">Our research &rarr;</a>
         </div>
       </div>
       <AssetImage
@@ -32,7 +32,7 @@ const aerostack2 = divisions.find((d) => d.id === 'aerostack2')!;
         loading="eager"
         widths={[640, 960, 1280]}
         sizes="(min-width: 1024px) 36rem, 100vw"
-        class="aspect-4/3 w-full rounded-box object-cover shadow-sm"
+        class="h-auto w-full rounded-box object-contain shadow-sm"
       />
     </div>
   </section>

@@ -14,7 +14,7 @@ const isActive = (href: string) => {
   return href === '/' ? current === target : current === target || current.startsWith(`${target}/`);
 };
 const linkClass = (href: string) => [
-  'btn btn-ghost btn-sm font-medium',
+  'btn btn-ghost text-base font-medium',
   isActive(href) ? 'text-primary' : 'text-base-content/75 hover:text-primary',
 ];
 ---
@@ -49,7 +49,7 @@ const linkClass = (href: string) => [
         <a href={url(item.href)} class:list={linkClass(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
       )
     )}
-    <a href={url(joinLink.href)} class="btn btn-primary btn-sm ml-2">{joinLink.label}</a>
+    <a href={url(joinLink.href)} class="btn btn-primary btn-lg ml-3 px-8 shadow-sm">{joinLink.label}</a>
   </nav>
 ) : (
   <nav aria-label="Main" class="min-h-full w-80 max-w-[85vw] bg-base-100 p-4">
@@ -86,7 +86,7 @@ const linkClass = (href: string) => [
         )
       )}
     </ul>
-    <a href={url(joinLink.href)} class="btn btn-primary btn-block mt-4">{joinLink.label}</a>
+    <a href={url(joinLink.href)} class="btn btn-primary btn-lg btn-block mt-6">{joinLink.label}</a>
   </nav>
 )}
 
