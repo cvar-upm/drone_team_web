@@ -1,5 +1,6 @@
 ---
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHeader, { type Crumb } from '../components/PageHeader.astro';
@@ -36,6 +37,7 @@ const pageTitle = title.toUpperCase() === siteName.toUpperCase() ? siteName : `$
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" href={url('/logo-cvar.png')} />
     <Font cssVariable="--font-inter" preload />
+    <ClientRouter />
   </head>
   <body class="bg-base-100 text-base-content antialiased">
     <div class="flex min-h-screen flex-col">

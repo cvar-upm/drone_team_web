@@ -90,7 +90,9 @@ const isActive = (href: string) => {
 </div>
 
 <script>
-  // Close after following a link (same-page #anchors don't reload the page).
-  const menu = document.getElementById('mobile-menu');
-  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => menu.hidePopover()));
+  document.addEventListener('astro:page-load', () => {
+    // Close after following a link (same-page #anchors don't reload the page).
+    const menu = document.getElementById('mobile-menu');
+    menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => menu.hidePopover()));
+  });
 </script>

@@ -63,26 +63,28 @@ const { items } = Astro.props;
 </div>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.carousel-container').forEach((container) => {
-    const slides = container.querySelectorAll<HTMLElement>('.carousel-item');
-    const dots = container.querySelectorAll<HTMLElement>('.carousel-dot');
-    let current = 0;
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('.carousel-container').forEach((container) => {
+      const slides = container.querySelectorAll<HTMLElement>('.carousel-item');
+      const dots = container.querySelectorAll<HTMLElement>('.carousel-dot');
+      let current = 0;
 
-    function show(index: number) {
-      // Stop whatever was playing before switching slides
-      container.querySelectorAll('iframe').forEach((frame) => frame.contentWindow?.postMessage('{"method":"pause"}', '*'));
-      container.querySelectorAll('video').forEach((video) => video.pause());
+      function show(index: number) {
+        // Stop whatever was playing before switching slides
+        container.querySelectorAll('iframe').forEach((frame) => frame.contentWindow?.postMessage('{"method":"pause"}', '*'));
+        container.querySelectorAll('video').forEach((video) => video.pause());
 
-      slides.forEach((slide, i) => {
-        slide.toggleAttribute('data-active', i === index);
-        slide.setAttribute('aria-hidden', String(i !== index));
-      });
-      dots.forEach((dot, i) => dot.toggleAttribute('data-active', i === index));
-      current = index;
-    }
+        slides.forEach((slide, i) => {
+          slide.toggleAttribute('data-active', i === index);
+          slide.setAttribute('aria-hidden', String(i !== index));
+        });
+        dots.forEach((dot, i) => dot.toggleAttribute('data-active', i === index));
+        current = index;
+      }
 
-    container.querySelector('.carousel-prev')?.addEventListener('click', () => show((current - 1 + slides.length) % slides.length));
-    container.querySelector('.carousel-next')?.addEventListener('click', () => show((current + 1) % slides.length));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+      container.querySelector('.carousel-prev')?.addEventListener('click', () => show((current - 1 + slides.length) % slides.length));
+      container.querySelector('.carousel-next')?.addEventListener('click', () => show((current + 1) % slides.length));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+    });
   });
 </script>

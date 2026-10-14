@@ -39,6 +39,22 @@
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 1s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 @layer base {
@@ -54,5 +70,150 @@
   /* Leave room for the sticky header when jumping to #anchors */
   [id] {
     scroll-margin-top: 6rem;
+  }
+}
+
+/* ---------- Motion (all of it switches off with "reduce motion") ---------- */
+
+@layer components {
+  /* Faint blueprint dot grid, fading out towards the edges */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, color-mix(in oklab, var(--color-primary) 22%, transparent) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse at 60% 40%, black 30%, transparent 75%);
+  }
+
+  /* Moving grid for the blue call-to-action box */
+  .bg-line-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Typing effect for terminal lines: the script adds .will-type (hide) and later .is-typing (type) */
+  .type-line {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .will-type .type-line {
+    clip-path: inset(0 100% 0 0);
+  }
+  .will-type.is-typing .type-line {
+    animation: type-in 1s steps(40, end) forwards;
+    animation-delay: var(--type-delay, 0s);
+  }
+}
+
+@keyframes type-in {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes grid-drift {
+  to {
+    background-position: 40px 40px;
+  }
+}
+
+@keyframes draw-path {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes header-scrolled {
+  to {
+    box-shadow: 0 4px 20px -8px rgb(15 23 42 / 0.18);
+    background-color: color-mix(in oklab, var(--color-base-100) 97%, transparent);
+  }
+}
+
+@keyframes header-compact {
+  to {
+    min-height: 4rem;
+    padding-block: 0.25rem;
+  }
+}
+
+@keyframes parallax-up {
+  to {
+    transform: translateY(-3rem);
+  }
+}
+
+@keyframes parallax-down {
+  to {
+    transform: translateY(2rem);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-grid-drift {
+    animation: grid-drift 6s linear infinite;
+  }
+
+  .animate-draw {
+    stroke-dasharray: 1;
+    animation: draw-path 2.4s 0.4s cubic-bezier(0.6, 0, 0.3, 1) both;
+  }
+
+  /* Scroll-driven effects: browsers without support simply show everything static */
+  @supports (animation-timeline: view()) {
+    /* Fade elements up as they scroll into view. --stagger (0, 1, 2...) offsets items in a row. */
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--stagger, 0) * 6%) entry calc(45% + var(--stagger, 0) * 6%);
+    }
+
+    .site-header {
+      animation: header-scrolled linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 120px;
+    }
+
+    @media (width >= 48rem) {
+      .site-header .navbar {
+        animation: header-compact linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 120px;
+      }
+    }
+
+    .parallax-up,
+    .parallax-down {
+      animation: parallax-up linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 700px;
+    }
+    .parallax-down {
+      animation-name: parallax-down;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .flight-marker {
+    display: none;
   }
 }
