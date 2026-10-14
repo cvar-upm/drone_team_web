@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Row from '../components/Row.astro';
+import Section from '../components/Section.astro';
 
 const firstRow = [
   { 
@@ -85,13 +86,20 @@ const fifthRow = [
   },
 ];
 ---
-<Layout title="Members" description="Meet the CVAR-UPM Drone Team: active members, collaborators and former members." showJoin={true} heroImage="/members/team.jpeg">
-  <h2 class="mt-16 text-center text-3xl font-bold text-primary md:text-4xl">Active Members</h2>
-  <Row members={[...firstRow, ...secondRow]} />
+<Layout
+  title="Members"
+  intro="The researchers, students and collaborators behind the CVAR-UPM Drone Team."
+  description="Meet the CVAR-UPM Drone Team: active members, collaborators and former members."
+>
+  <Section title="Active members">
+    <Row members={[...firstRow, ...secondRow]} />
+  </Section>
 
-  <h2 class="mt-16 text-center text-3xl font-bold text-primary md:text-4xl">Collaborators</h2>
-  <Row members={[...thirdRow, ...fourthRow]} />
+  <Section title="Collaborators" tone="muted">
+    <Row members={[...thirdRow, ...fourthRow]} />
+  </Section>
 
-  <h2 class="mt-16 text-center text-3xl font-bold text-primary md:text-4xl">Former Members</h2>
-  <Row members={fifthRow} />
+  <Section title="Former members">
+    <Row members={fifthRow} />
+  </Section>
 </Layout>

@@ -4,34 +4,47 @@ import Icon from './Icon.astro';
 
 interface Props {
   name: string;
-  /** Photo in src/assets; members without one get the team logo. */
+  /** Photo in src/assets; members without one get their initials. */
   image?: string;
   github?: string;
   linkedin?: string;
 }
 
-const { name, image = '/logo-cvar.png', github, linkedin } = Astro.props;
-const isPlaceholder = image === '/logo-cvar.png';
+const { name, image, github, linkedin } = Astro.props;
+const initials = name
+  .split(/\s+/)
+  .slice(0, 2)
+  .map((part) => part[0])
+  .join('')
+  .toUpperCase();
 ---
-<article class="card h-full bg-base-100 shadow-md transition hover:-translate-y-1 hover:shadow-xl">
-  <figure class="aspect-square bg-base-200">
-    <AssetImage src={image} alt={name} widths={[320, 640]} sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 90vw" class:list={['h-full w-full', isPlaceholder ? 'object-contain p-12 opacity-60' : 'object-cover object-top']} />
-  </figure>
-  <div class="card-body items-center gap-3 p-5 text-center">
-    <h3 class="text-lg font-semibold leading-snug">{name}</h3>
-    {(github || linkedin) && (
-      <div class="flex gap-2">
-        {github && (
-          <a href={github} target="_blank" rel="noopener noreferrer" aria-label={`${name} on GitHub`} class="btn btn-circle btn-ghost btn-sm text-primary">
-            <Icon name="github" class="h-4 w-4" />
-          </a>
-        )}
-        {linkedin && (
-          <a href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name} on LinkedIn`} class="btn btn-circle btn-ghost btn-sm text-primary">
-            <Icon name="linkedin" class="h-4 w-4" />
-          </a>
-        )}
+<article class="flex flex-col items-center gap-3 text-center">
+  {image ? (
+    <div class="avatar">
+      <div class="w-28 rounded-full ring-1 ring-base-300 md:w-32">
+        <AssetImage src={image} alt={name} widths={[160, 320]} sizes="8rem" class="object-cover object-top" />
       </div>
-    )}
-  </div>
+    </div>
+  ) : (
+    <div class="avatar avatar-placeholder">
+      <div class="w-28 rounded-full bg-primary/10 text-primary md:w-32">
+        <span class="text-2xl font-semibold md:text-3xl" aria-hidden="true">{initials}</span>
+      </div>
+    </div>
+  )}
+  <h3 class="font-semibold leading-snug">{name}</h3>
+  {(github || linkedin) && (
+    <div class="-mt-1 flex gap-1">
+      {github && (
+        <a href={github} target="_blank" rel="noopener noreferrer" aria-label={`${name} on GitHub`} class="btn btn-circle btn-ghost btn-sm text-base-content/60 hover:text-primary">
+          <Icon name="github" class="h-4 w-4" />
+        </a>
+      )}
+      {linkedin && (
+        <a href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name} on LinkedIn`} class="btn btn-circle btn-ghost btn-sm text-base-content/60 hover:text-primary">
+          <Icon name="linkedin" class="h-4 w-4" />
+        </a>
+      )}
+    </div>
+  )}
 </article>
