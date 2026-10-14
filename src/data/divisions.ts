@@ -1,0 +1,89 @@
+export interface Division {
+  id: string;
+  title: string;
+  image: string;
+  /** One line for cards on the home page */
+  summary: string;
+  /** Paragraphs; may contain inline HTML links */
+  description: string[];
+}
+
+export const divisions: Division[] = [
+  {
+    id: "aerostack2",
+    title: "Open Source Aerial Robotics Framework",
+    image: "/divisions/aerostack2.png",
+    summary: "Our open-source ROS 2 framework for building single- and multi-drone autonomous systems.",
+    description: [
+      "<a href=\"https://aerostack2.github.io/#\" target=\"_blank\" rel=\"noopener noreferrer\">Aerostack2</a> is an open-source software framework designed for developing autonomous aerial robotic systems on ROS 2. Its modular, plugin based architecture allows for the seamless integration of heterogeneous components, including perception algorithms, motion controllers, state estimation, mapping, and planning modules. The framework supports configurations ranging from teleoperation to fully autonomous missions and single-robot and multi-robot (swarm) systems. Aerostack2 is hardware independent and has been validated in both simulations and real world applications. It enables the flexible, scalable, and efficient development of complex aerial robotics applications.",
+    ],
+  },
+  {
+    id: "navigation&planning",
+    title: "Planning & Navigation",
+    image: "/divisions/navigation.png",
+    summary: "Collision-free path planning and autonomous navigation using onboard sensors.",
+    description: [
+      "The navigation system allows a drone to move autonomously from one point to another while avoiding obstacles in its path. It uses onboard sensors, such as LiDAR and depth cameras, to perceive its surroundings and generate collision-free paths in real time. Path planning algorithms, ranging from graph-based methods like A* to sampling-based approaches like RRT, compute optimal or feasible trajectories through the environment by searching over a configuration space that accounts for both geometry and dynamic constraints. Navigation can be performed in two ways: either through pre-planned missions where the drone is given a sequence of waypoints to fly through automatically, or through interactive navigation where a human operator selects a destination on a map and the drone computes a safe route on its own. In both cases, the system continuously checks that the requested destination is reachable and within valid bounds before the drone begins moving, and a replanning mechanism allows the drone to recover from unexpected changes in the environment mid-flight. The goal is to enable autonomous aerial inspection in environments where manual piloting would be impractical or unsafe.",
+    ],
+  },
+  {
+    id: "control&trajectory",
+    title: "Control & Trajectory Generation",
+    image: "/divisions/control.png",
+    summary: "Dynamically feasible trajectories and fast controllers for agile, precise flight.",
+    description: [
+      "Trajectory generation is responsible for computing the sequence of states the drone should follow to reach its objective. This includes defining where the drone should be, how fast it should move, and how it should orient itself over time. The trajectory must be dynamically feasible, meaning it respects the physical limits of the platform and the constraints of the environment (for example, passing through gates or avoiding obstacles). In agile flight scenarios, trajectory generation often aims to optimize a performance metric such as minimum time, while ensuring the motion remains physically executable.",
+      "Control, on the other hand, is responsible for executing that trajectory on the real system. It continuously compares the drone’s current state with the desired reference and computes the actuation commands required to reduce the tracking error. Since quadrotors are highly nonlinear and operate close to their dynamic limits in aggressive flight, the controller must react quickly to disturbances, modeling inaccuracies, and estimation errors. In short, trajectory generation defines what the drone should do, and control determines how to actuate the system to make it happen in real time.",
+    ],
+  },
+  {
+    id: "localization",
+    title: "Localization",
+    image: "/divisions/localization.png",
+    summary: "Accurate, low-latency pose estimation by fusing visual, inertial, GPS and LiDAR data.",
+    description: [
+      "Localization is responsible for determining the drone’s position and orientation within a known reference frame. While perception provides raw sensor measurements and detects elements in the environment, localization focuses specifically on estimating the drone’s pose with respect to a map, a set of landmarks, or a global coordinate system. This can be achieved using visual-inertial odometry, GPS when available, LiDAR-based methods, or by matching sensor observations to previously known features such as gates or markers.",
+      "In agile and high-speed flight, localization must be both accurate and low-latency. Estimation drift, sensor noise, or temporary loss of visual features can quickly lead to significant pose errors, which directly affect planning and control. For this reason, modern localization systems often fuse multiple sensor modalities and continuously correct drift using known landmarks or prior maps. Reliable localization is essential for consistent trajectory tracking and for operating safely in structured or GPS-denied environments.",
+    ],
+  },
+  {
+    id: "perception",
+    title: "Perception",
+    image: "/divisions/perception.png",
+    summary: "Understanding the drone's own state and its surroundings from cameras, IMUs, LiDAR and GPS.",
+    description: [
+      "Perception is responsible for enabling the drone to understand both its internal state and its surrounding environment using onboard sensors. Through RGB cameras, inertial measurement units (IMUs), depth or event cameras, LiDAR, and GPS, the system estimates its position, velocity, and orientation, while also detecting relevant elements in the environment such as obstacles or gates. This process typically fuses visual and inertial information to achieve robust state estimation, even during fast and aggressive maneuvers.",
+      "In high-speed flight, perception becomes particularly challenging. Motion blur, lighting variations, vibrations, and limited onboard computational resources all affect measurement quality. Small estimation errors can quickly accumulate and degrade planning and control performance. For this reason, perception must operate reliably at high frequency and under highly dynamic conditions. It forms the foundation of the autonomy stack: without accurate and timely perception, even the most advanced planning and control algorithms cannot perform effectively.",
+    ],
+  },
+  {
+    id: "hardware&firmware",
+    title: "Hardware & Firmware",
+    image: "/divisions/hardware.png",
+    summary: "Integrating the sensors, onboard computers, propulsion and power that make a drone fly.",
+    description: [
+      "Hardware in a drone system refers to the physical components that enable sensing, computation, and actuation. This includes onboard sensors such as cameras and inertial measurement units (IMUs) for state estimation, electronic speed controllers (ESCs) to drive the motors, propulsion units (motors and propellers), the battery as the energy source, and the onboard computing unit. A critical aspect of hardware design is integration: sensors must be properly mounted and calibrated, vibrations must be minimized to avoid degrading inertial measurements, and communication between components must be reliable and low-latency. The overall hardware architecture directly affects performance, robustness, and the maximum achievable agility of the drone.",
+      "Firmware is the low-level software running on the flight controller that interfaces directly with the hardware. It reads raw sensor data, performs state estimation at high frequency, and executes the inner control loops that regulate attitude and angular rates. Firmware also handles real-time constraints, motor mixing, safety mechanisms, and communication with higher-level onboard computers. In practice, it acts as the bridge between high-level autonomy algorithms and the physical system, ensuring that computed control commands are translated into precise electrical signals driving the actuators. A well-designed firmware layer is essential for achieving stable and responsive flight, especially in high-performance or aggressive maneuvers",
+    ],
+  },
+  {
+    id: "simulation",
+    title: "Robotics Simulation",
+    image: "/divisions/simulation.png",
+    summary: "Physics-faithful simulation to design and validate algorithms before flying real hardware.",
+    description: [
+      "Simulation plays a fundamental role in the development of autonomous drones. It provides a safe and controllable environment where algorithms for perception, planning, and control can be designed, tested, and validated before deployment on real hardware. For simulation to be truly useful, it must faithfully reproduce the drone’s physics, including rigid-body dynamics, motor response, aerodynamic effects, actuator limits, and energy consumption. In high-performance flight, even small modeling inaccuracies can lead to significant discrepancies between simulated and real behavior.",
+      "Beyond dynamics, an effective simulator must also model sensors realistically. This includes camera models with field of view and distortion, IMU noise and bias, latency, motion blur, and in some cases even event-based sensing. Accurate sensor simulation is essential because many autonomy algorithms depend directly on these measurements. A high-fidelity simulator reduces the gap between simulation and reality, accelerates development cycles, enables large-scale testing, and is particularly critical for training data-driven methods, where millions of interactions may be required. In modern drone development, simulation is not just a convenience—it is a core engineering tool.",
+    ],
+  },
+  {
+    id: "swarming",
+    title: "Swarming",
+    image: "/divisions/swarm.png",
+    summary: "Algorithms that let multiple drones communicate, cooperate and fly as a collective.",
+    description: [
+      "Swarming is the coordinated behavior of multiple drones operating together as a collective. This field of study involves developing algorithms and strategies that allow unmanned aerial vehicles to communicate, collaborate, and move cohesively, thereby mimicking the swarm intelligence observed in nature. The goal is to achieve efficient formation control, distributed decision-making, and robust performance in complex environments. This ensures that the swarm can adapt dynamically to obstacles or changes in the mission.",
+    ],
+  },
+];

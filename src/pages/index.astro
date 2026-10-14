@@ -1,34 +1,129 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Section from '../components/Section.astro';
+import AssetImage from '../components/AssetImage.astro';
 import Video from '../components/Video.astro';
-import Image from '../components/Image.astro';
-import TextSection from '../components/TextSection.astro';
+import Icon from '../components/Icon.astro';
+import { divisions } from '../data/divisions';
+import { applyForm } from '../data/social';
+import { url } from '../lib/url';
 
+const aerostack2 = divisions.find((d) => d.id === 'aerostack2')!;
 ---
-<Layout title="CVAR-UPM DRONE TEAM" showJoin={true} logoImage="/aerostack2.svg" heroImage="/members/team.jpeg">
-<TextSection>
-  <h2>Who are we?</h2>
-    <p >
-      {`We are a passionate team of drone enthusiasts from the Computer Vision and Aerial Robotics Group. 
-      We are united by our commitment to technology, innovation, and high-performance flight. Our mission 
-      is to push the boundaries of autonomous drone systems by combining advanced perception, state estimation,
-        aerodynamics, and cutting-edge electronics in order to compete at the highest level.
-      `}</p><p >{`
-      At the core of our project are collaboration, continuous learning, and community. We bring together engineers, pilots, 
-      programmers, and designers to share knowledge, solve complex problems, and inspire the next generation of autonomous aerial 
-      robotics professionals. Whether you are an experienced drone professional or are new to the field, we strive to create an
-      environment where everyone can learn, grow, and contribute meaningfully.
-      `}</p><p >{`
-      Driven by curiosity and powered by teamwork, we design, build, and race competition-level drones that demonstrate our 
-      technical expertise and passion for innovation. Welcome to our world, where autonomy meets speed.`}          
-    </p>
-</TextSection>
+<Layout title="CVAR-UPM Drone Team" header={false}>
+  <!-- Hero -->
+  <section class="bg-base-100">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:py-20 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="mb-4 text-sm font-semibold tracking-widest text-secondary uppercase">CVAR-UPM Drone Team</p>
+        <h1 class="text-4xl font-bold tracking-tight text-balance md:text-6xl">Research in autonomous aerial robotics</h1>
+        <p class="mt-6 max-w-xl text-lg text-base-content/70">
+          We are part of the Computer Vision and Aerial Robotics Group at UPM-CSIC, developing perception, state estimation,
+          planning and control for autonomous drones, and putting them to the test in research projects and international competitions.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={url('/contact')} class="btn btn-primary">Join us</a>
+          <a href={url('/divisions')} class="btn btn-outline btn-primary">Our research</a>
+        </div>
+      </div>
+      <AssetImage
+        src="/members/team.jpeg"
+        alt="The CVAR-UPM Drone Team"
+        loading="eager"
+        widths={[640, 960, 1280]}
+        sizes="(min-width: 1024px) 36rem, 100vw"
+        class="aspect-4/3 w-full rounded-box object-cover shadow-sm"
+      />
+    </div>
+  </section>
 
-<Video 
-  videoUrl="https://player.vimeo.com/video/1155503452?h=511c5f0706" 
-/>
-<Image 
-  imageUrl="/aerostack2_claro.svg"
-  alt="Aerostack2"
-/>
+  <!-- Who we are -->
+  <Section tone="muted">
+    <div class="grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+      <div>
+        <p class="mb-3 text-sm font-semibold tracking-widest text-secondary uppercase">About</p>
+        <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Who we are</h2>
+      </div>
+      <div class="space-y-5 text-lg leading-relaxed text-base-content/80">
+        <p>
+          We are a passionate team of drone enthusiasts from the Computer Vision and Aerial Robotics Group. We are united by our
+          commitment to technology, innovation, and high-performance flight. Our mission is to push the boundaries of autonomous drone
+          systems by combining advanced perception, state estimation, aerodynamics, and cutting-edge electronics in order to compete at
+          the highest level.
+        </p>
+        <p>
+          At the core of our project are collaboration, continuous learning, and community. We bring together engineers, pilots,
+          programmers, and designers to share knowledge, solve complex problems, and inspire the next generation of autonomous aerial
+          robotics professionals. Whether you are an experienced drone professional or are new to the field, we strive to create an
+          environment where everyone can learn, grow, and contribute meaningfully.
+        </p>
+        <p>
+          Driven by curiosity and powered by teamwork, we design, build, and race competition-level drones that demonstrate our
+          technical expertise and passion for innovation. Welcome to our world, where autonomy meets speed.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Research areas -->
+  <Section eyebrow="Research" title="Research areas" intro="Our work spans the full autonomy stack, from hardware to multi-drone coordination.">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {divisions.map((division) => (
+        <a
+          href={url(`/divisions#${division.id}`)}
+          class="group flex flex-col overflow-hidden rounded-box border border-base-300 bg-base-100 transition hover:border-primary/40 hover:shadow-md"
+        >
+          <div class="aspect-video overflow-hidden bg-base-200">
+            <AssetImage src={division.image} alt="" widths={[320, 640]} sizes="(min-width: 1024px) 16rem, (min-width: 640px) 45vw, 100vw" class="h-full w-full object-cover" />
+          </div>
+          <div class="flex flex-1 flex-col gap-2 p-5">
+            <h3 class="font-semibold leading-snug group-hover:text-primary">{division.title}</h3>
+            <p class="text-sm text-base-content/70">{division.summary}</p>
+            <span class="mt-auto pt-2 text-sm font-medium text-primary">Learn more &rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Aerostack2 -->
+  <Section tone="tint">
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="mb-3 text-sm font-semibold tracking-widest text-secondary uppercase">Open source</p>
+        <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Powered by Aerostack2</h2>
+        <p class="mt-5 text-lg leading-relaxed text-base-content/80 [&_a]:link [&_a]:link-primary" set:html={aerostack2.description[0]} />
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="https://github.com/aerostack2/aerostack2" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <Icon name="github" class="h-4 w-4" /> GitHub
+          </a>
+          <a href="https://aerostack2.github.io/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-primary">Documentation</a>
+        </div>
+      </div>
+      <AssetImage src={aerostack2.image} alt="Aerostack2 architecture" widths={[480, 800]} sizes="(min-width: 1024px) 32rem, 100vw" class="mx-auto w-full max-w-sm rounded-box" />
+    </div>
+  </Section>
+
+  <!-- Video -->
+  <Section eyebrow="In action" title="See our work">
+    <div class="-mx-4">
+      <Video videoUrl="https://player.vimeo.com/video/1155503452?h=511c5f0706" title="CVAR-UPM Drone Team" />
+    </div>
+  </Section>
+
+  <!-- Join -->
+  <section class="px-4 pb-16 md:pb-24">
+    <div class="mx-auto flex max-w-6xl flex-col items-start gap-6 rounded-box bg-primary px-8 py-12 text-primary-content md:flex-row md:items-center md:justify-between md:px-12">
+      <div class="max-w-xl">
+        <h2 class="text-3xl font-bold tracking-tight">Join the team</h2>
+        <p class="mt-3 text-primary-content/85">
+          We are always looking for motivated students and researchers who want to learn, build and fly autonomous drones with us.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href={applyForm} target="_blank" rel="noopener noreferrer" class="btn bg-white text-primary hover:bg-white/90">Apply now</a>
+        <a href={url('/contact')} class="btn btn-ghost border-white/40 text-primary-content hover:bg-white/10">Contact us</a>
+      </div>
+    </div>
+  </section>
 </Layout>
