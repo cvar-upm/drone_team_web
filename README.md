@@ -43,17 +43,20 @@ drone_team_web/
 │   │   ├── Image.astro         # Full-width image block
 │   │   ├── Member.astro        # Team member card
 │   │   ├── Navigation.astro    # Desktop menu and mobile drawer
+│   │   ├── PageHeader.astro    # Breadcrumbs, title and intro at the top of inner pages
 │   │   ├── Row.astro           # Grid of member cards
-│   │   ├── SideImage.astro     # Section with image and side logo
-│   │   ├── SideSection.astro   # Section with image and side text
+│   │   ├── Section.astro       # Page section (spacing, background, eyebrow + heading)
 │   │   ├── TextSection.astro   # Long-form text block (headings, paragraphs, links)
 │   │   └── Video.astro         # Component for videos (iframe or local)
 │   ├── data/
-│   │   ├── navigation.ts       # Menu links (desktop and mobile)
+│   │   ├── competitions.ts     # Competitions, editions and results
+│   │   ├── divisions.ts        # Research divisions (titles, images, texts)
+│   │   ├── navigation.ts       # Menu links (built from the two files above)
 │   │   ├── social.ts           # Social media links and map
 │   │   └── icons.ts            # Icon SVG paths
 │   ├── layouts/
-│   │   └── Layout.astro        # Main page layout (head, header, hero, footer)
+│   │   ├── Layout.astro        # Main page layout (head, header, page header, footer)
+│   │   └── CompetitionLayout.astro # Layout for competition pages (editions + results)
 │   ├── lib/                    # Helpers (image lookup, base URL, video type)
 │   ├── pages/                  # Site pages (automatic routes)
 │   │   ├── index.astro         # Home page
@@ -160,72 +163,51 @@ Create a folder in `/src/assets/` with the competition name and year:
 
 Image paths in the pages are written relative to `src/assets` (e.g. `/competition_name_year/photo.jpeg`). They are case-sensitive, and the build fails if a path doesn't exist.
 
-#### 2. Add competition to main page
+#### 2. Add the competition data
 
-Edit `/src/pages/competitions.astro` and add a `SideImage` component:
+Edit `/src/data/competitions.ts` and add an entry. The Competitions page cards, the navigation menu and the edition links at the top of the competition page are all generated from it:
 
-```astro
-<SideImage
-  image="/competition_name/main_photo.jpeg"
-  logoImage="/competition_logo.png"
-  url={`${import.meta.env.BASE_URL}/competitions/CompetitionName`}
-  title="Competition Name"
-  reverse={false}  // Alternate true/false to change side
-/>
+```ts
+{
+  slug: 'CompetitionName',           // must match the page file name
+  name: 'SHORT',
+  fullName: 'Full Competition Name',
+  logo: '/competition_logo.png',     // in src/assets
+  image: '/competition_name_year/photo.jpeg',
+  editions: [
+    { id: '2024', label: '2024', result: '1st place' },  // result is optional
+  ],
+},
 ```
 
 #### 3. Create competition details page
 
-Create a file in `/src/pages/competitions/CompetitionName.astro`:
+Create `/src/pages/competitions/CompetitionName.astro`. Each edition's `<TextSection id>` must match an `id` in `editions`:
 
 ```astro
 ---
-import Layout from '../../layouts/Layout.astro';
+import CompetitionLayout from '../../layouts/CompetitionLayout.astro';
 import TextSection from '../../components/TextSection.astro';
 import Carousel from '../../components/Carousel.astro';
 
 const items = [
   { type: 'video', src: 'https://player.vimeo.com/video/VIDEO_ID' },
-  { type: 'image', src: '/competition_name/image1.jpeg' },
-  { type: 'image', src: '/competition_name/image2.jpeg' },
+  { type: 'image', src: '/competition_name_year/image1.jpeg' },
 ];
 ---
 
-<Layout 
-  title="Competition Name" 
-  logoImage="/competition_logo.png" 
-  showJoin={false} 
-  heroImage="/competition_name/hero.jpeg"
->
-  <TextSection id="year">
-    <h2>Competition Name Year</h2>
-    <p>
-      Detailed description of the competition, team achievements, 
-      technologies used, etc.
-    </p>
-    <p>
-      More details at: <a href="OFFICIAL_URL" target="_blank">Official Website</a>
-    </p>
+<CompetitionLayout slug="CompetitionName">
+  <TextSection id="2024">
+    <h2>Competition Name 2024</h2>
+    <p>Description of the competition, results and technologies used.</p>
+    <p>More details at: <a href="OFFICIAL_URL" target="_blank">Official Website</a></p>
   </TextSection>
-  
+
   <Carousel items={items} />
-</Layout>
+</CompetitionLayout>
 ```
 
-#### 4. Update navigation menu
-
-Edit `/src/data/navigation.ts` and add the competition under `Competitions`. The desktop menu and the mobile drawer are both generated from this list:
-
-```ts
-{
-  label: 'Competition Name',
-  href: '/competitions/CompetitionName',
-  children: [
-    { label: '2024', href: '/competitions/CompetitionName#2024' },
-    { label: '2023', href: '/competitions/CompetitionName#2023' },
-  ],
-},
-```
+Keep inline links on the same line as the text around them, otherwise the space before the link is lost.
 
 ### Adding Images and Videos
 
@@ -277,24 +259,19 @@ const items = [
 
 ### Adding New Divisions
 
-Edit `/src/pages/divisions.astro` and add a new section:
-
-```astro
-<section id="division-name">
-  <SideSection
-    image="/divisions/division_image.png"
-    title="Division Name"
-    description={`Detailed description of the division, 
-    its responsibilities, technologies used, etc.`}
-    reverse={false}  // Alternate to change image position
-  />
-</section>
-```
-
-Add it to the `Divisions` entry in `/src/data/navigation.ts`:
+Edit `/src/data/divisions.ts` and add an entry. The Divisions page, its side menu, the home page research cards and the navigation menu are all generated from it:
 
 ```ts
-{ label: 'Division Name', href: '/divisions#division-name' },
+{
+  id: 'division-name',               // used as the #anchor
+  title: 'Division Name',
+  image: '/divisions/division_image.png',
+  summary: 'One line shown on the home page card.',
+  description: [
+    'First paragraph. Inline <a href="https://...">links</a> are allowed.',
+    'Second paragraph.',
+  ],
+},
 ```
 
 ## Available Components
@@ -302,12 +279,23 @@ Add it to the `Divisions` entry in `/src/data/navigation.ts`:
 ### Layout.astro
 Main layout for all pages. Props:
 - `title`: Page title, also used for the browser tab (required)
-- `subtitle`: Subtitle (optional)
+- `intro`: One sentence shown under the title (optional)
 - `description`: Meta description for search engines (optional)
-- `showJoin`: Show "Join us" button (boolean)
-- `joinLink`: Where the "Join us" button points (optional)
-- `heroImage`: Hero background image (optional)
-- `logoImage`: Logo in the hero (optional)
+- `breadcrumbs`: Breadcrumb trail (optional, defaults to Home / title)
+- `header`: Set to `false` to hide the page header (the home page uses its own hero)
+
+### CompetitionLayout.astro
+Layout for competition pages. Prop `slug` looks the competition up in `src/data/competitions.ts` and shows its editions and results at the top.
+
+### PageHeader.astro
+Grey band with breadcrumbs, title and intro. Rendered by `Layout` automatically.
+
+### Section.astro
+Building block for page sections. Props:
+- `eyebrow`, `title`, `intro`: Optional heading content
+- `tone`: `base` (white), `muted` (light grey) or `tint` (light blue)
+- `width`: `wide` (default) or `text` (reading width)
+- `id`: Anchor (optional)
 
 ### Header.astro
 Sticky header with logo and navigation. Automatically included in the Layout.
@@ -347,29 +335,13 @@ Automatically detects if it's an iframe (Vimeo, YouTube) or local video.
 ### Member.astro
 Team member card. Props:
 - `name`: Full name (required)
-- `image`: Photo path (optional, defaults to the team logo)
+- `image`: Photo path (optional; without a photo the card shows the person's initials)
 - `github`: GitHub URL (optional)
 - `linkedin`: LinkedIn URL (optional)
 
 ### Row.astro
 Grid container to display multiple members. Props:
 - `members`: Array of member objects
-
-### SideImage.astro
-Section with image and side logo/title. Props:
-- `image`: Background image
-- `title`: Title (if no logo)
-- `logoImage`: Logo to display (optional)
-- `url`: Link (optional)
-- `reverse`: Reverse image position (boolean)
-
-### SideSection.astro
-Section with image and descriptive side text. Props:
-- `image`: Side image
-- `title`: Section title
-- `description`: Descriptive text
-- `url`: Link in the title (optional)
-- `reverse`: Reverse image position (boolean)
 
 ### TextSection.astro
 Wraps long-form text. Plain `<h2>`, `<h3>`, `<p>`, `<a>` and `<strong>` inside get the site's type scale automatically. Props:
@@ -397,22 +369,24 @@ The brand palette is the `cvar` daisyUI theme in `/src/styles/global.css`:
 @plugin "daisyui/theme" {
   name: "cvar";
   --color-primary: #0064ab;    /* CVAR blue: headings, links, footer */
-  --color-secondary: #009bdb;  /* light CVAR blue */
-  --color-accent: #f7931e;     /* orange: "Join us" and other calls to action */
+  --color-secondary: #009bdb;  /* light CVAR blue: eyebrow labels, highlights */
+  --color-accent: #009bdb;
   --color-neutral: #3e3c3c;
   --color-base-100: #ffffff;   /* page background */
   ...
 }
 ```
 
-Change a value there and every `bg-primary`, `text-primary`, `btn-accent` etc. updates. Use these colour names in classes (`text-primary`, `bg-base-200`, `text-base-content/80`) rather than hex values.
+Change a value there and every `bg-primary`, `text-primary`, `btn-primary` etc. updates. Use these colour names in classes (`text-primary`, `bg-base-200`, `text-base-content/80`) rather than hex values.
 
 ### Type scale
 
 | Element | Classes |
 |---|---|
-| Page title (hero) | `text-4xl md:text-6xl font-bold` |
-| Section heading | `text-3xl md:text-4xl font-bold text-primary` |
+| Home hero title | `text-4xl md:text-6xl font-bold tracking-tight` |
+| Page title (PageHeader) | `text-3xl md:text-5xl font-bold tracking-tight` |
+| Section heading | `text-3xl md:text-4xl font-bold tracking-tight` (use `Section`) |
+| Eyebrow label | `text-sm font-semibold uppercase tracking-widest text-secondary` |
 | Sub-heading | `text-xl md:text-2xl font-semibold` |
 | Body text | `text-base md:text-lg` (or use `TextSection`) |
 
