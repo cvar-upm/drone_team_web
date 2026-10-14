@@ -1,46 +1,73 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TextSection from '../components/TextSection.astro';
 import Icon from '../components/Icon.astro';
-import { socialLinks, mapLink } from '../data/social';
+import { socialLinks, mapLink, mapEmbed, address, email, applyForm } from '../data/social';
 ---
-
-
-<Layout title="Join Us" description="Join the CVAR-UPM Drone Team: how to apply, contact us or visit us in Madrid." showJoin={true} joinLink="https://forms.gle/UYRq6gvztvvMftTC6" logoImage="/aerostack2.svg" heroImage="/members/team.jpeg">
-
-<TextSection>
-    <h2>Apply Here!</h2>
-    <p>
-        If you're motivated by our mission, excited to push boundaries, and believe your skills and mindset align with our team, we'd love to hear from you! 
+<Layout
+  title="Join Us"
+  intro="We are always looking for passionate, proactive and committed people who want to learn and build autonomous drones with us."
+  description="Join the CVAR-UPM Drone Team: how to apply, contact us or visit us in Madrid."
+>
+  <div class="mx-auto grid max-w-6xl gap-12 px-4 py-14 md:py-20 lg:grid-cols-[1fr_24rem] lg:gap-16">
+    <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary">
+      <h2>Apply here</h2>
+      <p>
+        If you're motivated by our mission, excited to push boundaries, and believe your skills and mindset align with our team, we'd love to hear from you!
         We are always looking for passionate, proactive, and committed individuals who want to grow, learn, and make an impact.
-    </p>
-    <p>
-        If this sounds like you, please complete the following form to apply:
-        <a href="https://forms.gle/UYRq6gvztvvMftTC6" target="_blank" rel="noopener noreferrer">Application Form</a>
-    </p>
-    <p>
-        If you have any questions or would like to know more before applying, feel free to reach out to us at 
-        <a href="mailto:cvar.upm.racing@gmail.com">cvar.upm.racing@gmail.com</a> 
-        or contact us directly. We’ll be happy to help!
-    </p>
-    <p>
-        You are also welcome to visit us in person to learn more about our work, meet the team, and see our projects firsthand. 
-        We are located at the Centro de Automática y Robótica (CVAR), which is part of the Universidad Politécnica de Madrid (UPM) and the Spanish National Research Council (CSIC).
-        You can find us at the following address:
-        <br>
-        <a href={mapLink} target="_blank" rel="noopener noreferrer">
-            Centro de Automática y Robótica (CVAR) - UPM-CSIC
-            <br>
-            C. de José Gutiérrez Abascal, Chamartín, 28006 Madrid, Spain
-        </a>
-    </p>
-</TextSection>
+      </p>
+      <p>
+        If this sounds like you, please complete the following form to apply: <a href={applyForm} target="_blank" rel="noopener noreferrer">Application Form</a>
+      </p>
+      <p>
+        If you have any questions or would like to know more before applying, feel free to reach out to us at <a href={`mailto:${email}`}>{email}</a> or contact us directly. We’ll be happy to help!
+      </p>
+      <h2>Visit us</h2>
+      <p>
+        You are also welcome to visit us in person to learn more about our work, meet the team, and see our projects firsthand.
+        We are located at the Centro de Automática y Robótica (CAR), which is part of the Universidad Politécnica de Madrid (UPM) and the Spanish National Research Council (CSIC).
+      </p>
+    </div>
 
-<nav aria-label="Social media" class="mx-auto flex max-w-3xl flex-wrap justify-center gap-4 px-4 py-10">
-  {socialLinks.map((link) => (
-    <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="btn btn-circle btn-primary btn-lg">
-      <Icon name={link.icon} class="h-6 w-6" />
-    </a>
-  ))}
-</nav>
+    <aside class="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+      <div class="card border border-base-300 bg-base-100">
+        <div class="card-body gap-5">
+          <h2 class="card-title">Get in touch</h2>
+          <a href={applyForm} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Apply now</a>
+
+          <div class="flex flex-col gap-1 text-sm">
+            <span class="font-semibold">Email</span>
+            <a href={`mailto:${email}`} class="link link-hover text-base-content/80">{email}</a>
+          </div>
+
+          <address class="flex flex-col gap-1 text-sm not-italic">
+            <span class="font-semibold">Address</span>
+            <a href={mapLink} target="_blank" rel="noopener noreferrer" class="link link-hover flex flex-col text-base-content/80">
+              <span>{address.name}</span>
+              {address.lines.map((line) => <span>{line}</span>)}
+            </a>
+          </address>
+
+          <div class="flex flex-col gap-2 text-sm">
+            <span class="font-semibold">Follow us</span>
+            <div class="flex flex-wrap gap-1">
+              {socialLinks.map((link) => (
+                <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="btn btn-circle btn-ghost btn-sm text-base-content/70 hover:text-primary">
+                  <Icon name={link.icon} class="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <iframe
+        src={mapEmbed}
+        title="Map: Centro de Automática y Robótica (UPM-CSIC)"
+        class="h-64 w-full rounded-box border border-base-300"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </aside>
+  </div>
 </Layout>
