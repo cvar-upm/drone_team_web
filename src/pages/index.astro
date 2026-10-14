@@ -4,7 +4,7 @@ import Section from '../components/Section.astro';
 import AssetImage from '../components/AssetImage.astro';
 import LiteVimeo from '../components/LiteVimeo.astro';
 import Terminal from '../components/Terminal.astro';
-import PhotoScatter from '../components/PhotoScatter.astro';
+import HeroCollage from '../components/HeroCollage.astro';
 import Icon from '../components/Icon.astro';
 import { divisions } from '../data/divisions';
 import { applyForm } from '../data/social';
@@ -12,25 +12,35 @@ import { url } from '../lib/url';
 
 const aerostack2 = divisions.find((d) => d.id === 'aerostack2')!;
 
-// Hero collage: photos rotate through changing spots. "wide" photos only go to the panoramic spots.
-// The first wide photo and the first three others are the ones shown on load.
-const heroPhotos = [
-  { src: '/members/team.jpeg', alt: 'The CVAR-UPM Drone Team', wide: true },
-  { src: '/imav_dron.jpeg', alt: 'Drone carrying a payload during an indoor mission' },
-  { src: '/imav22/imav22_1.JPG', alt: 'Team members with their drone at IMAV 2022' },
-  { src: '/imav19/imav19_8.jpg', alt: 'Autonomous indoor flight with visual markers' },
-  { src: '/icuas24.png', alt: '3D map built during the ICUAS 2024 challenge', wide: true },
-  { src: '/imav19/imav19_9.JPG', alt: 'Drone flying through an indoor warehouse course' },
-  { src: '/imav25/imav.jpeg', alt: 'The team at IMAV 2025' },
-  { src: '/mbzirc/mbzirc.png', alt: 'Finalists at MBZIRC 2020', wide: true },
-  { src: '/icuas22/icuas22_1.png', alt: 'Indoor flight tests for ICUAS 2022' },
-  { src: '/a2rl26/a2rl26_2.jpg', alt: 'The team at A2RL 2026' },
-  { src: '/icuas23/icuas23_4.png', alt: 'Test arena for ICUAS 2023', wide: true },
-  { src: '/imav25/imav25_2.jpeg', alt: 'Drone in the IMAV 2025 obstacle course' },
-  { src: '/imav19/imav19_2.JPG', alt: 'Outdoor flight at IMAV 2019' },
-  { src: '/icuas23/icuas23_3.jpeg', alt: 'The team on the ICUAS 2023 podium' },
-  { src: '/imav22/imav22_3.png', alt: 'Nano-drones passing through a gate at IMAV 2022', wide: true },
-  { src: '/imav19/imav19_7.JPG', alt: 'Preparing an indoor flight with visual markers' },
+type Photo = { src: string; alt: string };
+
+// Hero collage: four fixed frames, each slowly rotating through its own project photos.
+// Order: top-left (wide), top-right, bottom-left, bottom-right (wide). The first photo of each is shown on load.
+const heroFrames: [Photo[], Photo[], Photo[], Photo[]] = [
+  [
+    { src: '/members/team.jpeg', alt: 'The CVAR-UPM Drone Team' },
+    { src: '/mbzirc/mbzirc.png', alt: 'Finalists at MBZIRC 2020' },
+    { src: '/imav22/imav22_1.JPG', alt: 'Team members with their drone at IMAV 2022' },
+    { src: '/a2rl26/a2rl26_2.jpg', alt: 'The team at A2RL 2026' },
+  ],
+  [
+    { src: '/imav_dron.jpeg', alt: 'Drone carrying a payload during an indoor mission' },
+    { src: '/imav19/imav19_9.JPG', alt: 'Drone flying through an indoor warehouse course' },
+    { src: '/icuas22/icuas22_1.png', alt: 'Indoor flight tests for ICUAS 2022' },
+    { src: '/imav25/imav25_2.jpeg', alt: 'Drone in the IMAV 2025 obstacle course' },
+  ],
+  [
+    { src: '/imav19/imav19_8.jpg', alt: 'Autonomous indoor flight with visual markers' },
+    { src: '/imav25/imav.jpeg', alt: 'The team at IMAV 2025' },
+    { src: '/imav19/imav19_7.JPG', alt: 'Preparing an indoor flight with visual markers' },
+    { src: '/icuas23/icuas23_3.jpeg', alt: 'The team on the ICUAS 2023 podium' },
+  ],
+  [
+    { src: '/icuas24.png', alt: '3D map built during the ICUAS 2024 challenge' },
+    { src: '/icuas23/icuas23_4.png', alt: 'Test arena for ICUAS 2023' },
+    { src: '/imav22/imav22_3.png', alt: 'Nano-drones passing through a gate at IMAV 2022' },
+    { src: '/imav19/imav19_2.JPG', alt: 'Outdoor flight at IMAV 2019' },
+  ],
 ];
 ---
 <Layout title="CVAR-UPM Drone Team" header={false}>
@@ -61,9 +71,9 @@ const heroPhotos = [
         </div>
       </div>
 
-      <!-- Photo collage: photos appear and disappear at changing spots -->
+      <!-- Photo collage: fixed frames that slowly change photos -->
       <div class="motion-safe:animate-fade-in motion-safe:[animation-delay:150ms]">
-        <PhotoScatter photos={heroPhotos} />
+        <HeroCollage frames={heroFrames} />
       </div>
     </div>
   </section>

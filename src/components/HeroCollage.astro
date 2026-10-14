@@ -1,0 +1,142 @@
+---
+// Fixed four-frame photo collage. Each frame slowly crossfades through its own photos: the incoming
+// photo starts slightly zoomed and offset and settles into place, the outgoing one fades and drifts.
+// Frames change one at a time (diagonal order), so the motion moves calmly around the collage.
+// Without JS (or with "reduce motion") it shows the first photo of each frame.
+import AssetImage from './AssetImage.astro';
+
+interface Photo {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  /** Photos for each frame, in this order: top-left (wide), top-right, bottom-left, bottom-right (wide) */
+  frames: [Photo[], Photo[], Photo[], Photo[]];
+  /** Milliseconds each photo stays in its frame */
+  interval?: number;
+  class?: string;
+}
+
+const { frames, interval = 8000, class: className } = Astro.props;
+
+// Layout as % of the 4:3 container. Wide frames are 2:1, the others 4:3; even gaps, no overlap.
+const layout = [
+  { top: 6, left: 0, width: 58, wide: true },
+  { top: 0, left: 62, width: 38, wide: false },
+  { top: 51, left: 4, width: 36, wide: false },
+  { top: 46, left: 44, width: 56, wide: true },
+];
+// Position of each frame in the change sequence: top-left, then bottom-right, top-right, bottom-left
+const order = [0, 2, 3, 1];
+// Direction each photo drifts from/to, varied per photo so changes don't all move the same way
+const drifts = ['10px, 0px', '0px, 10px', '-10px, 0px', '0px, -10px'];
+---
+<div class:list={['hero-collage relative aspect-4/3 w-full', className]} data-interval={interval}>
+  {frames.map((photos, f) => {
+    const slot = layout[f];
+    return (
+      <div
+        class="collage-frame absolute overflow-hidden rounded-box bg-base-200 shadow-xl ring-4 ring-base-100"
+        style={`top:${slot.top}%;left:${slot.left}%;width:${slot.width}%;aspect-ratio:${slot.wide ? '2 / 1' : '4 / 3'};animation-delay:-${f * 2.3}s`}
+        data-offset={order[f] * (interval / 4)}
+      >
+        {photos.map((photo, i) => (
+          <div
+            class="collage-photo absolute inset-0"
+            style={`--drift:${drifts[(f + i) % drifts.length]}`}
+            data-slide
+            data-active={i === 0 ? '' : undefined}
+            aria-hidden={i === 0 ? undefined : 'true'}
+          >
+            <AssetImage
+              src={photo.src}
+              alt={photo.alt}
+              widths={slot.wide ? [480, 800, 1200] : [320, 640]}
+              sizes={slot.wide ? '(min-width: 1024px) 26rem, 58vw' : '(min-width: 1024px) 17rem, 38vw'}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              class="h-full w-full object-cover object-[center_35%]"
+            />
+          </div>
+        ))}
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  /* Inactive: transparent, zoomed 5% and offset. Active: in place. The settle (zoom + drift) is
+     slower than the fade, which gives the calm "photo coming to rest" feeling. */
+  .collage-photo {
+    opacity: 0;
+    scale: 1.05;
+    translate: var(--drift);
+    transition:
+      opacity 2.5s cubic-bezier(0.45, 0, 0.55, 1),
+      scale 5s cubic-bezier(0.25, 0.1, 0.25, 1),
+      translate 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .collage-photo[data-active] {
+    z-index: 1;
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+
+  /* Each frame floats very slowly, out of phase with the others */
+  @media (prefers-reduced-motion: no-preference) {
+    .collage-frame {
+      animation: collage-float 9s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes collage-float {
+    to {
+      transform: translate(2px, -4px);
+    }
+  }
+</style>
+
+<script>
+  let timers: number[] = [];
+
+  document.addEventListener('astro:page-load', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    document.querySelectorAll<HTMLElement>('.hero-collage').forEach((collage) => {
+      const interval = Number(collage.dataset.interval) || 8000;
+
+      // Load the other photos now so they are ready when their turn comes
+      collage.querySelectorAll('img').forEach((img) => (img.loading = 'eager'));
+
+      collage.querySelectorAll<HTMLElement>('.collage-frame').forEach((frame) => {
+        const slides = [...frame.querySelectorAll<HTMLElement>('[data-slide]')];
+        if (slides.length < 2) return;
+        let current = 0;
+
+        const next = () => {
+          if (document.hidden) return;
+          const upcoming = (current + 1) % slides.length;
+          if (!slides[upcoming].querySelector('img')?.complete) return; // not loaded yet: wait a cycle
+          slides[current].removeAttribute('data-active');
+          slides[current].setAttribute('aria-hidden', 'true');
+          slides[upcoming].setAttribute('data-active', '');
+          slides[upcoming].removeAttribute('aria-hidden');
+          current = upcoming;
+        };
+
+        // Stagger the frames so only one changes at a time
+        const start = window.setTimeout(() => {
+          next();
+          timers.push(window.setInterval(next, interval));
+        }, interval / 2 + Number(frame.dataset.offset));
+        timers.push(start);
+      });
+    });
+  });
+
+  // Stop when navigating to another page
+  document.addEventListener('astro:before-swap', () => {
+    timers.forEach((id) => window.clearTimeout(id));
+    timers = [];
+  });
+</script>
