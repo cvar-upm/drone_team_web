@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import CompetitionLayout from '../../layouts/CompetitionLayout.astro';
 import TextSection from '../../components/TextSection.astro';
 import Image from '../../components/Image.astro';
 import Carousel from '../../components/Carousel.astro';
@@ -17,7 +17,7 @@ const icuas23 = [
 
 ];
 ---
-<Layout title="International Conference on Unmanned Aircraft Systems" logoImage="/icuas.png" showJoin={false} heroImage="/icuas23/icuas23_4.png"> 
+<CompetitionLayout slug="ICUAS"> 
 <TextSection id="2024">
 <h2>ICUAS 2024 </h2>
   <p>
@@ -60,4 +60,4 @@ were successfully completed, with three precise deployments of the extinguishing
   </p>
 </TextSection>
 <Carousel items={icuas22} />
-</Layout>
+</CompetitionLayout>

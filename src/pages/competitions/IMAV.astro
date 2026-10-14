@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import CompetitionLayout from '../../layouts/CompetitionLayout.astro';
 import TextSection from '../../components/TextSection.astro';
 import Image from '../../components/Image.astro';
 import ImageCarousel from '../../components/Carousel.astro';
@@ -32,7 +32,7 @@ const imav19outdoor = [
   { type: 'image', src: '/imav19/imav19_3.jpg' },
 ];
 ---
-<Layout title="International Micro Air Vehicle Competition" subtitle="IMAV" showJoin={false} heroImage="/imav25/imav.jpeg"> 
+<CompetitionLayout slug="IMAV"> 
 <TextSection id="2025">
   <h2>IMAV 2025</h2>
   <p>
@@ -88,4 +88,4 @@ ensured real-time performance and consistent gate transitions. </p>
   </p>
 </TextSection>
 <ImageCarousel items={imav19outdoor} />
-</Layout>
+</CompetitionLayout>

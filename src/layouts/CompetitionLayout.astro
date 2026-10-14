@@ -1,0 +1,38 @@
+---
+import Layout from './Layout.astro';
+import { getCompetition } from '../data/competitions';
+import { url } from '../lib/url';
+
+interface Props {
+  slug: string;
+}
+
+const competition = getCompetition(Astro.props.slug);
+---
+<Layout
+  title={competition.fullName}
+  description={`The CVAR-UPM Drone Team at ${competition.fullName} (${competition.name}).`}
+  breadcrumbs={[
+    { label: 'Home', href: '/' },
+    { label: 'Competitions', href: '/competitions' },
+    { label: competition.name },
+  ]}
+>
+  <nav aria-label="Editions" class="border-b border-base-300">
+    <div class="mx-auto flex max-w-6xl gap-4 overflow-x-auto px-4 py-6">
+      {competition.editions.map((edition) => (
+        <a
+          href={url(`/competitions/${competition.slug}#${edition.id}`)}
+          class="flex min-w-48 shrink-0 flex-col gap-1 rounded-box border border-base-300 px-5 py-4 transition hover:border-primary/40 hover:bg-primary/5"
+        >
+          <span class="text-sm font-semibold">{edition.label}</span>
+          <span class="text-sm text-base-content/70">{edition.result ?? 'Participation'}</span>
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <div class="pb-8">
+    <slot />
+  </div>
+</Layout>

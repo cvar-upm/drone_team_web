@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import CompetitionLayout from '../../layouts/CompetitionLayout.astro';
 import TextSection from '../../components/TextSection.astro';
 import Carousel from '../../components/Carousel.astro';
 
@@ -9,7 +9,7 @@ const mbzirc2020 = [
 
 ];
 ---
-<Layout title="Mohamed Bin Zayed International Robotics Challenge" showJoin={false} heroImage="/mbzirc/mbzirc.png"> 
+<CompetitionLayout slug="MBZIRC"> 
 <TextSection id="2020">
   <h2>MBZIRC 2020</h2>
   <p>
@@ -27,4 +27,4 @@ The 2020 Mohamed Bin Zayed International Robotics Challenge (MBZIRC), held in Ab
   </p>
 </TextSection>
 <Carousel items={mbzirc2020} />
-</Layout>
+</CompetitionLayout>

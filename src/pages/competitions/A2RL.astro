@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import CompetitionLayout from '../../layouts/CompetitionLayout.astro';
 import TextSection from '../../components/TextSection.astro';
 import Carousel from '../../components/Carousel.astro';
 
@@ -17,7 +17,7 @@ const a2rl25 = [
   { type: 'image', src: '/a2rl25/a2rl25_3.jpeg' },
 ]
 ---
-<Layout title="Abu Dhabi Autonomous Racing League" showJoin={false} logoImage="/a2rl.png" heroImage="/a2rl26/a2rl.jpeg"> 
+<CompetitionLayout slug="A2RL"> 
 <TextSection id="season2">
   <h2>A2RL  Season 2 - 2026</h2>
   <p>
@@ -47,4 +47,4 @@ More details about the competition are available at: <a href=" https://a2rl.io/b
   </p>
 </TextSection>
 <Carousel items={a2rl25} />
-</Layout>
+</CompetitionLayout>

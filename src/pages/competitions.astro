@@ -1,46 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SideImage from '../components/SideImage.astro';
-
+import Section from '../components/Section.astro';
+import AssetImage from '../components/AssetImage.astro';
+import { competitions } from '../data/competitions';
+import { url } from '../lib/url';
 ---
-<Layout title="Competitions" description="Competitions the CVAR-UPM Drone Team has taken part in: A2RL, ICUAS, IMAV, MBZIRC and the OpenCV AI Competition." showJoin={false} heroImage="/fondo.jpeg"> 
-  <SideImage
-    image="/a2rl_dron.png"
-    logoImage="/a2rl.png"
-    url={`${import.meta.env.BASE_URL}/competitions/A2RL`}
-    reverse={false}
-    title="Abu Dhabi Autonomous Racing League"
-  />
-
-  <SideImage
-    image="/icuas23/icuas23_4.png"
-    logoImage="/icuas.png"
-    url={`${import.meta.env.BASE_URL}/competitions/ICUAS`}
-    reverse={true}
-    title="International Conference on Unmanned Aircraft Systems"
-  />
-
-  <SideImage
-    image="/imav_dron.jpeg"
-    logoImage="/imav.png"
-    url={`${import.meta.env.BASE_URL}/competitions/IMAV`}
-    reverse={false}
-    title="International Micro Air Vehicle Competition"
-  />
-
-  <SideImage
-    image="/MBZIRC_dron.jpg"
-    logoImage="/MBZIRC.png"
-    url={`${import.meta.env.BASE_URL}/competitions/MBZIRC`}
-    reverse={true}
-    title="Mohamed Bin Zayed International Robotics Challenge"
-  />
-
-  <SideImage
-    image="/opencv.png"
-    logoImage="/opencv_logo.png"
-    url={`${import.meta.env.BASE_URL}/competitions/OpenCV`}
-    reverse={false}
-    title="OpenCV AI Competition"
-  />
+<Layout
+  title="Competitions"
+  intro="International robotics challenges where we test our research on real drones, from autonomous racing to search and rescue."
+  description="Competitions the CVAR-UPM Drone Team has taken part in: A2RL, ICUAS, IMAV, MBZIRC and the OpenCV AI Competition."
+>
+  <Section>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {competitions.map((competition) => (
+        <a
+          href={url(`/competitions/${competition.slug}`)}
+          class="group flex flex-col overflow-hidden rounded-box border border-base-300 bg-base-100 transition hover:border-primary/40 hover:shadow-md"
+        >
+          <div class="aspect-video overflow-hidden bg-base-200">
+            <AssetImage src={competition.image} alt="" widths={[400, 800]} sizes="(min-width: 1024px) 22rem, (min-width: 768px) 45vw, 100vw" class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
+          </div>
+          <div class="flex flex-1 flex-col gap-4 p-6">
+            <div class="flex items-center gap-4">
+              <div class="flex h-12 w-16 shrink-0 items-center justify-center">
+                <AssetImage src={competition.logo} alt="" widths={[128]} sizes="4rem" class="max-h-12 w-auto object-contain" />
+              </div>
+              <div>
+                <h2 class="text-lg font-semibold group-hover:text-primary">{competition.name}</h2>
+                <p class="text-sm text-base-content/70">{competition.fullName}</p>
+              </div>
+            </div>
+            <ul class="mt-auto flex flex-col gap-2 border-t border-base-300 pt-4 text-sm">
+              {competition.editions.map((edition) => (
+                <li class="flex justify-between gap-4">
+                  <span class="whitespace-nowrap text-base-content/60">{edition.label}</span>
+                  <span class="text-right font-medium">{edition.result ?? 'Participation'}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </a>
+      ))}
+    </div>
+  </Section>
 </Layout>
