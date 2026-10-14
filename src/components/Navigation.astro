@@ -1,364 +1,82 @@
 ---
+import { navigation, joinLink } from '../data/navigation';
+import { url } from '../lib/url';
+
+interface Props {
+  variant: 'desktop' | 'mobile';
+}
+
+const { variant } = Astro.props;
 ---
-<button class="mobile-menu-toggle" aria-label="Toggle menu">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
 
-<nav class="main-nav">
-  <ul class="nav-links">
-    <li><a href={`${import.meta.env.BASE_URL}/`} class="nav-link">Home</a></li>
-
-    <li class="dropdown">
-      <a href={`${import.meta.env.BASE_URL}/members`} class="nav-link">Members</a>
-    </li>
-
-    <li class="dropdown">
-      <a href={`${import.meta.env.BASE_URL}/competitions`} class="nav-link">Competitions</a>
-      <ul class="dropdown-menu">
-        <li class="dropdown-submenu">
-          <a href={`${import.meta.env.BASE_URL}/competitions/A2RL`}>A2RL</a>
-          <ul class="dropdown-submenu-menu">
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/A2RL#season1`}>Season 1 - 2025</a></li>
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/A2RL#season2`}>Season 2 - 2026</a></li>
+{variant === 'desktop' ? (
+  <nav aria-label="Main" class="flex items-center gap-1">
+    {navigation.map((item) =>
+      item.children ? (
+        <div class="dropdown dropdown-hover dropdown-end">
+          <a href={url(item.href)} class="btn btn-ghost font-semibold text-primary">
+            {item.label}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+            </svg>
+          </a>
+          <ul class="dropdown-content menu z-50 w-72 rounded-box border border-base-300 bg-base-100 p-2 shadow-lg">
+            {item.children.map((child) => (
+              <li>
+                <a href={url(child.href)} class:list={[child.children && 'font-semibold']}>{child.label}</a>
+                {child.children && (
+                  <ul>
+                    {child.children.map((leaf) => (
+                      <li><a href={url(leaf.href)} class="text-base-content/70">{leaf.label}</a></li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
           </ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a href={`${import.meta.env.BASE_URL}/competitions/ICUAS`}>ICUAS</a>
-          <ul class="dropdown-submenu-menu">
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/ICUAS#2024`}>2024</a></li>
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/ICUAS#2023`}>2023</a></li>
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/ICUAS#2022`}>2022</a></li>
-          </ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a href={`${import.meta.env.BASE_URL}/competitions/IMAV`}>IMAV</a>
-          <ul class="dropdown-submenu-menu">
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/IMAV#2025`}>2025</a></li>
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/IMAV#2022`}>2022</a></li>
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/IMAV#2019`}>2019</a></li>
-          </ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a href={`${import.meta.env.BASE_URL}/competitions/MBZIRC`}>MBZIRC</a>
-          <ul class="dropdown-submenu-menu">
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/MBZIRC#2020`}>2020</a></li>
-          </ul>
-        </li>
-        <li class="dropdown-submenu">
-          <a href={`${import.meta.env.BASE_URL}/competitions/OpenCV`}>OpenCV</a>
-          <ul class="dropdown-submenu-menu">
-            <li><a href={`${import.meta.env.BASE_URL}/competitions/OpenCV#2021`}>2021</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+        </div>
+      ) : (
+        <a href={url(item.href)} class="btn btn-ghost font-semibold text-primary">{item.label}</a>
+      )
+    )}
+    <a href={url(joinLink.href)} class="btn btn-accent ml-2">{joinLink.label}</a>
+  </nav>
+) : (
+  <nav aria-label="Main" class="min-h-full w-80 max-w-[85vw] bg-base-100 p-4">
+    <ul class="menu w-full gap-1 text-base">
+      {navigation.map((item) =>
+        item.children ? (
+          <li>
+            <details>
+              <summary class="font-semibold text-primary">{item.label}</summary>
+              <ul>
+                <li><a href={url(item.href)}>All {item.label.toLowerCase()}</a></li>
+                {item.children.map((child) =>
+                  child.children ? (
+                    <li>
+                      <details>
+                        <summary>{child.label}</summary>
+                        <ul>
+                          <li><a href={url(child.href)}>Overview</a></li>
+                          {child.children.map((leaf) => (
+                            <li><a href={url(leaf.href)}>{leaf.label}</a></li>
+                          ))}
+                        </ul>
+                      </details>
+                    </li>
+                  ) : (
+                    <li><a href={url(child.href)}>{child.label}</a></li>
+                  )
+                )}
+              </ul>
+            </details>
+          </li>
+        ) : (
+          <li><a href={url(item.href)} class="font-semibold text-primary">{item.label}</a></li>
+        )
+      )}
+    </ul>
+    <a href={url(joinLink.href)} class="btn btn-accent btn-block mt-4">{joinLink.label}</a>
+  </nav>
+)}
 
-    <li class="dropdown-submenu">
-      <a href={`${import.meta.env.BASE_URL}/divisions`} class="nav-link">Divisions</a>
-                <ul class="dropdown-submenu-menu">
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#aerostack2`}>Open Source Aerial Robotics Framework</a></li>
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#navigation&planning`}>Planning & Navigation</a></li>
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#control&trajectory`}>Control & Trajectory Generation</a></li>
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#localization`}>Localization</a></li>
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#perception`}>Perception</a></li>
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#hardware&firmware`}>Hardware & Firmware</a></li>
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#simulation`}>Robotics Simulation</a></li>
-                  <li><a href={`${import.meta.env.BASE_URL}/divisions#swarming`}>Swarming</a></li>
-                </ul>
-    </li>
-
-    <li><a href={`${import.meta.env.BASE_URL}/contact`} class="btn-nav-contact">Join Us!</a></li>
-  </ul>
-</nav>
-
-<style>
-
-.main-nav {
-  position: relative;
-  font-family: sans-serif;
-}
-
-.mobile-menu-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 1001;
-}
-
-.mobile-menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background: var(--cvar-blue-primary);
-  transition: all 0.3s ease;
-  border-radius: 2px;
-}
-
-.mobile-menu-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(8px, 8px);
-}
-
-.mobile-menu-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-menu-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
-}
-
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  position: relative;
-}
-
-
-.nav-links a {
-  color: rgba(0, 100, 171, 0.95);
-  text-decoration: none;
-  padding: 0.8rem 1.2rem;
-  display: block;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  border-radius: 5px;
-}
-
-.nav-links a:hover {
-  background: rgba(0, 100, 171, 0.1);
-  color: rgba(0, 100, 171, 1);
-}
-
-.btn-nav-contact {
-  background: rgba(0, 100, 171, 0.95);
-  color: white !important;
-  font-weight: 700;
-  padding: 0.8rem 1.8rem !important;
-  border-radius: 50px;
-}
-
-.btn-nav-contact:hover {
-  background: rgba(0, 100, 171, 1);
-  color: white !important;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 100, 171, 0.4);
-}
-
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 220px;
-  background: rgba(255, 255, 255, 0.98);
-  list-style: none;
-  padding: 0.5rem 0;
-  border-radius: 5px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.dropdown:hover .dropdown-menu,
-.dropdown-menu:hover {
-  visibility: visible;
-  opacity: 1;
-}
-
-
-.dropdown-menu a {
-  padding: 0.8rem 1.5rem;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  color: rgba(0, 100, 171, 0.95);
-}
-
-.dropdown-menu a:hover {
-  background: rgba(0, 100, 171, 0.1);
-  color: rgba(0, 100, 171, 1);
-}
-
-.dropdown-submenu {
-  position: relative;
-}
-
-.dropdown-submenu-menu {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  min-width: 180px;
-  background: rgba(255, 255, 255, 0.98);
-  list-style: none;
-  padding: 0.5rem 0;
-  border-radius: 5px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  z-index: 1001;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  margin: 0;
-}
-
-.dropdown-submenu:hover .dropdown-submenu-menu,
-.dropdown-submenu-menu:hover {
-  visibility: visible;
-  opacity: 1;
-}
-
-.dropdown-submenu-menu a {
-  padding: 0.7rem 1.2rem;
-  font-size: 0.85rem;
-}
-
-
-@media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: flex;
-  }
-
-  .main-nav {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
-    transition: left 0.3s ease;
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
-    z-index: 999;
-    padding-top: 1rem;
-  }
-
-  .main-nav.active {
-    left: 0;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 0;
-    width: 100%;
-    padding: 1rem 0;
-  }
-
-  .nav-links li {
-    width: 100%;
-  }
-
-  .nav-links a {
-    text-align: left;
-    padding: 1rem 1.5rem;
-    border-radius: 0;
-    font-size: 0.9rem;
-  }
-
-  .dropdown-menu {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    box-shadow: none;
-    background: rgba(0, 100, 171, 0.05);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .dropdown.active .dropdown-menu {
-    max-height: 500px;
-  }
-
-  .dropdown-submenu-menu {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    box-shadow: none;
-    background: rgba(0, 100, 171, 0.08);
-    padding-left: 1rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .dropdown-submenu.active .dropdown-submenu-menu {
-    max-height: 300px;
-  }
-
-  .btn-nav-contact {
-    margin: 1rem 1.5rem;
-    text-align: center;
-    border-radius: 50px;
-  }
-}
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    const dropdowns = document.querySelectorAll('.dropdown');
-    const dropdownSubmenus = document.querySelectorAll('.dropdown-submenu');
-
-    // Toggle mobile menu
-    menuToggle?.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      mainNav?.classList.toggle('active');
-    });
-
-    // Close menu when clicking outside on mobile
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        if (!mainNav?.contains(e.target as Node) && !menuToggle?.contains(e.target as Node)) {
-          menuToggle?.classList.remove('active');
-          mainNav?.classList.remove('active');
-        }
-      }
-    });
-
-    // Mobile dropdown toggles
-    if (window.innerWidth <= 768) {
-      dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector(':scope > a');
-        link?.addEventListener('click', (e) => {
-          e.preventDefault();
-          dropdown.classList.toggle('active');
-        });
-      });
-
-      dropdownSubmenus.forEach(submenu => {
-        const link = submenu.querySelector(':scope > a');
-        link?.addEventListener('click', (e) => {
-          e.preventDefault();
-          submenu.classList.toggle('active');
-        });
-      });
-    }
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        menuToggle?.classList.remove('active');
-        mainNav?.classList.remove('active');
-        dropdowns.forEach(d => d.classList.remove('active'));
-        dropdownSubmenus.forEach(s => s.classList.remove('active'));
-      }
-    });
-  });
-</script>
