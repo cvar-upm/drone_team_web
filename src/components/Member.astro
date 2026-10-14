@@ -8,9 +8,10 @@ interface Props {
   image?: string;
   github?: string;
   linkedin?: string;
+  orcid?: string;
 }
 
-const { name, image, github, linkedin } = Astro.props;
+const { name, image, github, linkedin, orcid } = Astro.props;
 const initials = name
   .split(/\s+/)
   .slice(0, 2)
@@ -33,7 +34,7 @@ const initials = name
     </div>
   )}
   <h3 class="font-semibold leading-snug">{name}</h3>
-  {(github || linkedin) && (
+  {(github || linkedin || orcid) && (
     <div class="-mt-1 flex gap-1">
       {github && (
         <a href={github} target="_blank" rel="noopener noreferrer" aria-label={`${name} on GitHub`} class="btn btn-circle btn-ghost btn-sm text-base-content/60 hover:text-primary">
@@ -43,6 +44,11 @@ const initials = name
       {linkedin && (
         <a href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name} on LinkedIn`} class="btn btn-circle btn-ghost btn-sm text-base-content/60 hover:text-primary">
           <Icon name="linkedin" class="h-4 w-4" />
+        </a>
+      )}
+      {orcid && (
+        <a href={orcid} target="_blank" rel="noopener noreferrer" aria-label={`${name} on ORCID`} class="btn btn-circle btn-ghost btn-sm text-base-content/60 hover:text-primary">
+          <Icon name="orcid" class="h-4 w-4" />
         </a>
       )}
     </div>

@@ -3,103 +3,143 @@ import Layout from '../layouts/Layout.astro';
 import Row from '../components/Row.astro';
 import Section from '../components/Section.astro';
 
-const firstRow = [
-  { 
-    name: 'Pascual Campoy Cervera', 
-    image: '/members/pascual.jpg',
-    linkedin: 'https://www.linkedin.com/in/pascual-campoy-5792071/'
-  },
-  { 
-    name: 'Rafael Pérez-Seguí', 
+const activeMembers = [
+  {
+    name: 'Rafael Pérez-Seguí',
+    orcid: 'https://orcid.org/0000-0002-9508-1055',
     image: '/members/rafa.jpeg',
     github: 'https://github.com/RPS98',
     linkedin: 'https://www.linkedin.com/in/rafael-perez-segui/'
   },
-  { 
-    name: 'Javier Melero Deza', 
+  {
+    name: 'Javier Melero Deza',
+    orcid: 'https://orcid.org/0000-0002-1420-2960',
     image: '/members/javi.jpeg',
     github: 'https://github.com/javilinos',
     linkedin: 'https://www.linkedin.com/in/javier-melero-deza-8ba84a250/'
   },
-  { 
-    name: 'David Perez Saura', 
-    image: '/members/david.jpeg',
-    github: 'https://github.com/perezsaura-david',
-  },
-];
-
-const secondRow = [
-  { 
-    name: 'Carmen De Rojas Pita-Romero', 
-    image: '/members/carmen.jpeg',
-    github: 'https://github.com/carmendrpr',
-    linkedin: 'https://www.linkedin.com/in/carmen-de-rojas-pita-romero-78a1a7330/'
-  },
-  { 
-    name: 'Guillermo García Patiño Lenza', 
+  {
+    name: 'Guillermo García Patiño Lenza',
+    orcid: 'https://orcid.org/0009-0004-6245-8380',
     image: '/members/guille.jpeg',
     github: 'https://github.com/GPatiA2',
     linkedin: 'https://www.linkedin.com/in/guillermo-garc%C3%ADa-pati%C3%B1o-lenza-56023b221/'
   },
-  { 
-    name: 'Francisco Jose Anguita Chamorro', 
+  {
+    name: 'Francisco Jose Anguita Chamorro',
+    orcid: 'https://orcid.org/0009-0001-3017-9406',
     image: '/members/kiko.jpeg',
     github: 'https://github.com/fjanguita',
     linkedin: 'https://www.linkedin.com/in/fjac014/'
   },
-  { 
-    name: 'Rodrigo Da Silva Gomez', 
+  {
+    name: 'Rodrigo Da Silva Gomez',
     image: '/members/rodri.jpeg',
     github: 'https://github.com/rdasilva01',
+    orcid: 'https://orcid.org/0009-0002-7990-1815'
   },
-  { name: 'Alejandro Rodriguez Ramos', 
+  { name: 'Álvaro Gaona',
+  image: '/members/alvaro.jpeg' ,
+  github: 'https://github.com/alvgaona',
+  linkedin: 'https://www.linkedin.com/in/alvaro-gaona/',
+  orcid: 'https://orcid.org/0009-0003-4967-4444'
+   },
+  {
+    name: 'Jose David Valda Peñaranda',
+    orcid: 'https://orcid.org/0009-0003-6379-5058',
+    image: '/members/josedavid.jpg',
+    github: 'https://github.com/VidValda',
+    linkedin: 'https://www.linkedin.com/in/josedavidvp'
+  },
+  {
+    name: 'Guanliang Li',
+    orcid: 'https://orcid.org/0009-0002-9736-8620',
+    github: 'https://github.com/LiguanliangBUAA',
+    linkedin: 'https://www.linkedin.com/in/guanliang-li-27721b3ab'
+  },
+  { name: 'Wen Li' },
+];
+
+const professors = [
+  {
+    name: 'Pascual Campoy Cervera',
+    orcid: 'https://orcid.org/0000-0002-9894-2009',
+    image: '/members/pascual.jpg',
+    linkedin: 'https://www.linkedin.com/in/pascual-campoy-5792071/'
+  },
+  {
+    name: 'Martin Molina Gonzalez',
+    orcid: 'https://orcid.org/0000-0001-7145-1974',
+    image: '/members/martin.webp',
+    linkedin: 'https://www.linkedin.com/in/martin-molina-professor-artificial-intelligence/'
+  },
+  {
+    name: 'Santiago Tapia Fernandez',
+    orcid: 'https://orcid.org/0000-0002-1418-9276',
+    image: '/members/santiago.webp',
+    github: 'https://github.com/santiago-tapia',
+    linkedin: 'https://www.linkedin.com/in/santiago-tapia-fern%C3%A1ndez-00110413/'
+  },
+];
+
+const formerMembers = [
+  {
+    name: 'David Perez Saura',
+    orcid: 'https://orcid.org/0000-0003-2571-3165',
+    image: '/members/david.jpeg',
+    github: 'https://github.com/perezsaura-david',
+    linkedin: 'https://www.linkedin.com/in/david-p%C3%A9rez-saura/'
+  },
+  {
+    name: 'Carmen De Rojas Pita-Romero',
+    orcid: 'https://orcid.org/0009-0002-3984-8634',
+    image: '/members/carmen.jpeg',
+    github: 'https://github.com/carmendrpr',
+    linkedin: 'https://www.linkedin.com/in/carmen-de-rojas-pita-romero-78a1a7330/'
+  },
+  { name: 'Alejandro Rodriguez Ramos',
+    orcid: 'https://orcid.org/0000-0002-3257-4602',
    image: '/members/alejo.jpg' ,
   github: 'https://github.com/alejodosr',
+    linkedin: 'https://www.linkedin.com/in/alejandrorguezramos/'
    },
-  { name: 'Álvaro Gaona', 
-  image: '/members/alvaro.jpeg' ,   
-  github: 'https://github.com/alvgaona',
-    linkedin: 'https://www.linkedin.com/in/alvaro-gaona/'
-   }, 
-];
-
-const thirdRow = [
-  { name: 'Guanliang Li' },
-  { name: 'Pedro Espinosa Angulo' },
-
-  { name: 'Luis Francisco Gonzalez Rivero' },
-];
-
-const fourthRow = [
-  { name: 'Martin Molina Gonzalez' },
-  { name: 'Santiago Tapia Fernandez' },
-  { name: 'Pablo Días Pereda' },
-];
-
-const fifthRow = [
   { name: 'Miguel Fernandez Cortizas', image: '/members/miguel.jpeg' ,
+    orcid: 'https://orcid.org/0000-0002-3822-075X',
         github: 'https://github.com/miferco97',
     linkedin: 'https://www.linkedin.com/in/miguel-fernandez-cortizas/'
    },
   { name: 'Pedro Arias Perez', image: '/members/pedro.jpeg' ,
+    orcid: 'https://orcid.org/0000-0001-7166-9367',
     github: 'https://github.com/pariaspe',
+    linkedin: 'https://www.linkedin.com/in/pedroariasperez/'
+  },
+  {
+    name: 'Pedro Espinosa Angulo',
+    orcid: 'https://orcid.org/0009-0008-2079-8650',
+    linkedin: 'https://www.linkedin.com/in/pedro-espinosa-angulo/'
+  },
+  { name: 'Luis Francisco Gonzalez Rivero' },
+  {
+    name: 'Pablo Días Pereda',
+    linkedin: 'https://www.linkedin.com/in/pablo-diaz-192114388/',
+
   },
 ];
 ---
 <Layout
   title="Members"
-  intro="The researchers, students and collaborators behind the CVAR-UPM Drone Team."
-  description="Meet the CVAR-UPM Drone Team: active members, collaborators and former members."
->
-  <Section title="Active members">
-    <Row members={[...firstRow, ...secondRow]} />
+  intro="The researchers, students and professors behind the CVAR-UPM Drone Team."
+  description="Meet the CVAR-UPM Drone Team: active members, professors and former members."
+  >
+  <Section title="Professors">
+    <Row members={professors} />
   </Section>
 
-  <Section title="Collaborators" tone="muted">
-    <Row members={[...thirdRow, ...fourthRow]} />
+  <Section title="Active members" tone="muted">
+    <Row members={activeMembers} />
   </Section>
 
   <Section title="Former members">
-    <Row members={fifthRow} />
+    <Row members={formerMembers} />
   </Section>
 </Layout>
