@@ -3,28 +3,27 @@ import { Font } from 'astro:assets';
 import Header from '../components/Header.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-import AssetImage from '../components/AssetImage.astro';
+import PageHeader, { type Crumb } from '../components/PageHeader.astro';
 import { url } from '../lib/url';
 import '../styles/global.css';
 
 interface Props {
   title: string;
-  subtitle?: string;
   description?: string;
-  showJoin?: boolean;
-  joinLink?: string;
-  heroImage?: string;
-  logoImage?: string;
+  /** One sentence shown under the page title */
+  intro?: string;
+  /** Defaults to Home / title */
+  breadcrumbs?: Crumb[];
+  /** Set to false on pages that render their own hero (Home) */
+  header?: boolean;
 }
 
 const {
   title,
-  subtitle,
-  description = 'CVAR-UPM Drone Team: autonomous aerial robotics and drone racing from the Computer Vision and Aerial Robotics Group at Universidad Politécnica de Madrid.',
-  showJoin = false,
-  joinLink = url('/contact'),
-  heroImage = '/fondo.jpeg',
-  logoImage,
+  description = 'CVAR-UPM Drone Team: research in autonomous aerial robotics at the Computer Vision and Aerial Robotics Group, Universidad Politécnica de Madrid (UPM-CSIC).',
+  intro,
+  breadcrumbs = [{ label: 'Home', href: '/' }, { label: title }],
+  header = true,
 } = Astro.props;
 
 const siteName = 'CVAR-UPM Drone Team';
@@ -45,33 +44,10 @@ const pageTitle = title.toUpperCase() === siteName.toUpperCase() ? siteName : `$
 
       <div class="drawer-content flex min-h-screen flex-col">
         <Header />
-
-        <section class="relative isolate flex min-h-[50vh] items-center justify-center overflow-hidden md:min-h-[70vh]">
-          <AssetImage
-            src={heroImage}
-            alt=""
-            loading="eager"
-            widths={[800, 1280, 1920, 2560]}
-            class="absolute inset-0 -z-20 h-full w-full object-cover"
-          />
-          <div class="absolute inset-0 -z-10 bg-linear-to-b from-primary/70 via-primary/50 to-black/60"></div>
-
-          <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-16 text-center text-white">
-            <h1 class="text-4xl font-bold tracking-tight text-balance drop-shadow md:text-6xl">{title}</h1>
-            {subtitle && <p class="text-lg font-medium text-white/90 md:text-2xl">{subtitle}</p>}
-            {logoImage && (
-              <AssetImage src={logoImage} alt="" widths={[400, 800]} sizes="(min-width: 768px) 32rem, 80vw" class="h-auto max-h-48 w-auto max-w-[80vw] object-contain md:max-w-lg" />
-            )}
-            {showJoin && (
-              <a href={joinLink} class="btn btn-accent btn-lg mt-2 px-10 shadow-lg">Join us</a>
-            )}
-          </div>
-        </section>
-
         <main class="flex-1">
+          {header && <PageHeader title={title} intro={intro} breadcrumbs={breadcrumbs} />}
           <slot />
         </main>
-
         <Footer />
       </div>
 

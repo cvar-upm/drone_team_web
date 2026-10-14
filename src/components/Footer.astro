@@ -1,42 +1,51 @@
 ---
 import AssetImage from './AssetImage.astro';
 import Icon from './Icon.astro';
-import { socialLinks, mapLink, mapEmbed } from '../data/social';
+import { navigation, joinLink } from '../data/navigation';
+import { socialLinks, mapLink, address, email } from '../data/social';
 import { url } from '../lib/url';
 ---
-<footer class="mt-16 bg-primary text-primary-content">
-  <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 text-center md:grid-cols-3 md:text-left">
-    <div class="flex flex-col items-center gap-4 md:items-start">
-      <p class="text-lg font-medium">Do you have any questions?</p>
-      <a href={url('/contact')} class="btn btn-accent">Contact us</a>
+<footer class="border-t border-base-300 bg-base-200 text-sm">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="flex flex-col gap-3">
+      <a href={url('/')} class="flex items-center gap-3">
+        <AssetImage src="/logo-cvar.png" alt="" widths={[96, 192]} sizes="40px" class="h-10 w-auto" />
+        <span class="text-base font-bold">CVAR-UPM Drone Team</span>
+      </a>
+      <p class="text-base-content/70">Computer Vision and Aerial Robotics Group, Universidad Politécnica de Madrid (UPM-CSIC).</p>
     </div>
 
-    <div class="flex flex-col items-center gap-3">
-      <AssetImage src="/logo-cvar.png" alt="" widths={[128, 256]} sizes="80px" class="h-16 w-auto md:h-20" />
-      <p class="text-xl font-bold tracking-wide">CVAR DRONE TEAM</p>
-    </div>
-
-    <nav aria-label="Social media" class="flex flex-wrap justify-center gap-2 md:justify-end">
-      {socialLinks.map((link) => (
-        <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="btn btn-circle btn-ghost text-primary-content hover:bg-white/15">
-          <Icon name={link.icon} />
-        </a>
-      ))}
+    <nav aria-label="Footer">
+      <h2 class="mb-3 font-semibold">Explore</h2>
+      <ul class="flex flex-col gap-2 text-base-content/70">
+        {[...navigation, joinLink].map((item) => (
+          <li><a href={url(item.href)} class="hover:text-primary">{item.label}</a></li>
+        ))}
+      </ul>
     </nav>
+
+    <address class="not-italic">
+      <h2 class="mb-3 font-semibold">Visit us</h2>
+      <a href={mapLink} target="_blank" rel="noopener noreferrer" class="flex flex-col gap-1 text-base-content/70 hover:text-primary">
+        <span>{address.name}</span>
+        {address.lines.map((line) => <span>{line}</span>)}
+      </a>
+      <a href={`mailto:${email}`} class="mt-3 block text-base-content/70 hover:text-primary">{email}</a>
+    </address>
+
+    <div>
+      <h2 class="mb-3 font-semibold">Follow us</h2>
+      <div class="flex flex-wrap gap-1">
+        {socialLinks.map((link) => (
+          <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="btn btn-circle btn-ghost btn-sm text-base-content/70 hover:text-primary">
+            <Icon name={link.icon} class="h-4 w-4" />
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 
-  <a href={mapLink} target="_blank" rel="noopener noreferrer" class="block">
-    <iframe
-      src={mapEmbed}
-      title="CVAR Drone Team location"
-      class="block h-64 w-full border-0 md:h-72"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      allowfullscreen
-    ></iframe>
-  </a>
-
-  <div class="border-t border-white/20 py-6 text-center text-sm text-primary-content/80">
-    <p>&copy; {new Date().getFullYear()} CVAR DRONE TEAM. All rights reserved.</p>
+  <div class="border-t border-base-300">
+    <p class="mx-auto max-w-6xl px-4 py-6 text-base-content/60">&copy; {new Date().getFullYear()} CVAR-UPM Drone Team. All rights reserved.</p>
   </div>
 </footer>

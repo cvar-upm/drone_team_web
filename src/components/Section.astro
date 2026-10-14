@@ -1,0 +1,29 @@
+---
+// Page section with consistent spacing, background and heading style.
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  /** base = white, muted = light grey, tint = light blue */
+  tone?: 'base' | 'muted' | 'tint';
+  /** text = reading width, wide = full content width */
+  width?: 'text' | 'wide';
+  class?: string;
+}
+
+const { id, eyebrow, title, intro, tone = 'base', width = 'wide', class: className } = Astro.props;
+const tones = { base: 'bg-base-100', muted: 'bg-base-200', tint: 'bg-primary/5' };
+---
+<section id={id} class:list={[tones[tone], 'py-16 md:py-24', className]}>
+  <div class:list={['mx-auto px-4', width === 'text' ? 'max-w-3xl' : 'max-w-6xl']}>
+    {(eyebrow || title || intro) && (
+      <div class="mb-10 max-w-2xl md:mb-12">
+        {eyebrow && <p class="mb-3 text-sm font-semibold tracking-widest text-secondary uppercase">{eyebrow}</p>}
+        {title && <h2 class="text-3xl font-bold tracking-tight text-balance md:text-4xl">{title}</h2>}
+        {intro && <p class="mt-4 text-lg text-base-content/70">{intro}</p>}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>

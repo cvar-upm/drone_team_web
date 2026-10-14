@@ -3,12 +3,12 @@ import AssetImage from './AssetImage.astro';
 import Navigation from './Navigation.astro';
 import { url } from '../lib/url';
 ---
-<header class="sticky top-0 z-50 border-b border-base-300 bg-base-100/95 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-base-300 bg-base-100/90 backdrop-blur">
   <div class="navbar mx-auto max-w-7xl px-4">
     <div class="navbar-start">
       <a href={url('/')} class="flex items-center gap-3">
-        <AssetImage src="/logo-cvar.png" alt="CVAR-UPM Drone Team logo" widths={[96, 192]} sizes="48px" loading="eager" class="h-10 w-auto md:h-12" />
-        <span class="text-base font-bold tracking-wide text-primary sm:text-lg md:text-xl">CVAR-UPM DRONE TEAM</span>
+        <AssetImage src="/logo-cvar.png" alt="CVAR-UPM Drone Team logo" widths={[96, 192]} sizes="48px" loading="eager" class="h-9 w-auto md:h-10" />
+        <span class="flex flex-col leading-tight"><span class="text-base font-bold tracking-tight text-base-content md:text-lg">CVAR-UPM Drone Team</span><span class="hidden text-xs text-base-content/60 sm:block">Computer Vision &amp; Aerial Robotics · UPM-CSIC</span></span>
       </a>
     </div>
 
@@ -16,7 +16,7 @@ import { url } from '../lib/url';
       <div class="hidden lg:flex">
         <Navigation variant="desktop" />
       </div>
-      <label for="nav-drawer" class="btn btn-ghost btn-square text-primary lg:hidden" aria-label="Open menu">
+      <label for="nav-drawer" class="btn btn-ghost btn-square lg:hidden" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
