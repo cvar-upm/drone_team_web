@@ -24,36 +24,37 @@ Visit the website: [https://cvar-upm.github.io/drone_team_web/](https://cvar-upm
 
 ```
 drone_team_web/
-├── public/                      # Static files (images, videos, logos)
-│   ├── a2rl25/                 # A2RL Season 1 images
-│   ├── a2rl26/                 # A2RL Season 2 images
-│   ├── icuas22/                # ICUAS 2022 images
-│   ├── icuas23/                # ICUAS 2023 images
-│   ├── imav19/                 # IMAV 2019 images
-│   ├── imav22/                 # IMAV 2022 images
-│   ├── imav25/                 # IMAV 2025 images
-│   ├── mbzirc/                 # MBZIRC images
-│   ├── members/                # Team member photos
-│   ├── divisions/              # Division images
-│   ├── logo-cvar.png           # Team logo
-│   ├── aerostack2.svg          # Aerostack2 logo
-│   └── ...                     # Other logos and resources
+├── public/                      # Files served as-is (favicon, SVG logos, videos)
+│   ├── logo-cvar.png           # Favicon
+│   ├── aerostack2.svg          # Aerostack2 logos
+│   └── imav25/imav25video.mp4  # Local videos
 ├── src/
-│   ├── assets/                 # Assets processed by Astro
+│   ├── assets/                 # Images (optimised by Astro: resized + WebP)
+│   │   ├── a2rl25/ a2rl26/ icuas22/ icuas23/ imav19/ imav22/ imav25/ mbzirc/
+│   │   ├── members/            # Team member photos
+│   │   ├── divisions/          # Division images
+│   │   └── ...                 # Other logos and photos
 │   ├── components/             # Reusable components
+│   │   ├── AssetImage.astro    # Optimised image from a path in src/assets
 │   │   ├── Carousel.astro      # Image/video carousel
-│   │   ├── Footer.astro        # Footer with social media links
-│   │   ├── Header.astro        # Header with logo and title
-│   │   ├── Image.astro         # Component to display images
+│   │   ├── Footer.astro        # Footer with social media links and map
+│   │   ├── Header.astro        # Sticky header with logo and navigation
+│   │   ├── Icon.astro          # Social media icons
+│   │   ├── Image.astro         # Full-width image block
 │   │   ├── Member.astro        # Team member card
-│   │   ├── Navigation.astro    # Navigation menu
-│   │   ├── Row.astro           # Grid row for members
+│   │   ├── Navigation.astro    # Desktop menu and mobile drawer
+│   │   ├── Row.astro           # Grid of member cards
 │   │   ├── SideImage.astro     # Section with image and side logo
 │   │   ├── SideSection.astro   # Section with image and side text
-│   │   ├── Social.astro        # Social media links
+│   │   ├── TextSection.astro   # Long-form text block (headings, paragraphs, links)
 │   │   └── Video.astro         # Component for videos (iframe or local)
+│   ├── data/
+│   │   ├── navigation.ts       # Menu links (desktop and mobile)
+│   │   ├── social.ts           # Social media links and map
+│   │   └── icons.ts            # Icon SVG paths
 │   ├── layouts/
-│   │   └── Layout.astro        # Main page layout
+│   │   └── Layout.astro        # Main page layout (head, header, hero, footer)
+│   ├── lib/                    # Helpers (image lookup, base URL, video type)
 │   ├── pages/                  # Site pages (automatic routes)
 │   │   ├── index.astro         # Home page
 │   │   ├── members.astro       # Members page
@@ -67,24 +68,25 @@ drone_team_web/
 │   │       ├── MBZIRC.astro    # MBZIRC details
 │   │       └── OpenCV.astro    # OpenCV details
 │   └── styles/
-│       └── global.css          # Global site styles
-├── astro.config.mjs            # Astro configuration
+│       └── global.css          # Tailwind + daisyUI setup and the "cvar" theme
+├── astro.config.mjs            # Astro configuration (base path, fonts, Tailwind)
 ├── package.json                # Project dependencies
 └── README.md                   # This file
 ```
 
 ## Technologies Used
 
-- **Astro 5.17.1**: Main framework for the static site
-- **Node.js**: JavaScript runtime environment
-- **CSS3**: Custom styles with CSS variables
-- **HTML5**: Semantic structure
+- **Astro 7**: Main framework for the static site, with `astro:assets` for image optimisation
+- **Tailwind CSS 4**: Utility classes for all styling
+- **daisyUI 5**: Component classes (`btn`, `card`, `navbar`, `menu`, `drawer`...) and the theme
+- **@tailwindcss/typography**: `prose` styles for long-form text
+- **Inter**: Site font, self-hosted through Astro's Fonts API
 
 ## Installation and Setup
 
 ### Prerequisites
 
-- Node.js (version 18 or higher)
+- Node.js 22.12 or higher
 - npm (included with Node.js)
 
 ### Installation Steps
@@ -122,7 +124,7 @@ The site will be available at `http://localhost:4321/drone_team_web`
 ### Adding New Members
 
 1. **Add the member's photo:**
-   - Place the image in `/public/members/`
+   - Place the image in `/src/assets/members/`
    - Name the file descriptively (e.g., `first_last.jpeg`)
 
 2. **Edit the members file:**
@@ -145,15 +147,18 @@ const firstRow = [
    - `firstRow` and `secondRow`: Active Members
    - `thirdRow` and `fourthRow`: Collaborators
    - `fifthRow`: Former Members
+   - Leave out `image` if there is no photo yet; the card shows the team logo instead.
 
 ### Adding New Competitions
 
 #### 1. Create resource folder
 
-Create a folder in `/public/` with the competition name and year:
+Create a folder in `/src/assets/` with the competition name and year:
 ```
-/public/competition_name_year/
+/src/assets/competition_name_year/
 ```
+
+Image paths in the pages are written relative to `src/assets` (e.g. `/competition_name_year/photo.jpeg`). They are case-sensitive, and the build fails if a path doesn't exist.
 
 #### 2. Add competition to main page
 
@@ -164,6 +169,7 @@ Edit `/src/pages/competitions.astro` and add a `SideImage` component:
   image="/competition_name/main_photo.jpeg"
   logoImage="/competition_logo.png"
   url={`${import.meta.env.BASE_URL}/competitions/CompetitionName`}
+  title="Competition Name"
   reverse={false}  // Alternate true/false to change side
 />
 ```
@@ -175,8 +181,8 @@ Create a file in `/src/pages/competitions/CompetitionName.astro`:
 ```astro
 ---
 import Layout from '../../layouts/Layout.astro';
+import TextSection from '../../components/TextSection.astro';
 import Carousel from '../../components/Carousel.astro';
-import '../../styles/global.css';
 
 const items = [
   { type: 'video', src: 'https://player.vimeo.com/video/VIDEO_ID' },
@@ -191,7 +197,7 @@ const items = [
   showJoin={false} 
   heroImage="/competition_name/hero.jpeg"
 >
-  <section id="year">
+  <TextSection id="year">
     <h2>Competition Name Year</h2>
     <p>
       Detailed description of the competition, team achievements, 
@@ -200,7 +206,7 @@ const items = [
     <p>
       More details at: <a href="OFFICIAL_URL" target="_blank">Official Website</a>
     </p>
-  </section>
+  </TextSection>
   
   <Carousel items={items} />
 </Layout>
@@ -208,32 +214,34 @@ const items = [
 
 #### 4. Update navigation menu
 
-Edit `/src/components/Navigation.astro` to add the new competition to the dropdown:
+Edit `/src/data/navigation.ts` and add the competition under `Competitions`. The desktop menu and the mobile drawer are both generated from this list:
 
-```astro
-<li class="dropdown-submenu">
-  <a href={`${import.meta.env.BASE_URL}/competitions/CompetitionName`}>Competition Name</a>
-  <ul class="dropdown-submenu-menu">
-    <li><a href={`${import.meta.env.BASE_URL}/competitions/CompetitionName#2024`}>2024</a></li>
-    <li><a href={`${import.meta.env.BASE_URL}/competitions/CompetitionName#2023`}>2023</a></li>
-  </ul>
-</li>
+```ts
+{
+  label: 'Competition Name',
+  href: '/competitions/CompetitionName',
+  children: [
+    { label: '2024', href: '/competitions/CompetitionName#2024' },
+    { label: '2023', href: '/competitions/CompetitionName#2023' },
+  ],
+},
 ```
 
 ### Adding Images and Videos
 
 #### Local Images
 
-1. Place the image in `/public/` in the corresponding folder
+1. Place the image in `/src/assets/` in the corresponding folder
 2. Use the `Image` component:
 
 ```astro
 <Image 
   imageUrl="/folder/image_name.jpg"
   alt="Image description"
-  title="Optional title"
 />
 ```
+
+Astro converts images to WebP and generates several sizes, so originals can stay large. SVGs and videos go in `/public/` instead and are served as-is.
 
 #### Videos
 
@@ -283,27 +291,29 @@ Edit `/src/pages/divisions.astro` and add a new section:
 </section>
 ```
 
-Update the navigation menu in `/src/components/Navigation.astro`:
+Add it to the `Divisions` entry in `/src/data/navigation.ts`:
 
-```astro
-<li><a href={`${import.meta.env.BASE_URL}/divisions#division-name`}>Division Name</a></li>
+```ts
+{ label: 'Division Name', href: '/divisions#division-name' },
 ```
 
 ## Available Components
 
 ### Layout.astro
 Main layout for all pages. Props:
-- `title`: Page title (required)
+- `title`: Page title, also used for the browser tab (required)
 - `subtitle`: Subtitle (optional)
-- `showJoin`: Show "JOIN US" button (boolean)
+- `description`: Meta description for search engines (optional)
+- `showJoin`: Show "Join us" button (boolean)
+- `joinLink`: Where the "Join us" button points (optional)
 - `heroImage`: Hero background image (optional)
 - `logoImage`: Logo in the hero (optional)
 
 ### Header.astro
-Fixed header with logo and navigation. Automatically included in the Layout.
+Sticky header with logo and navigation. Automatically included in the Layout.
 
 ### Navigation.astro
-Navigation menu with dropdowns. Configured for all site sections.
+Desktop menu with dropdowns and the mobile slide-in drawer, both built from `src/data/navigation.ts`.
 
 ### Footer.astro
 Footer with:
@@ -326,7 +336,6 @@ Features:
 Displays an image with responsive format. Props:
 - `imageUrl`: Image path (required)
 - `alt`: Alternative text
-- `title`: Image title
 
 ### Video.astro
 Displays videos (iframe or local). Props:
@@ -338,7 +347,7 @@ Automatically detects if it's an iframe (Vimeo, YouTube) or local video.
 ### Member.astro
 Team member card. Props:
 - `name`: Full name (required)
-- `image`: Photo path (required)
+- `image`: Photo path (optional, defaults to the team logo)
 - `github`: GitHub URL (optional)
 - `linkedin`: LinkedIn URL (optional)
 
@@ -362,35 +371,50 @@ Section with image and descriptive side text. Props:
 - `url`: Link in the title (optional)
 - `reverse`: Reverse image position (boolean)
 
-### Social.astro
-Social media links (simple component). Props:
-- `platform`: Platform (e.g., "github")
-- `username`: Username
+### TextSection.astro
+Wraps long-form text. Plain `<h2>`, `<h3>`, `<p>`, `<a>` and `<strong>` inside get the site's type scale automatically. Props:
+- `id`: Anchor for menu links (optional)
+
+### AssetImage.astro
+Low-level optimised image used by the other components. Props:
+- `src`: Path inside `src/assets`, an SVG in `public/`, or a full URL
+- `alt`, `class`, `widths`, `sizes`, `loading`
 
 ## Styles and Themes
 
-### CSS Variables
+### Tailwind and daisyUI
 
-The site uses CSS variables defined in `/src/styles/global.css`:
+All styling uses Tailwind utility classes in the markup, plus daisyUI component classes (`btn`, `card`, `navbar`, `menu`, `drawer`...). There are no `<style>` blocks or hardcoded colours in components.
+
+- Tailwind docs: https://tailwindcss.com/docs
+- daisyUI components: https://daisyui.com/components/
+
+### Theme colours
+
+The brand palette is the `cvar` daisyUI theme in `/src/styles/global.css`:
 
 ```css
-:root {
-  --cvar-blue-primary: #0064ab;
-  --cvar-blue-secondary: #007abe;
-  --cvar-blue-light: #009bdb;
-  --cvar-black: #000000;
-  --cvar-dark-gray: #3e3c3c;
-  --cvar-white: #ffffff;
+@plugin "daisyui/theme" {
+  name: "cvar";
+  --color-primary: #0064ab;    /* CVAR blue: headings, links, footer */
+  --color-secondary: #009bdb;  /* light CVAR blue */
+  --color-accent: #f7931e;     /* orange: "Join us" and other calls to action */
+  --color-neutral: #3e3c3c;
+  --color-base-100: #ffffff;   /* page background */
+  ...
 }
 ```
 
-### Modifying Colors
+Change a value there and every `bg-primary`, `text-primary`, `btn-accent` etc. updates. Use these colour names in classes (`text-primary`, `bg-base-200`, `text-base-content/80`) rather than hex values.
 
-Edit the variables in `global.css` to change the color palette globally.
+### Type scale
 
-### Custom Styles
-
-Each `.astro` component can have its own `<style>` block with scoped or global styles.
+| Element | Classes |
+|---|---|
+| Page title (hero) | `text-4xl md:text-6xl font-bold` |
+| Section heading | `text-3xl md:text-4xl font-bold text-primary` |
+| Sub-heading | `text-xl md:text-2xl font-semibold` |
+| Body text | `text-base md:text-lg` (or use `TextSection`) |
 
 ## Deployment
 
