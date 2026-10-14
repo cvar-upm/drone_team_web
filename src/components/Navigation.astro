@@ -2,12 +2,6 @@
 import { navigation, joinLink } from '../data/navigation';
 import { url } from '../lib/url';
 
-interface Props {
-  variant: 'desktop' | 'mobile';
-}
-
-const { variant } = Astro.props;
-
 const current = Astro.url.pathname.replace(/\/$/, '');
 const isActive = (href: string) => {
   const target = url(href).replace(/\/$/, '');
@@ -19,74 +13,34 @@ const linkClass = (href: string) => [
 ];
 ---
 
-{variant === 'desktop' ? (
-  <nav aria-label="Main" class="flex items-center gap-1">
-    {navigation.map((item) =>
-      item.children ? (
-        <div class="dropdown dropdown-hover dropdown-end">
-          <a href={url(item.href)} class:list={linkClass(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
-            {item.label}
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
-            </svg>
-          </a>
-          <ul class="dropdown-content menu z-50 w-72 rounded-box border border-base-300 bg-base-100 p-2 shadow-md">
-            {item.children.map((child) => (
-              <li>
-                <a href={url(child.href)} class:list={[child.children && 'font-semibold']}>{child.label}</a>
-                {child.children && (
-                  <ul>
-                    {child.children.map((leaf) => (
-                      <li><a href={url(leaf.href)} class="text-base-content/70">{leaf.label}</a></li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <a href={url(item.href)} class:list={linkClass(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
-      )
-    )}
-    <a href={url(joinLink.href)} class="btn btn-primary btn-lg ml-3 px-8 shadow-sm">{joinLink.label}</a>
-  </nav>
-) : (
-  <nav aria-label="Main" class="min-h-full w-80 max-w-[85vw] bg-base-100 p-4">
-    <ul class="menu w-full gap-1 text-base">
-      {navigation.map((item) =>
-        item.children ? (
-          <li>
-            <details>
-              <summary class="font-medium">{item.label}</summary>
-              <ul>
-                <li><a href={url(item.href)}>All {item.label.toLowerCase()}</a></li>
-                {item.children.map((child) =>
-                  child.children ? (
-                    <li>
-                      <details>
-                        <summary>{child.label}</summary>
-                        <ul>
-                          <li><a href={url(child.href)}>Overview</a></li>
-                          {child.children.map((leaf) => (
-                            <li><a href={url(leaf.href)}>{leaf.label}</a></li>
-                          ))}
-                        </ul>
-                      </details>
-                    </li>
-                  ) : (
-                    <li><a href={url(child.href)}>{child.label}</a></li>
-                  )
-                )}
-              </ul>
-            </details>
-          </li>
-        ) : (
-          <li><a href={url(item.href)} class:list={['font-medium', isActive(item.href) && 'menu-active']}>{item.label}</a></li>
-        )
-      )}
-    </ul>
-    <a href={url(joinLink.href)} class="btn btn-primary btn-lg btn-block mt-6">{joinLink.label}</a>
-  </nav>
-)}
-
+<nav aria-label="Main" class="flex items-center gap-1">
+  {navigation.map((item) =>
+    item.children ? (
+      <div class="dropdown dropdown-hover dropdown-end">
+        <a href={url(item.href)} class:list={linkClass(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
+          {item.label}
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+          </svg>
+        </a>
+        <ul class="dropdown-content menu z-50 w-72 rounded-box border border-base-300 bg-base-100 p-2 shadow-md">
+          {item.children.map((child) => (
+            <li>
+              <a href={url(child.href)} class:list={[child.children && 'font-semibold']}>{child.label}</a>
+              {child.children && (
+                <ul>
+                  {child.children.map((leaf) => (
+                    <li><a href={url(leaf.href)} class="text-base-content/70">{leaf.label}</a></li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <a href={url(item.href)} class:list={linkClass(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+    )
+  )}
+  <a href={url(joinLink.href)} class="btn btn-primary btn-lg ml-3 px-8 shadow-sm">{joinLink.label}</a>
+</nav>

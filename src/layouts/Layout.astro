@@ -1,7 +1,6 @@
 ---
 import { Font } from 'astro:assets';
 import Header from '../components/Header.astro';
-import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import PageHeader, { type Crumb } from '../components/PageHeader.astro';
 import { url } from '../lib/url';
@@ -39,32 +38,13 @@ const pageTitle = title.toUpperCase() === siteName.toUpperCase() ? siteName : `$
     <Font cssVariable="--font-inter" preload />
   </head>
   <body class="bg-base-100 text-base-content antialiased">
-    <div class="drawer">
-      <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
-
-      <div class="drawer-content flex min-h-screen flex-col">
-        <Header />
-        <main class="flex-1">
-          {header && <PageHeader title={title} intro={intro} breadcrumbs={breadcrumbs} />}
-          <slot />
-        </main>
-        <Footer />
-      </div>
-
-      <div class="drawer-side z-60">
-        <label for="nav-drawer" aria-label="Close menu" class="drawer-overlay"></label>
-        <Navigation variant="mobile" />
-      </div>
+    <div class="flex min-h-screen flex-col">
+      <Header />
+      <main class="flex-1">
+        {header && <PageHeader title={title} intro={intro} breadcrumbs={breadcrumbs} />}
+        <slot />
+      </main>
+      <Footer />
     </div>
-
-    <script>
-      // Close the mobile drawer after following a link (same-page #anchors don't reload the page).
-      const toggle = document.getElementById('nav-drawer') as HTMLInputElement | null;
-      document.querySelectorAll('.drawer-side a').forEach((link) =>
-        link.addEventListener('click', () => {
-          if (toggle) toggle.checked = false;
-        }),
-      );
-    </script>
   </body>
 </html>

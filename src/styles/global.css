@@ -46,6 +46,11 @@
     scroll-behavior: smooth;
   }
 
+  /* No page scrolling behind the open mobile menu */
+  html:has(#mobile-menu:popover-open) {
+    overflow: hidden;
+  }
+
   /* Leave room for the sticky header when jumping to #anchors */
   [id] {
     scroll-margin-top: 6rem;

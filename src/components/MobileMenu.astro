@@ -1,0 +1,96 @@
+---
+// Full-screen menu for phones and tablets. Opened by the header button via the native popover API
+// (no JS needed to open/close; Esc and back gesture close it).
+import AssetImage from './AssetImage.astro';
+import Icon from './Icon.astro';
+import { navigation, joinLink } from '../data/navigation';
+import { socialLinks, email } from '../data/social';
+import { url } from '../lib/url';
+
+const current = Astro.url.pathname.replace(/\/$/, '');
+const isActive = (href: string) => {
+  const target = url(href).replace(/\/$/, '');
+  return href === '/' ? current === target : current === target || current.startsWith(`${target}/`);
+};
+---
+<div
+  id="mobile-menu"
+  popover
+  class="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto border-0 bg-base-100 p-0 text-base-content opacity-0 transition-all transition-discrete duration-200 open:opacity-100 starting:open:opacity-0 lg:hidden"
+>
+  <div class="flex min-h-full flex-col">
+    <div class="sticky top-0 z-10 flex min-h-16 items-center justify-between border-b border-base-300 bg-base-100 px-4 md:min-h-20">
+      <a href={url('/')} class="flex items-center gap-3">
+        <AssetImage src="/logo-cvar.png" alt="" widths={[96, 192]} sizes="56px" class="h-10 w-auto md:h-14" />
+        <span class="text-base font-bold tracking-tight sm:text-lg">CVAR-UPM Drone Team</span>
+      </a>
+      <button type="button" popovertarget="mobile-menu" popovertargetaction="hide" class="btn btn-ghost btn-square md:btn-lg" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+    </div>
+
+    <nav aria-label="Main" class="flex-1 px-4 py-2">
+      <ul class="divide-y divide-base-300">
+        {navigation.map((item) =>
+          item.children ? (
+            <li>
+              <details class="group" open={isActive(item.href)}>
+                <summary class:list={[
+                  'flex cursor-pointer list-none items-center justify-between py-4 text-xl font-semibold [&::-webkit-details-marker]:hidden',
+                  isActive(item.href) && 'text-primary',
+                ]}>
+                  {item.label}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-base-content/50 transition group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <ul class="flex flex-col pb-4">
+                  <li>
+                    <a href={url(item.href)} class="block rounded-field px-3 py-3 font-medium text-primary hover:bg-base-200">All {item.label.toLowerCase()} &rarr;</a>
+                  </li>
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={url(child.href)} class="block rounded-field px-3 py-3 text-base-content/80 hover:bg-base-200">{child.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ) : (
+            <li>
+              <a
+                href={url(item.href)}
+                class:list={['block py-4 text-xl font-semibold', isActive(item.href) && 'text-primary']}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          )
+        )}
+      </ul>
+    </nav>
+
+    <div class="flex flex-col gap-5 border-t border-base-300 bg-base-200 px-4 py-6">
+      <a href={url(joinLink.href)} class="btn btn-primary btn-lg btn-block">{joinLink.label}</a>
+      <div class="flex items-center justify-between gap-4">
+        <a href={`mailto:${email}`} class="truncate text-sm text-base-content/70">{email}</a>
+        <div class="flex shrink-0">
+          {socialLinks.map((link) => (
+            <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} class="btn btn-circle btn-ghost btn-sm text-base-content/70">
+              <Icon name={link.icon} class="h-4 w-4" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Close after following a link (same-page #anchors don't reload the page).
+  const menu = document.getElementById('mobile-menu');
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => menu.hidePopover()));
+</script>
