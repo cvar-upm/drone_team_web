@@ -1,5 +1,8 @@
 ---
+import { Font } from 'astro:assets';
 import BaseHead from '../components/Header.astro';
+import '../styles/global.css';
+import '../styles/legacy.css';
 import Footer from '../components/Footer.astro';
 const { title } = Astro.props;
 const { subtitle } = Astro.props;
@@ -13,6 +16,7 @@ const { logoImage } = Astro.props;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/logo-cvar.png`} />
+    <Font cssVariable="--font-inter" preload />
   </head>
   <body>
     <BaseHead />
