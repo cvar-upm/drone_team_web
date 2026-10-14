@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../lib/images';
+import { url } from '../lib/url';
+
+interface Props {
+  /** Path inside src/assets ("/members/rafa.jpeg"), an SVG in public/, or a full URL. */
+  src: string;
+  alt: string;
+  class?: string;
+  widths?: number[];
+  sizes?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { src, alt, class: className, widths = [480, 800, 1200], sizes = '100vw', loading = 'lazy' } = Astro.props;
+const passthrough = src.startsWith('http') || src.endsWith('.svg');
+---
+
+{passthrough ? (
+  <img src={src.startsWith('http') ? src : url(src)} alt={alt} class={className} loading={loading} decoding="async" />
+) : (
+  <Image src={resolveImage(src)} alt={alt} class={className} width={Math.max(...widths)} widths={widths} sizes={sizes} loading={loading} />
+)}
