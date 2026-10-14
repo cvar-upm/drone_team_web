@@ -23,8 +23,7 @@ const firstRow = [
   { 
     name: 'David Perez Saura', 
     image: '/members/david.jpeg',
-    github: 'https://github.com/javilinos',
-    linkedin: 'https://github.com/perezsaura-david'
+    github: 'https://github.com/perezsaura-david',
   },
 ];
 
@@ -64,16 +63,16 @@ const secondRow = [
 ];
 
 const thirdRow = [
-  { name: 'Guanliang Li', image: '/logo-cvar.png' },
-  { name: 'Pedro Espinosa Angulo', image: '/logo-cvar.png' },
+  { name: 'Guanliang Li' },
+  { name: 'Pedro Espinosa Angulo' },
 
-  { name: 'Luis Francisco Gonzalez Rivero', image: '/logo-cvar.png' },
+  { name: 'Luis Francisco Gonzalez Rivero' },
 ];
 
 const fourthRow = [
-  { name: 'Martin Molina Gonzalez', image: '/logo-cvar.png' },
-  { name: 'Santiago Tapia Fernandez', image: '/logo-cvar.png' },
-  { name: 'Pablo Días Pereda', image: '/logo-cvar.png' },
+  { name: 'Martin Molina Gonzalez' },
+  { name: 'Santiago Tapia Fernandez' },
+  { name: 'Pablo Días Pereda' },
 ];
 
 const fifthRow = [
@@ -83,20 +82,16 @@ const fifthRow = [
    },
   { name: 'Pedro Arias Perez', image: '/members/pedro.jpeg' ,
     github: 'https://github.com/pariaspe',
-    linkedin: 'https://www.linkedin.com/in/fjac014/'
   },
 ];
 ---
+<Layout title="Members" description="Meet the CVAR-UPM Drone Team: active members, collaborators and former members." showJoin={true} heroImage="/members/team.jpeg">
+  <h2 class="mt-16 text-center text-3xl font-bold text-primary md:text-4xl">Active Members</h2>
+  <Row members={[...firstRow, ...secondRow]} />
 
-<Layout title="Members" subtitle="" showJoin={true} heroImage="/members/team.jpeg">
-  <h2 style="text-align:center">Active Members</h2>
-  <Row members={firstRow} />
-  <Row members={secondRow} />
-  
-  <h2 style="text-align:center; margin-top: 3rem;">Colaborators</h2>
-  <Row members={thirdRow} />
-  <Row members={fourthRow} />
-  
-  <h2 style="text-align:center; margin-top: 3rem;">Former Members</h2>
+  <h2 class="mt-16 text-center text-3xl font-bold text-primary md:text-4xl">Collaborators</h2>
+  <Row members={[...thirdRow, ...fourthRow]} />
+
+  <h2 class="mt-16 text-center text-3xl font-bold text-primary md:text-4xl">Former Members</h2>
   <Row members={fifthRow} />
 </Layout>

@@ -1,10 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Video from '../../components/Video.astro';
+import TextSection from '../../components/TextSection.astro';
 import Image from '../../components/Image.astro';
 ---
-<Layout title="OpenCV" subtitle="" showJoin={false} heroImage="/opencv.png"> 
-<section id="2021" >
+<Layout title="OpenCV" showJoin={false} heroImage="/opencv.png"> 
+<TextSection id="2021">
   <h2>OpenCV 2021</h2>
   <p>
   Our CVAR-UPM team participated in the OpenCV AI Competition 2021, focusing on vision-based search and rescue with micro-UAVs.
@@ -15,11 +15,10 @@ import Image from '../../components/Image.astro';
     More details about the competition are available at: <a href=" https://opencv.org/opencv-ai-competition-2021/" target="_blank" rel="noopener noreferrer">OpenCV 2021 Official Website</a>
 
   </p>
-</section>
+</TextSection>
 
 <Image 
   imageUrl="/opencv_award.png"
   alt="OpenCV 2021"
-  title="OpenCV 2021"
 />
 </Layout>

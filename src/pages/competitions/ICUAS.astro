@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Video from '../../components/Video.astro';
+import TextSection from '../../components/TextSection.astro';
 import Image from '../../components/Image.astro';
 import Carousel from '../../components/Carousel.astro';
 
@@ -18,7 +18,7 @@ const icuas23 = [
 ];
 ---
 <Layout title="International Conference on Unmanned Aircraft Systems" logoImage="/icuas.png" showJoin={false} heroImage="/icuas23/icuas23_4.png"> 
-<section id="2024">
+<TextSection id="2024">
 <h2>ICUAS 2024 </h2>
   <p>
 Our CVAR-UPM team participated in the ICUAS 2024 indoor agriculture challenge, where UAVs autonomously counted fruits in a simulated greenhouse environment. 
@@ -26,13 +26,12 @@ Using a modular mission planner and vision pipeline, the drone navigated through
 accurate counting. Our approach was robust and precise across all scenarios, achieving the highest score for reliability, and ultimately placing 9th in the competition.
 More details about the competition are available at: <a href=" https://www.ieeecss.org/event/2024-international-conference-unmanned-aircraft-systems" target="_blank" rel="noopener noreferrer">ICUAS 2024 Official Website</a>
   </p>
-</section>
+</TextSection>
 <Image 
   imageUrl="/icuas24.png"
   alt="ICUAS 2024"
-  title="ICUAS 2024"
 />
-<section id="2023">
+<TextSection id="2023">
 <h2>ICUAS 2023</h2>
   <p>
 In this international competition focused on urban firefighting with drones, the team 
@@ -44,10 +43,10 @@ release algorithm that computed the optimal drop timing based on the drone’s v
 the highest score in the virtual phase, the team won first prize in the live final held in Dubrovnik, Croatia.
 More details about the competition are available at: <a href=" https://uasconferences.com/2023_icuas/uav-competition-final-results/" target="_blank" rel="noopener noreferrer">ICUAS 2023 Official Website</a>
   </p>
-</section>
+</TextSection>
 <Carousel items={icuas23} />
 
-<section id="2022">
+<TextSection id="2022">
 <h2>ICUAS 2022</h2>
   <p>
 We won <strong>1st place</strong> in the ICUAS 2022 competition, where our UAV autonomously completed an urban firefighting mission. 
@@ -59,7 +58,6 @@ were successfully completed, with three precise deployments of the extinguishing
   <p>
     More details about the competition are available at: <a href="https://www.uasconferences.com/2022_icuas/winners-of-the-uav-competition/ " target="_blank" rel="noopener noreferrer">ICUAS 2022 Official Website</a>
   </p>
+</TextSection>
 <Carousel items={icuas22} />
-
-</section>
 </Layout>

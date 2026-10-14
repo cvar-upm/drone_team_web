@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import TextSection from '../../components/TextSection.astro';
 import Carousel from '../../components/Carousel.astro';
 
 const a2rl26 = [
@@ -17,7 +18,7 @@ const a2rl25 = [
 ]
 ---
 <Layout title="Abu Dhabi Autonomous Racing League" showJoin={false} logoImage="/a2rl.png" heroImage="/a2rl26/a2rl.jpeg"> 
-<section id="season2">
+<TextSection id="season2">
   <h2>A2RL  Season 2 - 2026</h2>
   <p>
 Our CVAR-UPM team competed in the A2RL Autonomous Drone Race Finals in Abu Dhabi, achieving second place in the Silver 
@@ -29,9 +30,9 @@ fully autonomous aerial robotics. </p>
  More details about the competition are available at: <a href=" https://a2rl.io/autonomous-drone-race" target="_blank" rel="noopener noreferrer">A2RL season 2 Official Website</a>
 
   </p>
-</section>
+</TextSection>
 <Carousel items={a2rl26} />
-<section id="season1">
+<TextSection id="season1">
   <h2>A2RL  Season 1 - 2025</h2>
   <p>
 A2RL - Abu Dhabi Autonomous Racing League is widely regarded as the leading international competition in autonomous drone racing, 
@@ -44,6 +45,6 @@ high-performance autonomous applications.
 More details about the competition are available at: <a href=" https://a2rl.io/blog/5/a2rl-drones-season-1-when-the-sky-wasnt-the-limit" target="_blank" rel="noopener noreferrer">A2RL season 1 Official Website</a>
 
   </p>
-</section>
+</TextSection>
 <Carousel items={a2rl25} />
 </Layout>

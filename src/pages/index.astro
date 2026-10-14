@@ -2,9 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Video from '../components/Video.astro';
 import Image from '../components/Image.astro';
+import TextSection from '../components/TextSection.astro';
 
 ---
-<Layout title="CVAR-UPM DRONE TEAM"   showJoin={true} logoImage="/aerostack2.svg" heroImage="/members/team.jpeg">
+<Layout title="CVAR-UPM DRONE TEAM" showJoin={true} logoImage="/aerostack2.svg" heroImage="/members/team.jpeg">
+<TextSection>
   <h2>Who are we?</h2>
     <p >
       {`We are a passionate team of drone enthusiasts from the Computer Vision and Aerial Robotics Group. 
@@ -20,12 +22,13 @@ import Image from '../components/Image.astro';
       Driven by curiosity and powered by teamwork, we design, build, and race competition-level drones that demonstrate our 
       technical expertise and passion for innovation. Welcome to our world, where autonomy meets speed.`}          
     </p>
+</TextSection>
 
 <Video 
   videoUrl="https://player.vimeo.com/video/1155503452?h=511c5f0706" 
 />
-<p> </p>
 <Image 
   imageUrl="/aerostack2_claro.svg"
+  alt="Aerostack2"
 />
 </Layout>
