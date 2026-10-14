@@ -9,7 +9,7 @@ import { divisions } from '../data/divisions';
   description="The CVAR-UPM Drone Team divisions: Aerostack2, planning and navigation, control, localization, perception, hardware, simulation and swarming."
 >
   <nav aria-label="Divisions" class="sticky top-16 z-40 border-b border-base-300 bg-base-100/95 backdrop-blur md:top-20 lg:hidden">
-    <ul class="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 text-sm whitespace-nowrap">
+    <ul class="mx-auto flex max-w-page gap-2 overflow-x-auto px-4 py-3 text-sm whitespace-nowrap">
       {divisions.map((division) => (
         <li>
           <a href={`#${division.id}`} class="btn btn-sm rounded-full border-base-300 bg-base-100 font-normal">{division.title}</a>
@@ -18,7 +18,7 @@ import { divisions } from '../data/divisions';
     </ul>
   </nav>
 
-  <div class="mx-auto grid max-w-6xl gap-12 px-4 py-10 md:py-20 lg:grid-cols-[15rem_1fr]">
+  <div class="mx-auto grid max-w-page gap-12 px-4 py-10 md:py-20 lg:grid-cols-[15rem_1fr]">
     <aside class="hidden lg:block">
       <nav aria-label="Divisions" class="sticky top-24">
         <p class="mb-3 text-sm font-semibold tracking-widest text-secondary uppercase">On this page</p>

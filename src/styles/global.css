@@ -47,6 +47,9 @@
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
+  /* Shared page width: header, hero, sections and footer all use max-w-page so their edges line up */
+  --container-page: 80rem;
+
   --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   --animate-fade-in: fade-in 1s ease-out both;
 
