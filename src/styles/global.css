@@ -138,18 +138,6 @@
   }
 }
 
-@keyframes parallax-up {
-  to {
-    transform: translateY(-3rem);
-  }
-}
-
-@keyframes parallax-down {
-  to {
-    transform: translateY(2rem);
-  }
-}
-
 @keyframes reveal {
   from {
     opacity: 0;
@@ -185,15 +173,6 @@
       }
     }
 
-    .parallax-up,
-    .parallax-down {
-      animation: parallax-up linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 700px;
-    }
-    .parallax-down {
-      animation-name: parallax-down;
-    }
   }
 }
 
